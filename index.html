@@ -6,7 +6,9 @@
   <title>THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
+
   <link rel="apple-touch-icon" href="1983Icon.png">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -26,6 +28,7 @@
 
     body {
       min-height: 100vh;
+      padding-top: px;
       color: #f8fafc;
       background-image: url("PurpleBackground2.jpg");
       background-size: cover;
@@ -63,29 +66,107 @@
     canvas#neural {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: -2;
       pointer-events: none;
     }
+
+    /* Particle overlay on canvas */
+    canvas#neural {
+      position: fixed;
+      inset: 0;
+      z-index: -1; /* Above background but below content */
+      pointer-events: none;
+    }
+
+    /* Optional: subtle color for particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ---------- HEADER / NAV ---------- */
     header {
-      margin: 18px auto 0;
+      position: relative;          /* scrolls away */
+     margin: 18px auto 0;
       width: calc(100% - 48px);
       max-width: 1200px;
+      z-index: 10;
+
+      /* KEEP the glass look */
       background: rgba(255,255,255,0.08);
       backdrop-filter: blur(18px);
       border: 1px solid rgba(255,255,255,0.18);
       border-radius: 22px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-      z-index: 10;
+
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.35),
+        inset 0 0 0 rgba(255,255,255,0);
     }
 
-    /* ---------- HERO ---------- */
+
+
+    .nav {
+      height: 64px;
+      position: relative;
+    }
+
+    .brand {
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .logo {
+      height: 42px;        /* bigger logo */
+    }
+
+    .brand strong {
+      font-size: 18px;
+      letter-spacing: 0.4px;
+    }
+
+    .nav-box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 26px;
+      padding: 10px 26px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      transition: 0.3s;
+    }
+
+    .nav-box:hover {
+      background: #ffffff;
+      box-shadow: 0 0 45px rgba(255,255,255,0.9);
+      transform: translate(-50%, -50%) translateY(-2px);
+    }
+
+
+    .nav-link {
+      color: #f8fafc;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .nav-box:hover .nav-link {
+      color: #020617;
+    }
+
     .hero {
       max-width: 1100px;
       margin: 40px auto 0;
@@ -95,23 +176,26 @@
 
     .hero h1 {
       font-size: clamp(64px, 8vw, 96px);
+      opacity: 0;
       animation: fadeUp 1s ease forwards;
+      animation-delay: 0.4s;
     }
 
     .hero p {
       font-size: 20px;
       max-width: 600px;
       margin: 28px auto 0;
-      font-weight: 400;
-      opacity: 0.9;
+      opacity: 0;
       animation: fadeUp 1s ease forwards;
-      animation-delay: 0.3s;
+      animation-delay: 0.7s;
+      font-weight: 400;
     }
 
     .cta-btn {
       margin-top: 36px;
+      opacity: 0;
       animation: fadeUp 1s ease forwards;
-      animation-delay: 0.6s;
+      animation-delay: 1s;
     }
 
     .cta-btn a {
@@ -122,17 +206,159 @@
       color: white;
       text-decoration: none;
       font-size: 15px;
-      transition: all 0.35s ease;
+    }
+    /* 🔹 CTA BUTTON HOVER (MATCHES ANALYTICS STYLE) */
+    .cta-btn a {
+      position: relative;
+      transition:
+        background 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.35s ease;
     }
 
+    /* Hover effect */
     .cta-btn a:hover {
       background: #ffffff;
       color: #020617;
-      box-shadow: 0 0 35px rgba(255,255,255,0.9);
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.9);
       transform: translateY(-3px) scale(1.04);
     }
 
-    /* ---------- ANALYTICS ---------- */
+    /* Subtle animated glow pulse */
+    .cta-btn a::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: inherit;
+      background: rgba(255, 255, 255, 0.35);
+      opacity: 0;
+      filter: blur(14px);
+      transition: opacity 0.35s ease;
+      z-index: -1;
+    }
+
+    .cta-btn a:hover::after {
+      opacity: 1;
+    }
+
+    /* 🔹 VIDEO RACK (UNCHANGED) */
+    .video-feed {
+      position: relative;
+      width: 100vw;
+      margin-bottom: 100px;
+      padding: 0 60px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    .video-track {
+      display: flex;
+      gap: 18px;
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+    }
+
+    .video-track::-webkit-scrollbar { display: none; }
+
+    .video-card {
+      position: relative;
+      flex: 0 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      background: black;
+      scroll-snap-align: start;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .video-card.vertical { width: 260px; aspect-ratio: 9 / 16; }
+    .video-card.horizontal { width: 420px; aspect-ratio: 16 / 9; }
+
+    .video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-card video::cue {
+  object-fit: cover;
+}
+
+
+    /* 🔊 VIDEO AUDIO OVERLAY */
+    .video-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      transition: background 0.3s ease;
+      pointer-events: none;
+    }
+
+    .video-card:hover::after {
+      background: rgba(0,0,0,0.45);
+    }
+
+    /* Volume button */
+    .audio-toggle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      opacity: 0;
+      box-shadow: 0 0 0 rgba(255,255,255,0);
+      transition: 
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+      z-index: 6;
+    }
+
+    /* Show on hover */
+    .video-card:hover .audio-toggle {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Active (audio on) */
+    .audio-toggle.active {
+      background: #ffffff;
+      color: #020617;
+      box-shadow: 0 0 30px rgba(255,255,255,0.9);
+    }
+
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid var(--border);
+      color: white;
+      font-size: 26px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .arrow.left { left: 14px; }
+    .arrow.right { right: 14px; }
+
+    /* 🔹 ANALYTICS (NEW, SAFE) */
     .analytics-box {
       max-width: 1100px;
       margin: 0 auto 120px;
@@ -145,7 +371,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 32px;
       text-align: center;
-      transition: background 0.35s ease, box-shadow 0.35s ease;
+      animation: fadeUp 1s ease forwards;
     }
 
     .analytics-item h3 {
@@ -159,48 +385,293 @@
       opacity: 0.85;
     }
 
-    /* DESKTOP HOVER */
-    .analytics-box:hover {
+    .post-analytics {
+      max-width: 900px;
+      margin: 0 auto 140px;
+      padding: 0 24px;
+      text-align: center;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .post-analytics h2 {
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.15;
+      font-weight: 600;
+    }
+
+    .post-analytics p {
+      margin-top: 18px;
+      font-size: 18px;
+      font-weight: 300;
+      opacity: 0.85;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 🔹 HOW IT WORKS – NUMBERED STEPS */
+    .hiw-steps {
+      margin-top: 24px;
+      padding-left: 0;
+      list-style: none;
+      counter-reset: step;
+      max-width: 520px;
+    }
+
+    .hiw-steps li {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 18px;
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.5;
+      opacity: 0.95;
+    }
+
+    .hiw-steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(165,180,252,0.6);
+      color: #a5b4fc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .hiw-steps strong {
+      display: block;
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    .hiw-steps span {
+      display: block;
+      opacity: 0.85;
+    }
+
+
+    /* 🔹 HOW IT WORKS */
+    .how-it-works {
+      max-width: 1200px;
+      margin: 0 auto 160px;
+      padding: 0 24px;
+    }
+
+    .hiw-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    /* 🔹 HOW IT WORKS – GLASS CONTAINER */
+    .hiw-box {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 60px;
+
+      border-radius: 22px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(14px);
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.35),
+        inset 0 0 0 rgba(255,255,255,0);
+
+      transition:
+        background 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.35s ease;
+    }
+
+    .hiw-box:hover {
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 40px rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 900px) {
+      .hiw-box {
+        padding: 60px 28px;
+      }
+    }
+
+
+    .hiw-label {
+      display: inline-block;
+      color: #a5b4fc;
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .hiw-text h2 {
+      font-size: clamp(42px, 5vw, 60px);
+      margin-bottom: 18px;
+    }
+
+    .hiw-text p {
+      font-size: 18px;
+      font-weight: 300;
+      max-width: 520px;
+      opacity: 0.9;
+    } 
+
+    /* 🔹 IMAGE STACK (WHITE MOCK STYLE) */
+    .hiw-stack {
+      position: relative;
+      width: 420px;
+      height: 560px;
+      margin: 0 auto;
+    }
+
+    /* Shared image style */
+    .hiw-img {
+      position: absolute;
+      width: 260px;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+
+      border-radius: 28px;
+
+      /* White card look */
       background: #ffffff;
-      box-shadow: 0 0 40px rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.35);
+
+      box-shadow:
+        0 30px 70px rgba(0,0,0,0.45),
+        inset 0 0 0 rgba(255,255,255,0);
+
+      transition:
+        transform 0.65s cubic-bezier(.2,.8,.2,1),
+        box-shadow 0.65s ease;
     }
 
-    .analytics-box:hover .analytics-item h3,
-    .analytics-box:hover .analytics-item p {
-      color: #020617;
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* ---------- 🔒 MOBILE HOVER SAFETY FIX ---------- */
-    @media (max-width: 768px) {
-      .analytics-box:hover {
-        background: rgba(255,255,255,0.08);
-        box-shadow: none;
+
+    /* Positions (center-heavy like mock) */
+    .img-1 {
+      top: 0;
+      left: 80px;
+      z-index: 3;
+    }
+
+    .img-2 {
+      top: 70px;
+      left: 180px;
+      z-index: 2;
+    }
+
+    .img-3 {
+      top: 140px;
+      left: 0;
+      z-index: 1;
+    }
+
+    /* 🔹 Hover animation (subtle premium motion) */
+    .hiw-stack:hover .img-1 {
+      transform: translateY(-14px) scale(1.04);
+      box-shadow: 0 40px 90px rgba(0,0,0,0.55);
+    }
+
+    .hiw-stack:hover .img-2 {
+      transform: translate(18px, -6px) scale(1.05);
+    }
+
+    .hiw-stack:hover .img-3 {
+      transform: translate(-12px, 18px) scale(1.03);
+    }
+
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .hiw-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
 
-      .analytics-box:hover .analytics-item h3,
-      .analytics-box:hover .analytics-item p {
-        color: #f8fafc;
+      .hiw-stack {
+        margin-bottom: 40px;
       }
     }
 
-    /* ---------- FOOTER ---------- */
+
+
     footer {
       border-top: 1px solid var(--border);
       padding: 32px 24px;
       text-align: center;
       font-size: 13px;
       color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 1.4s;
+    }
+    /* 🔹 ANALYTICS HOVER EFFECT */
+    .analytics-box {
+      transition: background 0.35s ease, box-shadow 0.35s ease;
     }
 
-    html {
-      scroll-behavior: smooth;
+    .analytics-box:hover {
+      background: #ffffff;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.9);
     }
+
+    /* Change text to black on hover */
+    .analytics-box:hover .analytics-item h3,
+    .analytics-box:hover .analytics-item p {
+      color: #020617;
+    }
+
   </style>
+
+  /* existing styles above */
+
+/* 🔒 MOBILE HOVER SAFETY FIX — prevents white-on-white text */
+@media (hover: none) and (pointer: coarse) {
+  .analytics-box:hover {
+    background: rgba(255,255,255,0.08);
+    box-shadow: none;
+  }
+
+  .analytics-box:hover .analytics-item h3,
+  .analytics-box:hover .analytics-item p {
+    color: #f8fafc;
+  }
+}
+
+
+  
+  
+
+  
 </head>
 
 <body>
 
 <canvas id="neural"></canvas>
+
+<header id="header-placeholder"></header>
+
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+  });
+</script>
+
 
 <section class="hero">
   <h1>AI Ads That Work</h1>
@@ -208,6 +679,211 @@
   <div class="cta-btn"><a href="#how-it-works">How It Works</a></div>
 </section>
 
+<section class="video-feed">
+  <button class="arrow left" onclick="scrollVideos(-1)">‹</button>
+  <button class="arrow right" onclick="scrollVideos(1)">›</button>
+
+  <div class="video-track" id="videoTrack">
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/SpelledMilk.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video2.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card horizontal">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/ChefAd.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:100%; object-fit:cover;">
+  </video>
+</div>
+
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video4.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video5.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card video-card horizontal">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video6.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:100%; object-fit:cover;">
+  </video>
+</div>
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/TinderVideo.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video7.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card video-card horizontal">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video8.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:100%; object-fit:cover;">
+  </video>
+</div>
+
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video9.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video10.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card video-card horizontal">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/SantaAd.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:100%; object-fit:cover;">
+  </video>
+</div>
+
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video12.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card vertical">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video13.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:auto;">
+  </video>
+</div>
+
+
+    <div class="video-card video-card horizontal">
+  <video
+    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video14.mp4"
+    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="width:100%; height:100%; object-fit:cover;">
+  </video>
+</div>
+
+
+  </div>
+</section>
+
+
+<!-- 🔹 ANALYTICS -->
 <section class="analytics-box">
   <div class="analytics-item">
     <h3>100% Custom</h3>
@@ -223,7 +899,181 @@
   </div>
 </section>
 
+<section class="post-analytics">
+  <h2>The AI Video Creation Service<br>built for passive advertising</h2>
+  <p>
+    We turn your concepts into a winning video-ad that does not feel too invasive to the viewer. 
+  </p>
+</section>
+
+<section class="how-it-works" id="how-it-works">
+
+  <div class="hiw-box">
+    <div class="hiw-grid">
+
+      <div class="hiw-visual">
+        <div class="hiw-stack">
+          <img src="DisplayImage1.jpg" class="hiw-img img-1">
+          <img src="DisplayImage2.jpg" class="hiw-img img-2">
+          <img src="DisplayImage3.jpg" class="hiw-img img-3">
+        </div>
+      </div>
+
+      <div class="hiw-text">
+        <span class="hiw-label">AD CREATION</span>
+        <h2>How It Works</h2>
+        <ol class="hiw-steps">
+          <li>
+            <span>Provide details about your AI advertisement.</span>
+          </li>
+          <li>
+            <span>Our team will review your request and email you with any questions.</span>
+          </li>
+          <li>
+            <span>You will receive an unedited sample video preview.</span>
+          </li>
+          <li>
+            <span>Once approved, we will move forward with final production.</span>
+          </li>
+          <li>
+            <span>The completed video will be delivered to you via email.</span>
+          </li>
+        </ol>
+        
+      
+        <div class="cta-btn" style="margin-top: 32px;">
+          <a href="contact.html">Get Started</a>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+
+</section>
+
+
+
 <footer>© 2025 THE 1983 GROUP. All rights reserved.</footer>
+
+<script>
+  const R2_BASE = "https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/";
+</script>
+
+
+<script>
+  function scrollVideos(dir) {
+    document.getElementById("videoTrack").scrollBy({
+      left: dir * 800,
+      behavior: "smooth"
+    });
+  }
+
+  const videos = document.querySelectorAll(".video-card video");
+
+  videos.forEach(video => {
+    // Always autoplay, always muted initially
+    video.muted = true;
+    video.volume = 0;
+    video.play();
+
+    const btn = document.createElement("button");
+    btn.className = "audio-toggle";
+    btn.textContent = "🔇";
+    video.parentElement.appendChild(btn);
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      const turningOn = video.muted;
+
+      // 🔇 Mute EVERY video first (no pausing)
+      videos.forEach(v => {
+        v.muted = true;
+        v.volume = 0;
+
+        const b = v.parentElement.querySelector(".audio-toggle");
+        b.classList.remove("active");
+        b.textContent = "🔇";
+      });
+
+      // 🔊 If enabling this one, unmute it
+      if (turningOn) {
+        video.muted = false;
+        video.volume = 1;
+
+        btn.classList.add("active");
+        btn.textContent = "🔊";
+      }
+    });
+  });
+</script>
+
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+  });
+</script>
+
+
+<script>
+  const canvas = document.getElementById('neural');
+  const ctx = canvas.getContext('2d');
+  
+  let particles = [];
+  const particleCount = 100;
+  
+  // Resize canvas to fill viewport
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  
+  // Create particles
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 3 + 1,
+      speedX: (Math.random() - 0.5) * 0.5,
+      speedY: (Math.random() - 0.5) * 0.5
+    });
+  }
+  
+  // Animate particles
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+    particles.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+  
+      // Wrap around screen
+      if (p.x > canvas.width) p.x = 0;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.y > canvas.height) p.y = 0;
+      if (p.y < 0) p.y = canvas.height;
+  
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.15)";
+      ctx.fill();
+    });
+  
+    requestAnimationFrame(animateParticles);
+  }
+  
+  animateParticles();
+  </script>
+  
+
+
 
 </body>
 </html>
