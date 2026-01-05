@@ -243,8 +243,7 @@
 
       .mobile-menu-header {
   position: fixed;
-  top: 12px;
-  left: 50%;
+  top: calc(env(safe-area-inset-top) + 12px);  left: 50%;
   transform: translateX(-50%);
 
   width: calc(100% - 48px);
@@ -270,6 +269,13 @@
 .mobile-menu-links {
   margin-top: 120px; /* pushes links below floating header */
 }
+
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    overscroll-behavior: none;
+  }
+}
+
 
 
       .mobile-menu-links {
