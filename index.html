@@ -64,12 +64,19 @@
     }
 
     canvas#neural {
-  position: fixed;
-  inset: 0;
-  z-index: 0;          /* base particle layer */
-  pointer-events: none;
-}
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+    }
 
+    /* Particle overlay on canvas */
+    canvas#neural {
+      position: fixed;
+      inset: 0;
+      z-index: -1; /* Above background but below content */
+      pointer-events: none;
+    }
 
     /* Optional: subtle color for particles */
     .particle {
@@ -627,397 +634,108 @@
       color: #020617;
     }
 
-    /* ===========================
-   📱 MOBILE OPTIMIZATION
-   =========================== */
-@media (max-width: 768px) {
-
-  /* ----- BODY ----- */
-  body {
-    background-attachment: scroll; /* fixes iOS jank */
-  }
-
-  /* ----- HEADER / NAV ----- */
-  header {
-    width: calc(100% - 24px);
-    margin-top: 12px;
-  }
-
-  .nav {
-    height: auto;
-    padding: 12px 0;
-  }
-
-  .brand {
-    position: static;
-    transform: none;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-
-  .brand strong {
-    font-size: 16px;
-  }
-
-  .logo {
-    height: 34px;
-  }
-
-  .nav-box {
-    position: static;
-    transform: none;
-    width: 100%;
-    justify-content: center;
-    gap: 18px;
-    padding: 10px 14px;
-    border-radius: 14px;
-  }
-
-  .nav-link {
-    font-size: 14px;
-  }
-
-  /* Disable hover glow on touch */
-  .nav-box:hover {
-    background: rgba(255,255,255,0.06);
-    box-shadow: none;
-    transform: none;
-  }
-
-  /* ----- HERO ----- */
-  .hero {
-    padding: 64px 18px 40px;
-    margin-top: 20px;
-  }
-
-  .hero h1 {
-    font-size: clamp(40px, 10vw, 56px);
-    line-height: 1.1;
-  }
-
-  .hero p {
-    font-size: 16px;
-    margin-top: 18px;
-  }
-
-  .cta-btn a {
-    padding: 14px 26px;
-    font-size: 14px;
-  }
-
-  /* ----- VIDEO FEED ----- */
-  .video-feed {
-    padding: 0 18px;
-    margin-bottom: 70px;
-  }
-
-  .video-track {
-    gap: 14px;
-  }
-
-  .video-card.vertical {
-    width: 220px;
-  }
-
-  .video-card.horizontal {
-    width: 320px;
-  }
-
-  /* Hide arrows on mobile (swipe instead) */
-  .arrow {
-    display: none;
-  }
-
-  /* Always show audio button on mobile */
-  .audio-toggle {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
-
-  /* ----- ANALYTICS ----- */
-  .analytics-box {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-bottom: 90px;
-  }
-
-  .analytics-item h3 {
-    font-size: 34px;
-  }
-
-  .analytics-item p {
-    font-size: 15px;
-  }
-
-  /* Disable hover inversion on mobile */
-  .analytics-box:hover {
-    background: rgba(255,255,255,0.08);
-    box-shadow: none;
-  }
-
-  .analytics-box:hover .analytics-item h3,
-  .analytics-box:hover .analytics-item p {
-    color: #f8fafc;
-  }
-
-  /* ----- POST ANALYTICS ----- */
-  .post-analytics h2 {
-    font-size: clamp(30px, 8vw, 40px);
-  }
-
-  .post-analytics p {
-    font-size: 16px;
-  }
-
-  /* ----- HOW IT WORKS ----- */
-  .hiw-box {
-    padding: 48px 20px;
-  }
-
-  .hiw-text h2 {
-    font-size: clamp(32px, 8vw, 44px);
-  }
-
-  .hiw-text p {
-    font-size: 16px;
-  }
-
-  /* Stack images vertically instead of overlapping chaos */
-  .hiw-stack {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 30px;
-  }
-
-  .hiw-img {
-    position: static;
-    width: 180px;
-    border-radius: 22px;
-  }
-
-  /* Disable hover animation on mobile */
-  .hiw-stack:hover .hiw-img {
-    transform: none;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
-  }
-
-  /* ----- FOOTER ----- */
-  footer {
-    font-size: 12px;
-    padding: 26px 18px;
-  }
-}
-
-/* ===========================
-   📱 MOBILE TOP BAR (CREATIFY STYLE)
-   =========================== */
-.mobile-bar {
+    /* 🔹 MOBILE HEADER (SEPARATE FILE) */
+.mobile-header {
   display: none;
 }
 
-.mobile-menu {
-  display: none;
-}
-
-.mobile-menu-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  height: 64px;
-  padding: 0 18px;
-
-  background: rgba(30, 27, 75, 0.55);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-}
-
-
-@media (max-width: 768px) {
-
-  /* Hide desktop header */
+@media (max-width: 900px) {
   header {
-    display: none;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .mobile-header {
+    display: block;
   }
 
   .mobile-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 64px;
-  padding: 0 18px;
+    height: 64px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  background: rgba(30, 27, 75, 0.55);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-
-  z-index: 1000;
-}
-
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+  }
 
   .mobile-brand {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: white;
-    font-size: 14px;
-    letter-spacing: 0.4px;
+    text-decoration: none;
+    color: #f8fafc;
   }
 
   .mobile-brand img {
-    height: 32px;
+    height: 34px;
   }
 
-  .mobile-menu-btn {
-    font-size: 28px;
+  .menu-toggle {
+    width: 34px;
+    height: 24px;
     background: none;
     border: none;
-    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     cursor: pointer;
   }
 
-  /* Push page content below bar */
-  body {
-    padding-top: 64px;
+  .menu-toggle span {
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 3px;
+    transition: 0.35s ease;
+  }
+
+  .menu-toggle.open span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+
+  .menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.open span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
   }
 
   .mobile-menu {
-  position: fixed;
-  inset: 0;
-
-  /* Glass gradient, NOT opaque */
-  background:
-    linear-gradient(
-      135deg,
-      rgba(59, 7, 100, 0.82),
-      rgba(30, 27, 75, 0.82)
-    );
-
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-
-  z-index: 3; /* ABOVE particles, BELOW UI chrome */
-
-  display: flex;
-  flex-direction: column;
-
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-10px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.mobile-menu-header,
-.mobile-menu-links {
-  position: relative;
-  z-index: 4;
-}
-
-@media (max-width: 768px) {
-  canvas#neural {
-    opacity: 0.85;
-  }
-}
-
-
-
-
-  .mobile-menu-links a {
-  font-size: 20px;
-  font-weight: 600;
-  color: white;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  padding-bottom: 14px;
-}
-
-
-  .mobile-menu.active {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-.mobile-menu-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-  font-size: 14px;
-  letter-spacing: 0.4px;
-}
-
-.mobile-menu-brand img {
-  height: 32px;
-}
-
-.mobile-close {
-  background: none;
-  border: none;
-  font-size: 28px;
-  color: white;
-  cursor: pointer;
-  line-height: 1;
-}
-
-
-
-  .mobile-menu-links a {
-    font-size: 20px;
-    font-weight: 600;
-    color: #020617;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0,0,0,0.15);
-    padding-bottom: 14px;
-  }
-
-  /* ===========================
-   🔒 MOBILE MENU HARD FIX
-   =========================== */
-@media (max-width: 768px) {
-
-  .mobile-menu-links {
+    margin-top: 14px;
+    padding: 22px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    padding: 0 24px;
-    margin-top: 48px;
-  }
+    gap: 18px;
 
-  .mobile-menu-links a {
-    display: block;
-    font-size: 22px;
-    font-weight: 600;
-    color: #ffffff !important;
-    text-decoration: none;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.25);
-  }
-
-  /* Prevent desktop hover styles from breaking mobile */
-  .nav-box:hover,
-  .analytics-box:hover {
     background: rgba(255,255,255,0.08);
-    box-shadow: none;
-    transform: none;
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.35s ease;
+  }
+
+  .mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu a {
+    color: #f8fafc;
+    text-decoration: none;
+    font-size: 18px;
   }
 }
-
-
-  .mobile-clos
-
 
 
   </style>
@@ -1025,56 +743,18 @@
 
 <body>
 
-  <!-- 📱 MOBILE TOP BAR -->
-<div class="mobile-bar">
-  <div class="mobile-brand">
-    <img src="1983Logo2.png" />
-    <span>THE 1983 GROUP</span>
-  </div>
-
-  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-</div>
-
-<!-- 📱 MOBILE MENU OVERLAY -->
-<div class="mobile-menu" id="mobileMenu">
-
-  <!-- Menu Header -->
-  <div class="mobile-menu-header">
-    <div class="mobile-menu-brand">
-      <img src="1983Logo2.png" />
-      <span>THE 1983 GROUP</span>
-    </div>
-
-    <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
-  </div>
-
-  <!-- Menu Links -->
-  <nav class="mobile-menu-links">
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Make My Video</a>
-    <a href="email.html">Contact Us</a>
-  </nav>
-
-</div>
-
-
-
 <canvas id="neural"></canvas>
 
-<header>
-  <nav class="nav">
-    <div class="brand">
-      <img src="1983Logo2.png" class="logo" />
-      <strong>THE 1983 GROUP</strong>
-    </div>
+<header id="header-placeholder"></header>
 
-    <div class="nav-box">
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="contact.html" class="nav-link">Make My Video</a>
-      <a href="email.html" class="nav-link">Contact Us</a>
-    </div>
-  </nav>
-</header>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+  });
+</script>
+
 
 <section class="hero">
   <h1>AI Ads That Work</h1>
@@ -1474,33 +1154,9 @@
   
   animateParticles();
   </script>
-
-  <script>
-  function toggleMobileMenu() {
-  const menu = document.getElementById("mobileMenu");
-  const isOpen = menu.classList.contains("active");
-
-  if (isOpen) {
-    menu.classList.remove("active");
-    document.body.style.overflow = "";
-  } else {
-    menu.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
-}
-
-function closeMobileMenu() {
-  document.getElementById("mobileMenu").classList.remove("active");
-  document.body.style.overflow = "";
-}
-
-</script>
-
-
   
 
 
 
 </body>
 </html>
-
