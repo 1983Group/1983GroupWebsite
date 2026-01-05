@@ -203,38 +203,6 @@
   z-index: 1000 !important;
 }
 
-/* ================= PAGE ENTER ANIMATION ================= */
-@keyframes pageEnter {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Page wrapper */
-.page-wrap {
-  opacity: 0;
-  animation: pageEnter 0.9s ease forwards;
-  animation-delay: 0.15s;
-
-  /* subtle glass feel */
-  will-change: opacity, transform;
-}
-
-.page-wrap {
-  backdrop-filter: blur(0px);
-  transition: backdrop-filter 0.9s ease;
-}
-
-body.loaded .page-wrap {
-  backdrop-filter: blur(0);
-}
-
-
 
 
 
@@ -349,8 +317,6 @@ body.loaded .page-wrap {
 </div>
 
 <canvas id="neural"></canvas>
-<div class="page-wrap">
-
 
 <header>
   <nav class="nav">
@@ -384,8 +350,6 @@ body.loaded .page-wrap {
 <footer>
   © 2025 THE 1983 GROUP. All rights reserved.
 </footer>
-</div>
-
 
 <script>
   function toggleMobileMenu() {
@@ -436,13 +400,6 @@ body.loaded .page-wrap {
   }
   animate();
 </script>
-
-<script>
-  window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
-  });
-</script>
-
 
 </body>
 </html>
