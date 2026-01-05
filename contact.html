@@ -132,22 +132,16 @@
       font-weight: 400;
     }
 
-    /* ✅ FILLED STEP CIRCLES */
-    .request-steps li::before {
-      counter-increment: step;
-      content: counter(step);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(99,102,241,0.35);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
+    .request-steps li {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+  font-size: 15.5px;
+  font-weight: 400;
+  align-items: flex-start;
+}
+
+
 
     input, textarea {
       width: 100%;
@@ -216,23 +210,17 @@
 
       .mobile-brand img { height: 32px; }
 
-      /* ✅ PERFECT ICON ALIGNMENT */
       .mobile-menu-btn,
-      .mobile-close {
-        width: 40px;
-        height: 40px;
-        display: grid;
-        place-items: center;
-        font-size: 26px;
-        line-height: 1;
-        padding: 0;
-        background: none;
-        border: none;
-        color: white;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-        appearance: none;
-      }
+.mobile-close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  line-height: 1;
+}
+
 
       .mobile-menu {
         position: fixed;
