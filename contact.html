@@ -26,6 +26,108 @@
       font-weight: 600;
     }
 
+    @media (max-width: 768px) {
+
+  /* hide desktop header */
+  header {
+    display: none;
+  }
+
+  body {
+    padding-top: 64px;
+    background-attachment: scroll;
+  }
+
+  .mobile-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    padding: 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(30,27,75,0.55);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    z-index: 1000;
+  }
+
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .mobile-brand img {
+    height: 32px;
+  }
+
+  /* 🔑 THIS was missing earlier */
+  .mobile-brand span {
+    line-height: 1;
+  }
+
+  .mobile-menu-btn,
+  .mobile-close {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #3b0764, #1e1b4b);
+    backdrop-filter: blur(24px);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s ease;
+  }
+
+  .mobile-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu-header {
+    height: 64px;
+    padding: 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .mobile-menu-links {
+    margin-top: 48px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .mobile-menu-links a {
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+}
+
+
     body {
       min-height: 100vh;
       padding-top: 0;
@@ -216,130 +318,6 @@
   opacity: 0.8;
 }
 
-/* ================= MOBILE NAV ================= */
-.mobile-bar,
-.mobile-menu {
-  display: none;
-}
-
-@media (max-width: 768px) {
-
-  /* hide desktop header */
-  header {
-    display: none;
-  }
-
-  body {
-    padding-top: 64px;
-    background-attachment: scroll;
-  }
-
-  .mobile-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 64px;
-    padding: 0 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(30,27,75,0.55);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(255,255,255,0.12);
-    z-index: 1000;
-  }
-
-  .mobile-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-  }
-
-  .mobile-brand img {
-    height: 32px;
-  }
-
-  .mobile-menu-btn {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 24px;
-  line-height: 1;
-
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-
-  .mobile-menu {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(135deg, #3b0764, #1e1b4b);
-    backdrop-filter: blur(24px);
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.25s ease;
-  }
-
-  .mobile-menu.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .mobile-menu-header {
-    height: 64px;
-    padding: 0 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.12);
-  }
-
-  .mobile-menu-links {
-    margin-top: 48px;
-    padding: 0 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-
-  .mobile-menu-links a {
-    font-size: 22px;
-    color: white;
-    text-decoration: none;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.25);
-  }
-
-  .mobile-close {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 22px;
-  line-height: 1;
-
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-}
-
-
 
     footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
   </style>
@@ -347,8 +325,7 @@
 
 <body>
 
-  <!-- MOBILE BAR -->
-<div class="mobile-bar">
+  <div class="mobile-bar">
   <div class="mobile-brand">
     <img src="1983Logo2.png" alt="">
     <span>THE 1983 GROUP</span>
@@ -356,7 +333,6 @@
   <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
     <div class="mobile-brand">
@@ -367,9 +343,9 @@
   </div>
 
   <nav class="mobile-menu-links">
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Make My Video</a>
-    <a href="email.html">Contact Us</a>
+    <a href="about.html" onclick="closeMobileMenu()">About Us</a>
+    <a href="contact.html" onclick="closeMobileMenu()">Make My Video</a>
+    <a href="email.html" onclick="closeMobileMenu()">Contact Us</a>
   </nav>
 </div>
 
@@ -483,21 +459,21 @@
   window.addEventListener('load', () => {
     window.scrollTo(0, 0);
   });
+
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobileMenu");
+  menu.classList.toggle("active");
+  document.body.style.overflow =
+    menu.classList.contains("active") ? "hidden" : "";
+}
+
+function closeMobileMenu() {
+  document.getElementById("mobileMenu").classList.remove("active");
+  document.body.style.overflow = "";
+}
+
 </script>
 
-<script>
-  function toggleMobileMenu() {
-    const menu = document.getElementById("mobileMenu");
-    menu.classList.toggle("active");
-    document.body.style.overflow =
-      menu.classList.contains("active") ? "hidden" : "";
-  }
-
-  function closeMobileMenu() {
-    document.getElementById("mobileMenu").classList.remove("active");
-    document.body.style.overflow = "";
-  }
-</script>
 
 
 
