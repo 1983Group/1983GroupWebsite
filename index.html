@@ -64,19 +64,12 @@
     }
 
     canvas#neural {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-    }
+  position: fixed;
+  inset: 0;
+  z-index: 0;          /* base particle layer */
+  pointer-events: none;
+}
 
-    /* Particle overlay on canvas */
-    canvas#neural {
-      position: fixed;
-      inset: 0;
-      z-index: -1; /* Above background but below content */
-      pointer-events: none;
-    }
 
     /* Optional: subtle color for particles */
     .particle {
@@ -903,10 +896,19 @@
   .mobile-menu {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #3b0764, #1e1b4b);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  z-index: 2000;
+
+  /* Glass gradient, NOT opaque */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(59, 7, 100, 0.82),
+      rgba(30, 27, 75, 0.82)
+    );
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  z-index: 3; /* ABOVE particles, BELOW UI chrome */
 
   display: flex;
   flex-direction: column;
@@ -916,6 +918,19 @@
   transform: translateY(-10px);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
+
+.mobile-menu-header,
+.mobile-menu-links {
+  position: relative;
+  z-index: 4;
+}
+
+@media (max-width: 768px) {
+  canvas#neural {
+    opacity: 0.85;
+  }
+}
+
 
 
 
