@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Us | THE 1983 GROUP</title>
+  <title>Make My Video | THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="1983Icon.png">
@@ -13,7 +13,7 @@
     :root {
       --primary: #2563eb;
       --muted: #94a3b8;
-      --border: rgba(255, 255, 255, 0.15);
+      --border: rgba(255,255,255,0.15);
     }
 
     * {
@@ -50,14 +50,14 @@
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     /* ================= HEADER (DESKTOP) ================= */
     header {
       position: relative;
-      margin: 12px auto 0;
+      margin: 18px auto 0;
       width: calc(100% - 48px);
       max-width: 1200px;
       z-index: 10;
@@ -95,46 +95,71 @@
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.06);
       backdrop-filter: blur(14px);
+      transition: 0.3s;
+    }
+
+    .nav-box:hover {
+      background: #ffffff;
+      box-shadow: 0 0 45px rgba(255,255,255,0.9);
+      transform: translate(-50%, -50%) translateY(-2px);
     }
 
     .nav-link { color: #f8fafc; text-decoration: none; }
+    .nav-box:hover .nav-link { color: #020617; }
 
     /* ================= CONTENT ================= */
     .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 24px 60px;
-      text-align: center;
-      opacity: 0;
-      animation: fadeUp 1s ease forwards;
-      animation-delay: 0.4s;
-    }
-
-    h1 { font-size: 42px; margin-bottom: 24px; }
-
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-      max-width: 700px;
-      margin: 0 auto 40px;
-    }
-
-    .product-card {
+      max-width: 660px;
       margin: 40px auto 0;
+      padding: 0 22px;
+      animation: fadeUp 0.9s ease forwards;
+    }
+
+    .card {
       background: rgba(255,255,255,0.08);
       border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 40px;
-      width: 420px;
-      max-width: 90%;
+      border-radius: 22px;
+      padding: 36px;
+      backdrop-filter: blur(18px);
     }
 
-    .product-card img { width: 100%; border-radius: 20px; }
+    h1 { font-size: 32px; margin-bottom: 12px; }
+    p { margin-bottom: 28px; line-height: 1.6; }
+
+    label { font-size: 14px; margin: 20px 0 6px; display:block; }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.3);
+      color: white;
+      font-size: 14.5px;
+    }
+
+    textarea { min-height: 130px; }
+
+    button {
+      margin-top: 28px;
+      padding: 12px 26px;
+      font-size: 14.5px;
+      background: var(--primary);
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ffffff;
+      color: #020617;
+      box-shadow: 0 0 30px rgba(255,255,255,0.9);
+    }
 
     footer {
       margin-top: 80px;
-      border-top: 1px solid var(--border);
-      padding: 32px 24px;
       text-align: center;
       font-size: 13px;
       color: var(--muted);
@@ -142,9 +167,7 @@
 
     /* ================= MOBILE ================= */
     .mobile-bar,
-    .mobile-menu {
-      display: none;
-    }
+    .mobile-menu { display: none; }
 
     @media (max-width: 768px) {
 
@@ -180,11 +203,18 @@
 
       .mobile-brand img { height: 32px; }
 
-      .mobile-menu-btn {
+      .mobile-menu-btn,
+      .mobile-close {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 28px;
         background: none;
         border: none;
         color: white;
+        line-height: 1;
       }
 
       .mobile-menu {
@@ -229,13 +259,6 @@
         border-bottom: 1px solid rgba(255,255,255,0.25);
         padding-bottom: 14px;
       }
-
-      .mobile-close {
-        background: none;
-        border: none;
-        font-size: 28px;
-        color: white;
-      }
     }
   </style>
 </head>
@@ -273,7 +296,7 @@
 <header>
   <nav class="nav">
     <div class="brand">
-      <a href="index.html">
+      <a href="index.html" style="display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;">
         <img src="1983Logo2.png" class="logo">
         <strong>THE 1983 GROUP</strong>
       </a>
@@ -288,20 +311,22 @@
 </header>
 
 <div class="container">
-  <h1>About The 1983 Group</h1>
-  <p>
-    THE 1983 GROUP creates thoughtful AI-driven content designed to passively
-    advertise for brands and reach new audiences.
-  </p>
+  <div class="card">
+    <h1>Make My Video</h1>
 
-  <div class="product-card">
-    <img src="3D Logo.png">
+    <form action="https://formspree.io/f/mkowbgbj" method="POST">
+      <label>Your Email</label>
+      <input type="email" name="email" required>
+
+      <label>Your Message</label>
+      <textarea name="message" required></textarea>
+
+      <button type="submit">Send Request</button>
+    </form>
   </div>
 </div>
 
-<footer>
-  © 2025 THE 1983 GROUP. All rights reserved.
-</footer>
+<footer>© 2025 THE 1983 GROUP. All rights reserved.</footer>
 
 <script>
   function toggleMobileMenu() {
