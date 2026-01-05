@@ -625,6 +625,82 @@
       color: #020617;
     }
 
+    /* ---------- RESPONSIVE VISIBILITY ---------- */
+.desktop-only { display: flex; }
+.mobile-only { display: none; }
+
+@media (max-width: 900px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+}
+
+/* ---------- MOBILE HEADER ---------- */
+@media (max-width: 900px) {
+  header {
+    margin: 14px auto 0;
+  }
+
+  .nav {
+    height: 58px;
+  }
+
+  .brand strong {
+    font-size: 16px;
+  }
+}
+
+/* ---------- HAMBURGER ICON ---------- */
+.hamburger {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: white;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  transition: 0.35s ease;
+}
+
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 11px; }
+.hamburger span:nth-child(3) { bottom: 0; }
+
+/* X animation */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 11px;
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  bottom: 11px;
+}
+
+/* ---------- MOBILE MENU OVERLAY ---------- */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(26p
+
+
   </style>
 </head>
 
@@ -639,13 +715,29 @@
       <strong>THE 1983 GROUP</strong>
     </div>
 
-    <div class="nav-box">
+    <!-- Desktop nav -->
+    <div class="nav-box desktop-only">
       <a href="about.html" class="nav-link">About Us</a>
       <a href="contact.html" class="nav-link">Make My Video</a>
       <a href="email.html" class="nav-link">Contact Us</a>
     </div>
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger mobile-only" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 </header>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Make My Video</a>
+  <a href="email.html">Contact Us</a>
+</div>
+
 
 <section class="hero">
   <h1>AI Ads That Work</h1>
@@ -1039,6 +1131,25 @@
   
   animateParticles();
   </script>
+
+  <script>
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    mobileMenu.classList.toggle("active");
+  });
+
+  // Close menu when clicking a link
+  document.querySelectorAll(".mobile-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      hamburger.classList.remove("active");
+      mobileMenu.classList.remove("active");
+    });
+  });
+</script>
+
   
 
 
