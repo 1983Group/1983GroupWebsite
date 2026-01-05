@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>THE 1983 GROUP</title>
 
+  <link rel="icon" href="1983Icon.ico" type="image/x-icon">
+
+  <link rel="apple-touch-icon" href="1983Icon.png">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -277,6 +281,11 @@
       height: 100%;
       object-fit: cover;
     }
+
+    .video-card video::cue {
+  object-fit: cover;
+}
+
 
     /* 🔊 VIDEO AUDIO OVERLAY */
     .video-card::after {
@@ -612,6 +621,7 @@
       color: #020617;
     }
 
+
   </style>
 </head>
 
@@ -619,20 +629,16 @@
 
 <canvas id="neural"></canvas>
 
-<header>
-  <nav class="nav">
-    <div class="brand">
-      <img src="1983Logo2.png" class="logo" />
-      <strong>THE 1983 GROUP</strong>
-    </div>
+<header id="header-placeholder"></header>
 
-    <div class="nav-box">
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="contact.html" class="nav-link">Make My Video</a>
-      <a href="email.html" class="nav-link">Contact Us</a>
-    </div>
-  </nav>
-</header>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+  });
+</script>
+
 
 <section class="hero">
   <h1>AI Ads That Work</h1>
@@ -843,6 +849,7 @@
   </div>
 </section>
 
+
 <!-- 🔹 ANALYTICS -->
 <section class="analytics-box">
   <div class="analytics-item">
@@ -884,19 +891,19 @@
         <h2>How It Works</h2>
         <ol class="hiw-steps">
           <li>
-            <span>Provide details about your AI advertisement</span>
+            <span>Submit your ad details</span>
           </li>
           <li>
-            <span>Our team will review your request and email you with any questions</span>
+            <span>We review & contact you</span>
           </li>
           <li>
-            <span>You will receive an unedited sample video preview</span>
+            <span>Preview sample video</span>
           </li>
           <li>
-            <span>Once approved, we will move forward with final production</span>
+            <span>Aprove for production</span>
           </li>
           <li>
-            <span>The completed video will be delivered to you via email</span>
+            <span>Get final video via email</span>
           </li>
         </ol>
         
@@ -915,6 +922,11 @@
 
 
 <footer>© 2025 THE 1983 GROUP. All rights reserved.</footer>
+
+<script>
+  const R2_BASE = "https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/";
+</script>
+
 
 <script>
   function scrollVideos(dir) {
