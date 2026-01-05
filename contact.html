@@ -7,7 +7,7 @@
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="1983Icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -132,16 +132,21 @@
       font-weight: 400;
     }
 
-    .request-steps li {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 14px;
-  font-size: 15.5px;
-  font-weight: 400;
-  align-items: flex-start;
-}
-
-
+    .request-steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(99,102,241,0.35);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
 
     input, textarea {
       width: 100%;
@@ -211,16 +216,21 @@
       .mobile-brand img { height: 32px; }
 
       .mobile-menu-btn,
-.mobile-close {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  line-height: 1;
-}
-
+      .mobile-close {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        font-size: 26px;
+        line-height: 1;
+        padding: 0;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        appearance: none;
+      }
 
       .mobile-menu {
         position: fixed;
@@ -264,9 +274,22 @@
         border-bottom: 1px solid rgba(255,255,255,0.25);
         padding-bottom: 14px;
       }
+
+      /* ✅ MOBILE FIXES ADDED */
+      .request-steps li::before {
+        background: #6366f1;
+        font-weight: 700;
+        font-size: 15px;
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+        border-radius: 12px;
+      }
     }
 
-    /* ✅ iOS TAP / FOCUS FIX (GLOBAL, NOT NESTED) */
     @media (hover: none) and (pointer: coarse) {
       .mobile-menu-btn:focus,
       .mobile-menu-btn:active,
