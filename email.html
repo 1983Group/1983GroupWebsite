@@ -163,51 +163,6 @@
     h1 { font-size: 36px; margin-bottom: 14px; }
     p { color: #ffffff; margin-bottom: 34px; line-height: 1.6; }
 
-    /* ================= MOBILE FIX ================= */
-@media (max-width: 768px) {
-
-  /* Hide desktop header */
-  header { display: none; }
-
-  body {
-    padding-top: 64px;
-    background-attachment: scroll;
-  }
-
-  /* Mobile top bar alignment */
-  .mobile-bar,
-  .mobile-menu-header {
-    display: flex;
-    align-items: center;
-  }
-
-  .mobile-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .mobile-brand span {
-    line-height: 1;
-  }
-
-  .mobile-menu-btn,
-  .mobile-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    line-height: 1;
-    font-size: 28px;
-    background: none;
-    border: none;
-    color: white;
-  }
-}
-
-
     /* ================= FORM ================= */
     label {
       display: block;
@@ -254,6 +209,68 @@
     }
 
     footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
+
+    /* ================= MOBILE FIX — MATCH ABOUT PAGE ================= */
+@media (max-width: 768px) {
+
+  body {
+    padding-top: 78px; /* correct mobile header spacing */
+    background-attachment: scroll; /* fixes iOS + Android jitter */
+  }
+
+  /* Header container */
+  header {
+    top: 12px;
+    width: calc(100% - 24px);
+    border-radius: 18px;
+  }
+
+  .nav {
+    height: 56px;
+  }
+
+  /* Brand scaling */
+  .logo {
+    height: 34px;
+  }
+
+  .brand strong {
+    font-size: 15px;
+  }
+
+  /* 🔴 IMPORTANT: hide desktop nav box on mobile */
+  .nav-box {
+    display: none;
+  }
+
+  /* Content spacing */
+  .container {
+    padding: 0 16px;
+  }
+
+  .card {
+    padding: 28px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  input,
+  textarea {
+    font-size: 16px; /* prevents iOS zoom */
+  }
+
+  button {
+    width: 100%;
+    padding: 16px;
+  }
+}
+
   </style>
 </head>
 
