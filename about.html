@@ -119,6 +119,26 @@
       backdrop-filter: blur(14px);
     }
 
+    /* 🔹 NAV GLOW HOVER (RESTORES HOMEPAGE BEHAVIOR) */
+    .nav-box {
+      transition:
+        background 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.35s ease;
+    }
+
+    .nav-box:hover {
+      background: #ffffff;
+      box-shadow: 0 0 45px rgba(255,255,255,0.9);
+      transform: translate(-50%, -50%) translateY(-2px);
+    }
+
+    /* Turn text dark on hover */
+    .nav-box:hover .nav-link {
+      color: #020617;
+    }
+
+
     .nav-link { color: #f8fafc; text-decoration: none; }
 
     /* ================= CONTENT ================= */
@@ -367,3 +387,4 @@
 
 </body>
 </html>
+
