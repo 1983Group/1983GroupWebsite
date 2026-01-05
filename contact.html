@@ -84,6 +84,20 @@
 
     .brand strong { font-size: 18px; letter-spacing: 0.4px; }
 
+    .nav-box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 26px;
+      padding: 10px 26px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      transition: 0.3s;
+    }
 
     .nav-box:hover {
       background: #ffffff;
@@ -198,12 +212,13 @@
   opacity: 0.8;
 }
 
-/* ================= MOBILE HEADER ALIGNMENT + MENU ================= */
+/* ================= MOBILE HEADER & MENU ================= */
 .menu-toggle {
   display: none;
   font-size: 26px;
   line-height: 1;
   cursor: pointer;
+  color: white;
 }
 
 @media (max-width: 900px) {
@@ -216,65 +231,21 @@
     padding: 0 18px;
   }
 
-  /* Logo + text stay centered vertically */
   .brand {
     position: static;
     transform: none;
-  }
-
-  .brand a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
   }
 
   .logo {
     height: 38px;
   }
 
-  /* Hamburger / X aligned with logo */
+  /* Hamburger */
   .menu-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 38px;
-    width: 38px;
-  }
-
-
-  /* Form button mobile alignment */
-  form button {
-    width: 100%;
     display: block;
-    margin-top: 24px;
-  }
-}
-
-/* 🔒 MOBILE HOVER SAFETY */
-@media (hover: none) {
-  .card:hover {
-    transform: none;
-    box-shadow: none;
   }
 
-  button:hover {
-    background: var(--primary);
-    color: white;
-    box-shadow: none;
-    transform: none;
-  }
-
-  /* ================= MOBILE MENU OVERLAY FIX ================= */
-@media (max-width: 900px) {
-
-
-  body.menu-open {
-    overflow: hidden;
-  }
-}
-
-@media (max-width: 900px) {
-
+  /* Mobile menu (flat, full-width, pushes content down) */
   .nav-box {
     position: static;
     width: 100%;
@@ -282,8 +253,8 @@
     padding: 0;
     display: none;
     flex-direction: column;
-    background: linear-gradient(135deg, #2b0a52, #3b0f6f);
-    border-top: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    border-radius: 0;
   }
 
   .nav-box.open {
@@ -291,20 +262,22 @@
   }
 
   .nav-box a {
-    padding: 22px 20px;
-    font-size: 22px;
+    padding: 26px 22px;
+    font-size: 24px;
     font-weight: 600;
-    text-decoration: none;
     color: white;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
+    text-decoration: none;
+    border-top: 1px solid rgba(255,255,255,0.25);
   }
 
-  .nav-box a:last-child {
-    border-bottom: none;
+  .nav-box a:first-child {
+    border-top: none;
   }
-}
 
-
+  /* Form button mobile */
+  form button {
+    width: 100%;
+  }
 }
 
 
@@ -325,13 +298,14 @@
         <strong>THE 1983 GROUP</strong>
       </a>
     </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
 
     <div class="nav-box">
       <a href="about.html" class="nav-link">About Us</a>
       <a href="contact.html" class="nav-link">Make My Video</a>
       <a href="email.html" class="nav-link">Contact Us</a>
     </div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
   </nav>
 </header>
 
@@ -431,14 +405,10 @@
   function toggleMenu() {
     const menu = document.querySelector('.nav-box');
     const toggle = document.querySelector('.menu-toggle');
-    const body = document.body;
 
     menu.classList.toggle('open');
-    body.classList.toggle('menu-open');
-
     toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
   }
-
 </script>
 
 
