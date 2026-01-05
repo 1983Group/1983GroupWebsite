@@ -212,6 +212,90 @@
   opacity: 0.8;
 }
 
+/* ================= MOBILE HEADER ALIGNMENT + MENU ================= */
+.menu-toggle {
+  display: none;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+
+  /* Header layout */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+  }
+
+  /* Logo + text stay centered vertically */
+  .brand {
+    position: static;
+    transform: none;
+  }
+
+  .brand a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo {
+    height: 38px;
+  }
+
+  /* Hamburger / X aligned with logo */
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    width: 38px;
+  }
+
+  /* Mobile menu */
+  .nav-box {
+    position: absolute;
+    top: 76px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    flex-direction: column;
+    gap: 22px;
+    padding: 22px;
+    display: none;
+  }
+
+  .nav-box.open {
+    display: flex;
+  }
+
+  /* Form button mobile alignment */
+  form button {
+    width: 100%;
+    display: block;
+    margin-top: 24px;
+  }
+}
+
+/* 🔒 MOBILE HOVER SAFETY */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  button:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+
 
     footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
   </style>
@@ -235,6 +319,7 @@
       <a href="contact.html" class="nav-link">Make My Video</a>
       <a href="email.html" class="nav-link">Contact Us</a>
     </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
   </nav>
 </header>
 
@@ -329,6 +414,17 @@
     window.scrollTo(0, 0);
   });
 </script>
+
+<script>
+  function toggleMenu() {
+    const menu = document.querySelector('.nav-box');
+    const toggle = document.querySelector('.menu-toggle');
+
+    menu.classList.toggle('open');
+    toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+  }
+</script>
+
 
 
 </body>
