@@ -171,6 +171,7 @@
     .mobile-menu { display: none; }
 
     @media (max-width: 768px) {
+      
 
       header { display: none; }
 
@@ -207,6 +208,11 @@
   z-index: 10;
 }
 
+.mobile-bar {
+  pointer-events: auto;
+}
+
+
 
 
 
@@ -230,6 +236,12 @@
         border: none;
         color: white;
       }
+
+      .mobile-menu-btn,
+.mobile-close {
+  pointer-events: auto;
+}
+
 
       .mobile-menu {
         position: fixed;
