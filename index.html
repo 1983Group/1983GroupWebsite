@@ -968,6 +968,39 @@
     padding-bottom: 14px;
   }
 
+  /* ===========================
+   🔒 MOBILE MENU HARD FIX
+   =========================== */
+@media (max-width: 768px) {
+
+  .mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 0 24px;
+    margin-top: 48px;
+  }
+
+  .mobile-menu-links a {
+    display: block;
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff !important;
+    text-decoration: none;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+
+  /* Prevent desktop hover styles from breaking mobile */
+  .nav-box:hover,
+  .analytics-box:hover {
+    background: rgba(255,255,255,0.08);
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+
   .mobile-clos
 
 
@@ -1446,5 +1479,4 @@
 
 </body>
 </html>
-
 
