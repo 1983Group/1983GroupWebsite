@@ -51,12 +51,14 @@
       background-size: 32px 32px;
       opacity: 0.15;
       z-index: -1;
+      pointer-events: none;
     }
 
     canvas#neural {
       position: fixed;
       inset: 0;
       z-index: -2;
+      pointer-events: none;
     }
 
     @keyframes fadeUp {
@@ -89,10 +91,6 @@
       gap: 10px;
       align-items: center;
     }
-
-    .mobile-brand:visited {
-  color: #f8fafc;
-}
 
     .brand a {
       display: flex;
@@ -169,72 +167,51 @@
     .mobile-menu { display: none; }
 
     @media (max-width: 768px) {
-      
 
       header { display: none; }
 
       body {
-  padding-top: 0;
+  padding-top: 96px;
   background-attachment: scroll;
 }
 
 
 
-
-
       .mobile-bar {
-  position: relative;
-  margin: 12px auto 0;
+  position: fixed !important;
+  top: 12px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 
-  width: calc(100% - 48px);
-  max-width: 1200px;
-  height: 64px;
-  padding: 0 18px;
+  width: calc(100% - 48px) !important;
+  max-width: 1200px !important;
+  height: 64px !important;
+  padding: 0 18px !important;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255,255,255,0.08) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
 
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 22px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35) !important;
 
-  z-index: 10;
+  z-index: 1000 !important;
 }
-
-
-
 
 
 
 
       .mobile-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-
-  text-decoration: none;
-  color: #f8fafc;
-
-  max-width: calc(100% - 60px);
-  z-index: 1;
-}
-
-.mobile-menu-btn {
-  position: relative;
-  z-index: 5;
-}
-
-.mobile-close {
-  position: relative;
-  z-index: 5;
-}
-
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+      }
 
       .mobile-brand img { height: 32px; }
 
@@ -246,46 +223,32 @@
         color: white;
       }
 
-
-
       .mobile-menu {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #3b0764, #1e1b4b);
-  backdrop-filter: blur(24px);
-  z-index: 2000;
-
-  display: flex;
-  flex-direction: column;
-
-  opacity: 0;
-  pointer-events: none; /* ✅ ADD THIS */
-  transition: 0.25s ease;
-}
-
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #3b0764, #1e1b4b);
+        backdrop-filter: blur(24px);
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.25s ease;
+      }
 
       .mobile-menu.active {
-  opacity: 1;
-  pointer-events: auto; /* ✅ ADD THIS */
-}
-
+        opacity: 1;
+        pointer-events: auto;
+      }
 
       .mobile-menu-header {
-  position: relative;
-  margin: 12px auto 0;
-
-  width: calc(100% - 48px);
-  max-width: 1200px;
-  height: 64px;
-  padding: 0 18px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-}
-
+        height: 64px;
+        padding: 0 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255,255,255,0.12);
+      }
 
       .mobile-menu-links {
         margin-top: 48px;
@@ -303,30 +266,25 @@
         padding-bottom: 14px;
       }
     }
-
-
-
   </style>
 </head>
 
 <body>
 
 <div class="mobile-bar">
-  <a href="index.html" class="mobile-brand">
-  <img src="1983Logo2.png">
-  <span>THE 1983 GROUP</span>
-</a>
-
+  <div class="mobile-brand">
+    <img src="1983Logo2.png">
+    <span>THE 1983 GROUP</span>
+  </div>
   <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
-<a href="index.html" class="mobile-brand">
-  <img src="1983Logo2.png">
-  <span>THE 1983 GROUP</span>
-</a>
-
+    <div class="mobile-brand">
+      <img src="1983Logo2.png">
+      <span>THE 1983 GROUP</span>
+    </div>
     <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
   </div>
 
@@ -421,13 +379,6 @@
   }
   animate();
 </script>
-
-<script>
-  function goHome() {
-    window.location.href = "index.html";
-  }
-</script>
-
 
 </body>
 </html>
