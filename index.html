@@ -634,46 +634,6 @@
       color: #020617;
     }
 
-    /* 🔒 MOBILE HOVER SAFETY FIX — HARD OVERRIDE */
-@media (hover: none) and (pointer: coarse) {
-
-  /* Analytics card */
-  .analytics-box:hover {
-    background: rgba(255,255,255,0.08) !important;
-    box-shadow: none !important;
-    transform: none !important;
-  }
-
-  .analytics-box:hover .analytics-item h3,
-  .analytics-box:hover .analytics-item p {
-    color: #f8fafc !important;
-  }
-
-  /* Nav pill */
-  .nav-box:hover {
-    background: rgba(255,255,255,0.06) !important;
-    box-shadow: none !important;
-    transform: translate(-50%, -50%) !important;
-  }
-
-  .nav-box:hover .nav-link {
-    color: #f8fafc !important;
-  }
-
-  /* CTA button */
-  .cta-btn a:hover {
-    background: var(--primary) !important;
-    color: #ffffff !important;
-    box-shadow: none !important;
-    transform: none !important;
-  }
-
-  .cta-btn a:hover::after {
-    opacity: 0 !important;
-  }
-}
-
-
   </style>
 </head>
 
