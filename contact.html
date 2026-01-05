@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Make My Video | THE 1983 GROUP</title>
 
-  <link rel="icon" href="1983Icon.ico" type="image/x-icon">
-
-  <link rel="apple-touch-icon" href="1983Icon.png">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -36,21 +32,6 @@
       background-attachment: fixed;
       overflow-x: hidden;
     }
-
-    @media (max-width: 640px) {
-  .request-steps li {
-    gap: 12px;
-    font-size: 15px;
-    line-height: 1.45;
-  }
-
-  .request-steps li::before {
-    width: 26px;
-    height: 26px;
-    font-size: 12px;
-  }
-}
-
 
     body::before {
       content: "";
@@ -231,12 +212,94 @@
   opacity: 0.8;
 }
 
+/* ================= MOBILE HEADER ================= */
+.mobile-header {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  header {
+    display: none; /* hide desktop header */
+  }
+
+  .mobile-header {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+    background: linear-gradient(135deg, #3b0764, #1e1b4b);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+
+  .mobile-bar {
+    height: 58px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+  }
+
+  .mobile-brand img {
+    height: 32px;
+  }
+
+  .mobile-menu-btn {
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-menu a {
+    padding: 16px 20px;
+    text-decoration: none;
+    color: white;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  body {
+    padding-top: 70px; /* space for mobile header */
+  }
+}
+
+
 
     footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
   </style>
 </head>
 
 <body>
+
+  <div id="mobile-header-placeholder"></div>
+
+<script>
+  fetch("mobile-header.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("mobile-header-placeholder").innerHTML = html;
+    });
+</script>
+
 
 <canvas id="neural"></canvas>
 
@@ -348,6 +411,14 @@
     window.scrollTo(0, 0);
   });
 </script>
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  }
+</script>
+
 
 
 </body>
