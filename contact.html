@@ -132,19 +132,21 @@
       font-weight: 400;
     }
 
+    /* ✅ FILLED STEP CIRCLES */
     .request-steps li::before {
       counter-increment: step;
       content: counter(step);
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background: rgba(99,102,241,0.15);
-      border: 1px solid rgba(165,180,252,0.6);
-      color: #a5b4fc;
+      background: rgba(99,102,241,0.35);
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
     }
 
     input, textarea {
@@ -178,9 +180,7 @@
 
     /* ================= MOBILE ================= */
     .mobile-bar,
-    .mobile-menu {
-      display: none;
-    }
+    .mobile-menu { display: none; }
 
     @media (max-width: 768px) {
 
@@ -216,11 +216,22 @@
 
       .mobile-brand img { height: 32px; }
 
-      .mobile-menu-btn {
-        font-size: 28px;
+      /* ✅ PERFECT ICON ALIGNMENT */
+      .mobile-menu-btn,
+      .mobile-close {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        font-size: 26px;
+        line-height: 1;
+        padding: 0;
         background: none;
         border: none;
         color: white;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        appearance: none;
       }
 
       .mobile-menu {
@@ -258,35 +269,6 @@
         padding: 0 24px;
       }
 
-      /* ================= MOBILE BUTTON SANITY FIX ================= */
-@media (hover: none) and (pointer: coarse) {
-
-  .mobile-menu-btn,
-  .mobile-close {
-    line-height: 1;
-    padding: 0;
-    background: none;
-    box-shadow: none;
-    outline: none;
-    border: none;
-    color: white;
-    -webkit-tap-highlight-color: transparent;
-    appearance: none;
-  }
-
-  .mobile-menu-btn:focus,
-  .mobile-menu-btn:active,
-  .mobile-close:focus,
-  .mobile-close:active {
-    background: none;
-    color: white;
-    box-shadow: none;
-    outline: none;
-  }
-
-}
-
-
       .mobile-menu-links a {
         font-size: 22px;
         color: white;
@@ -294,12 +276,18 @@
         border-bottom: 1px solid rgba(255,255,255,0.25);
         padding-bottom: 14px;
       }
+    }
 
-      .mobile-close {
+    /* ✅ iOS TAP / FOCUS FIX (GLOBAL, NOT NESTED) */
+    @media (hover: none) and (pointer: coarse) {
+      .mobile-menu-btn:focus,
+      .mobile-menu-btn:active,
+      .mobile-close:focus,
+      .mobile-close:active {
         background: none;
-        border: none;
-        font-size: 28px;
         color: white;
+        outline: none;
+        box-shadow: none;
       }
     }
   </style>
@@ -307,7 +295,6 @@
 
 <body>
 
-<!-- MOBILE BAR -->
 <div class="mobile-bar">
   <div class="mobile-brand">
     <img src="1983Logo2.png">
@@ -316,7 +303,6 @@
   <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
     <div class="mobile-brand">
@@ -357,10 +343,10 @@
     <h1>Make My Video</h1>
 
     <ol class="request-steps">
-      <li><span>Tell us about your brand and the AI AD you’re looking for</span></li>
-      <li><span>Share any creative direction, goals, or references</span></li>
-      <li><span>Let us know if you want subtitles or logos</span></li>
-      <li><span>Email assets to <em>joeclos@duck.com</em></span></li>
+      <li>Tell us about your brand and the AI AD you’re looking for</li>
+      <li>Share any creative direction, goals, or references</li>
+      <li>Let us know if you want subtitles or logos</li>
+      <li>Email assets to <em>joeclos@duck.com</em></li>
     </ol>
 
     <form action="https://formspree.io/f/mkowbgbj" method="POST">
