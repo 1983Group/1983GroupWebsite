@@ -829,6 +829,22 @@
   display: none;
 }
 
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 64px;
+  padding: 0 18px;
+
+  background: rgba(30, 27, 75, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+
 @media (max-width: 768px) {
 
   /* Hide desktop header */
@@ -888,14 +904,12 @@
   position: fixed;
   inset: 0;
   background: linear-gradient(135deg, #3b0764, #1e1b4b);
-  z-index: 2000;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-
+  z-index: 2000;
 
   display: flex;
   flex-direction: column;
-  padding: 28px;
 
   opacity: 0;
   pointer-events: none;
@@ -904,18 +918,45 @@
 }
 
 
-  .mobile-menu-links {
-    margin-top: 80px;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-  }
+
+  .mobile-menu-links a {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 14px;
+}
+
 
   .mobile-menu.active {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
+
+.mobile-menu-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+}
+
+.mobile-menu-brand img {
+  height: 32px;
+}
+
+.mobile-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  line-height: 1;
+}
+
 
 
   .mobile-menu-links a {
@@ -948,14 +989,26 @@
 
 <!-- 📱 MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
 
+  <!-- Menu Header -->
+  <div class="mobile-menu-header">
+    <div class="mobile-menu-brand">
+      <img src="1983Logo2.png" />
+      <span>THE 1983 GROUP</span>
+    </div>
+
+    <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+  </div>
+
+  <!-- Menu Links -->
   <nav class="mobile-menu-links">
     <a href="about.html">About Us</a>
     <a href="contact.html">Make My Video</a>
     <a href="email.html">Contact Us</a>
   </nav>
+
 </div>
+
 
 
 <canvas id="neural"></canvas>
