@@ -51,14 +51,12 @@
       background-size: 32px 32px;
       opacity: 0.15;
       z-index: -1;
-      pointer-events: none;
     }
 
     canvas#neural {
       position: fixed;
       inset: 0;
       z-index: -2;
-      pointer-events: none;
     }
 
     @keyframes fadeUp {
@@ -208,9 +206,6 @@
   z-index: 10;
 }
 
-.mobile-bar {
-  pointer-events: auto;
-}
 
 
 
@@ -218,14 +213,28 @@
 
 
       .mobile-brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 14px;
-        text-decoration: none;
-        color: #f8fafc;
-        cursor: pointer;
-      }
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+
+  text-decoration: none;
+  color: #f8fafc;
+
+  max-width: calc(100% - 60px);
+  z-index: 1;
+}
+
+.mobile-menu-btn {
+  position: relative;
+  z-index: 5;
+}
+
+.mobile-close {
+  position: relative;
+  z-index: 5;
+}
+
 
       .mobile-brand img { height: 32px; }
 
@@ -238,9 +247,7 @@
       }
 
       .mobile-menu-btn,
-.mobile-close {
-  pointer-events: auto;
-}
+
 
 
       .mobile-menu {
@@ -252,13 +259,11 @@
         display: flex;
         flex-direction: column;
         opacity: 0;
-        pointer-events: none;
         transition: 0.25s ease;
       }
 
       .mobile-menu.active {
         opacity: 1;
-        pointer-events: auto;
       }
 
       .mobile-menu-header {
@@ -295,16 +300,7 @@
       }
     }
 
-    body::before,
-body::after {
-  pointer-events: none;
-}
 
-.mobile-bar,
-.mobile-menu-header,
-.mobile-brand {
-  pointer-events: auto;
-}
 
   </style>
 </head>
