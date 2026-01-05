@@ -634,9 +634,12 @@
       color: #020617;
     }
 
- /* 🔹 MOBILE HEADER – CREATIFY STYLE */
-@media (max-width: 900px) {
+    /* 🔹 MOBILE HEADER (SEPARATE FILE) */
+.mobile-header {
+  display: none;
+}
 
+@media (max-width: 900px) {
   header {
     background: none;
     border: none;
@@ -645,12 +648,6 @@
 
   .mobile-header {
     display: block;
-    position: fixed;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 32px);
-    z-index: 999;
   }
 
   .mobile-bar {
@@ -678,17 +675,15 @@
     height: 34px;
   }
 
-  /* Hamburger / X */
   .menu-toggle {
-    width: 28px;
-    height: 22px;
+    width: 34px;
+    height: 24px;
     background: none;
     border: none;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-    z-index: 1001;
   }
 
   .menu-toggle span {
@@ -700,7 +695,7 @@
   }
 
   .menu-toggle.open span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
+    transform: translateY(10px) rotate(45deg);
   }
 
   .menu-toggle.open span:nth-child(2) {
@@ -708,48 +703,39 @@
   }
 
   .menu-toggle.open span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
+    transform: translateY(-10px) rotate(-45deg);
   }
 
-  /* 🔹 FULLSCREEN MOBILE MENU */
   .mobile-menu {
-    position: fixed;
-    inset: 0;
-    padding-top: 120px;
-
-    background: linear-gradient(
-      180deg,
-      #4c1d95 0%,
-      #312e81 45%,
-      #020617 100%
-    );
-
+    margin-top: 14px;
+    padding: 22px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 26px;
+    gap: 18px;
 
-    transform: translateY(-100%);
-    transition: transform 0.45s ease;
-    z-index: 1000;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.35s ease;
   }
 
   .mobile-menu.open {
     transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .mobile-menu a {
-    color: white;
+    color: #f8fafc;
     text-decoration: none;
-    font-size: 26px;
-    letter-spacing: 0.5px;
-  }
-
-  body.menu-open {
-    overflow: hidden;
+    font-size: 18px;
   }
 }
-
 
 
   </style>
@@ -1168,27 +1154,6 @@ fetch('header.html')
   
   animateParticles();
   </script>
-
-  <script>
-  const toggle = document.getElementById("menuToggle");
-  const menu = document.getElementById("mobileMenu");
-
-  toggle.addEventListener("click", () => {
-    toggle.classList.toggle("open");
-    menu.classList.toggle("open");
-    document.body.classList.toggle("menu-open");
-  });
-
-  // Close menu on link click
-  menu.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      toggle.classList.remove("open");
-      menu.classList.remove("open");
-      document.body.classList.remove("menu-open");
-    });
-  });
-</script>
-
   
 
 
