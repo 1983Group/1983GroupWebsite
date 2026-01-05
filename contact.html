@@ -212,155 +212,6 @@
   opacity: 0.8;
 }
 
-/* ================= MOBILE HEADER & FULLSCREEN MENU ================= */
-
-.menu-toggle {
-  display: none;
-}
-
-@media (max-width: 900px) {
-
-  /* HEADER */
-  header {
-    position: relative;
-    z-index: 10;
-  }
-
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 18px;
-  }
-
-  .brand {
-    position: static;
-    transform: none;
-  }
-
-  .logo {
-    height: 38px;
-  }
-
-  /* HAMBURGER / X */
-  .menu-toggle {
-    display: block;
-    font-size: 28px;
-    cursor: pointer;
-    color: white;
-    position: fixed;
-    top: 22px;
-    right: 22px;
-    z-index: 10001;
-  }
-
-  /* FULLSCREEN OVERLAY MENU */
-  .nav-box {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-
-    background: linear-gradient(135deg, #2b0a52, #3b0f6f);
-    padding-top: 120px;
-
-    transform: translateX(100%);
-    transition: transform 0.35s ease;
-
-    z-index: 10000;
-  }
-
-  .nav-box.open {
-    transform: translateX(0);
-  }
-
-  .nav-box a {
-    padding: 26px 32px;
-    font-size: 26px;
-    font-weight: 600;
-    color: white;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,0.25);
-  }
-
-  .nav-box a:last-child {
-    border-bottom: none;
-  }
-
-  /* LOCK SCROLL */
-  body.menu-open {
-    overflow: hidden;
-  }
-
-  form button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 900px) {
-
-  /* Hide desktop hover effects completely */
-  .nav-box:hover {
-    background: linear-gradient(135deg, #2b0a52, #3b0f6f);
-    box-shadow: none;
-    transform: none;
-  }
-
-  /* Hide header when menu open */
-  body.menu-open header {
-    visibility: hidden;
-  }
-
-  /* Hamburger fixed top-right */
-  .menu-toggle {
-    position: fixed;
-    top: 22px;
-    right: 22px;
-    font-size: 30px;
-    z-index: 10001;
-  }
-
-  /* Fullscreen overlay */
-  .nav-box {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-
-    background: linear-gradient(135deg, #2b0a52, #3b0f6f);
-    padding-top: 110px;
-
-    transform: translateX(100%);
-    transition: transform 0.35s ease;
-
-    z-index: 10000;
-  }
-
-  .nav-box.open {
-    transform: translateX(0);
-  }
-
-  .nav-box a {
-    font-size: 26px;
-    padding: 28px 32px;
-    border-bottom: 1px solid rgba(255,255,255,0.25);
-  }
-
-  body.menu-open {
-    overflow: hidden;
-  }
-}
-
-
-
-
-
 
     footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
   </style>
@@ -378,8 +229,6 @@
         <strong>THE 1983 GROUP</strong>
       </a>
     </div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
 
     <div class="nav-box">
       <a href="about.html" class="nav-link">About Us</a>
@@ -469,7 +318,6 @@
   }
 
   animateParticles();
-  
 </script>
 
 <script>
@@ -481,22 +329,6 @@
     window.scrollTo(0, 0);
   });
 </script>
-
-<script>
-function toggleMenu() {
-  const menu = document.querySelector('.nav-box');
-  const toggle = document.querySelector('.menu-toggle');
-  const body = document.body;
-
-  menu.classList.toggle('open');
-  body.classList.toggle('menu-open');
-
-  toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
-}
-</script>
-
-
-
 
 
 </body>
