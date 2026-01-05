@@ -6,7 +6,9 @@
   <title>Make My Video | THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
+
   <link rel="apple-touch-icon" href="1983Icon.png">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -26,6 +28,7 @@
 
     body {
       min-height: 100vh;
+      padding-top: 0;
       color: #f8fafc;
       background-image: url("PurpleBackground2.jpg");
       background-size: cover;
@@ -42,10 +45,11 @@
       z-index: -2;
     }
 
+    /* ================= PARTICLE CANVAS ================= */
     canvas#neural {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: -1; /* above background, below content */
       pointer-events: none;
     }
 
@@ -54,7 +58,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ================= DESKTOP HEADER ================= */
+    /* ================= HEADER ================= */
     header {
       position: relative;
       margin: 18px auto 0;
@@ -81,7 +85,8 @@
     }
 
     .logo { height: 42px; }
-    .brand strong { font-size: 18px; }
+
+    .brand strong { font-size: 18px; letter-spacing: 0.4px; }
 
     .nav-box {
       position: absolute;
@@ -95,9 +100,17 @@
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.06);
       backdrop-filter: blur(14px);
+      transition: 0.3s;
     }
 
-    .nav-link { color: #f8fafc; text-decoration: none; }
+    .nav-box:hover {
+      background: #ffffff;
+      box-shadow: 0 0 45px rgba(255,255,255,0.9);
+      transform: translate(-50%, -50%) translateY(-2px);
+    }
+
+    .nav-link { color: #f8fafc; text-decoration: none; font-size: 16px; }
+    .nav-box:hover .nav-link { color: #020617; }
 
     /* ================= CONTENT ================= */
     .container {
@@ -113,42 +126,20 @@
       border-radius: 22px;
       padding: 36px;
       backdrop-filter: blur(18px);
+      position: relative;
+      transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45), 0 0 40px rgba(168,85,247,0.25);
+      border-color: rgba(255,255,255,0.35);
     }
 
     h1 { font-size: 32px; margin-bottom: 12px; }
     p { margin-bottom: 28px; line-height: 1.6; }
 
-    .request-steps {
-      list-style: none;
-      counter-reset: step;
-      margin-bottom: 32px;
-      padding-left: 0;
-    }
-
-    .request-steps li {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 14px;
-      font-size: 15.5px;
-      font-weight: 400;
-    }
-
-    .request-steps li::before {
-      counter-increment: step;
-      content: counter(step);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: rgba(99,102,241,0.15);
-      border: 1px solid rgba(165,180,252,0.6);
-      color: #a5b4fc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-    }
-
-    label { font-size: 14px; margin-top: 20px; display:block; }
+    label { font-size: 14px; margin-bottom: 6px; margin-top: 20px; }
 
     input, textarea {
       width: 100%;
@@ -165,124 +156,183 @@
     button {
       margin-top: 28px;
       padding: 12px 26px;
+      font-size: 14.5px;
       background: var(--primary);
       border: none;
       color: white;
       border-radius: 10px;
       cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
     }
 
-    footer {
-      margin-top: 80px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--muted);
+    button:hover {
+      transform: translateY(-2px);
+      background: #ffffff;
+      color: #020617;
+      box-shadow: 0 0 30px rgba(255,255,255,0.9);
     }
 
-    /* ================= MOBILE ================= */
-    .mobile-bar,
-    .mobile-menu { display: none; }
+    .request-steps {
+  list-style: none;
+  counter-reset: step;
+  margin-bottom: 32px;
+  padding-left: 0;
+}
 
-    @media (max-width: 768px) {
+.request-steps li {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+  font-size: 15.5px;
+  font-weight: 400;
+  line-height: 1.35;
+}
 
-      header { display: none; }
+.request-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(99,102,241,0.15);
+  border: 1px solid rgba(165,180,252,0.6);
+  color: #a5b4fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+}
 
-      body {
-        padding-top: 64px;
-        background-attachment: scroll;
-      }
+.request-steps strong {
+  display: block;
+  margin-bottom: 2px;
+  font-weight: 600;
+}
 
-      .mobile-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 64px;
-        padding: 0 18px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: rgba(30,27,75,0.55);
-        backdrop-filter: blur(18px);
-        border-bottom: 1px solid rgba(255,255,255,0.12);
-        z-index: 1000;
-      }
+.request-steps span {
+  display: block;
+  opacity: 0.8;
+}
 
-      .mobile-brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 14px;
-      }
+/* ================= MOBILE NAV ================= */
+.mobile-bar,
+.mobile-menu {
+  display: none;
+}
 
-      .mobile-brand img { height: 32px; }
+@media (max-width: 768px) {
 
-      .mobile-menu-btn {
-        font-size: 28px;
-        background: none;
-        border: none;
-        color: white;
-      }
+  /* hide desktop header */
+  header {
+    display: none;
+  }
 
-      .mobile-menu {
-        position: fixed;
-        inset: 0;
-        background: linear-gradient(135deg, #3b0764, #1e1b4b);
-        backdrop-filter: blur(24px);
-        z-index: 2000;
-        display: flex;
-        flex-direction: column;
-        opacity: 0;
-        pointer-events: none;
-        transition: 0.25s ease;
-      }
+  body {
+    padding-top: 64px;
+    background-attachment: scroll;
+  }
 
-      .mobile-menu.active {
-        opacity: 1;
-        pointer-events: auto;
-      }
+  .mobile-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    padding: 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(30,27,75,0.55);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    z-index: 1000;
+  }
 
-      .mobile-menu-header {
-        height: 64px;
-        padding: 0 18px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid rgba(255,255,255,0.12);
-      }
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
 
-      .mobile-menu-links {
-        margin-top: 48px;
-        padding: 0 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 28px;
-      }
+  .mobile-brand img {
+    height: 32px;
+  }
 
-      .mobile-menu-links a {
-        font-size: 22px;
-        color: white;
-        text-decoration: none;
-        padding-bottom: 14px;
-        border-bottom: 1px solid rgba(255,255,255,0.25);
-      }
+  .mobile-menu-btn {
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
 
-      .mobile-close {
-        background: none;
-        border: none;
-        font-size: 28px;
-        color: white;
-      }
-    }
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #3b0764, #1e1b4b);
+    backdrop-filter: blur(24px);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s ease;
+  }
+
+  .mobile-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu-header {
+    height: 64px;
+    padding: 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .mobile-menu-links {
+    margin-top: 48px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .mobile-menu-links a {
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+
+  .mobile-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+
+
+    footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
   </style>
 </head>
 
 <body>
 
-<!-- MOBILE BAR -->
+  <!-- MOBILE BAR -->
 <div class="mobile-bar">
   <div class="mobile-brand">
-    <img src="1983Logo2.png">
+    <img src="1983Logo2.png" alt="">
     <span>THE 1983 GROUP</span>
   </div>
   <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
@@ -292,7 +342,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
     <div class="mobile-brand">
-      <img src="1983Logo2.png">
+      <img src="1983Logo2.png" alt="">
       <span>THE 1983 GROUP</span>
     </div>
     <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
@@ -305,13 +355,14 @@
   </nav>
 </div>
 
+
 <canvas id="neural"></canvas>
 
 <header>
   <nav class="nav">
     <div class="brand">
-      <a href="index.html">
-        <img src="1983Logo2.png" class="logo">
+      <a href="index.html" style="display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;">
+        <img src="1983Logo2.png" class="logo" />
         <strong>THE 1983 GROUP</strong>
       </a>
     </div>
@@ -327,20 +378,28 @@
 <div class="container">
   <div class="card">
     <h1>Make My Video</h1>
-
     <ol class="request-steps">
-      <li><span>Tell us about your brand and the AI AD you’re looking for</span></li>
-      <li><span>Share any creative direction or references</span></li>
-      <li><span>Let us know if you want subtitles or logos</span></li>
-      <li><span>Email assets to <em>joeclos@duck.com</em></span></li>
+      <li>
+        <span>Tell us about your brand and the AI AD you’re looking for</span>
+      </li>
+      <li>
+        <span>Share any creative direction, goals, or references we should follow</span>
+      </li>
+      <li>
+        <span>Let us know if you would like subtitles, logos, or other edits</span>
+      </li>
+      <li>
+        <span>Email any logos or images to <em>joeclos@duck.com</em></span>
+      </li>
     </ol>
+    
 
     <form action="https://formspree.io/f/mkowbgbj" method="POST">
       <label>Your Email</label>
-      <input type="email" name="email" required>
+      <input type="email" name="email" required placeholder="you@company.com">
 
       <label>Your Message</label>
-      <textarea name="message" required></textarea>
+      <textarea name="message" required placeholder="Tell us about your project..."></textarea>
 
       <button type="submit">Send Request</button>
     </form>
@@ -348,6 +407,65 @@
 </div>
 
 <footer>© 2025 THE 1983 GROUP. All rights reserved.</footer>
+
+<script>
+  // Particle animation
+  const canvas = document.getElementById('neural');
+  const ctx = canvas.getContext('2d');
+
+  let particles = [];
+  const particleCount = 100;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 3 + 1,
+      speedX: (Math.random() - 0.5) * 0.5,
+      speedY: (Math.random() - 0.5) * 0.5
+    });
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+
+      if (p.x > canvas.width) p.x = 0;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.y > canvas.height) p.y = 0;
+      if (p.y < 0) p.y = canvas.height;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.15)";
+      ctx.fill();
+    });
+
+    requestAnimationFrame(animateParticles);
+  }
+
+  animateParticles();
+</script>
+
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+  });
+</script>
 
 <script>
   function toggleMobileMenu() {
@@ -362,6 +480,8 @@
     document.body.style.overflow = "";
   }
 </script>
+
+
 
 </body>
 </html>
