@@ -119,26 +119,6 @@
       backdrop-filter: blur(14px);
     }
 
-    /* 🔹 NAV GLOW HOVER (RESTORES HOMEPAGE BEHAVIOR) */
-    .nav-box {
-      transition:
-        background 0.35s ease,
-        box-shadow 0.35s ease,
-        transform 0.35s ease;
-    }
-
-    .nav-box:hover {
-      background: #ffffff;
-      box-shadow: 0 0 45px rgba(255,255,255,0.9);
-      transform: translate(-50%, -50%) translateY(-2px);
-    }
-
-    /* Turn text dark on hover */
-    .nav-box:hover .nav-link {
-      color: #020617;
-    }
-
-
     .nav-link { color: #f8fafc; text-decoration: none; }
 
     /* ================= CONTENT ================= */
@@ -270,12 +250,6 @@
         border-bottom: 1px solid rgba(255,255,255,0.25);
         padding-bottom: 14px;
       }
-
-      .mobile-brand {
-  text-decoration: none;
-  color: white;
-}
-
     }
   </style>
 </head>
@@ -283,21 +257,19 @@
 <body>
 
 <div class="mobile-bar">
-  <a href="index.html" class="mobile-brand">
-  <img src="1983Logo2.png">
-  <span>THE 1983 GROUP</span>
-</a>
-
+  <div class="mobile-brand">
+    <img src="1983Logo2.png">
+    <span>THE 1983 GROUP</span>
+  </div>
   <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
-    <a href="index.html" class="mobile-brand">
-  <img src="1983Logo2.png">
-  <span>THE 1983 GROUP</span>
-</a>
-
+    <div class="mobile-brand">
+      <img src="1983Logo2.png">
+      <span>THE 1983 GROUP</span>
+    </div>
     <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
   </div>
 
