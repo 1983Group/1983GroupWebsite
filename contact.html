@@ -7,13 +7,13 @@
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="1983Icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --primary: #2563eb;
       --muted: #94a3b8;
-      --border: rgba(255, 255, 255, 0.15);
+      --border: rgba(255,255,255,0.15);
     }
 
     * {
@@ -54,7 +54,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ================= HEADER (DESKTOP) ================= */
+    /* ================= DESKTOP HEADER ================= */
     header {
       position: relative;
       margin: 18px auto 0;
@@ -215,6 +215,7 @@
 
       .mobile-brand img { height: 32px; }
 
+      /* 🔒 PERFECT ICON ALIGNMENT */
       .mobile-menu-btn,
       .mobile-close {
         width: 40px;
@@ -228,9 +229,13 @@
         border: none;
         color: white;
         cursor: pointer;
+        position: relative;
         -webkit-tap-highlight-color: transparent;
         appearance: none;
       }
+
+      .mobile-menu-btn { top: -1px; }
+      .mobile-close   { top: -2px; }
 
       .mobile-menu {
         position: fixed;
@@ -274,29 +279,15 @@
         border-bottom: 1px solid rgba(255,255,255,0.25);
         padding-bottom: 14px;
       }
-
-      /* ✅ MOBILE FIXES ADDED */
-      .request-steps li::before {
-        background: #6366f1;
-        font-weight: 700;
-        font-size: 15px;
-      }
-
-      button {
-        width: 100%;
-        padding: 14px;
-        font-size: 16px;
-        border-radius: 12px;
-      }
     }
 
-    @media (hover: none) and (pointer: coarse) {
-      .mobile-menu-btn:focus,
+    /* iOS TAP FIX */
+    @media (hover:none) and (pointer:coarse) {
       .mobile-menu-btn:active,
-      .mobile-close:focus,
-      .mobile-close:active {
+      .mobile-menu-btn:focus,
+      .mobile-close:active,
+      .mobile-close:focus {
         background: none;
-        color: white;
         outline: none;
         box-shadow: none;
       }
@@ -306,6 +297,7 @@
 
 <body>
 
+<!-- MOBILE BAR -->
 <div class="mobile-bar">
   <div class="mobile-brand">
     <img src="1983Logo2.png">
@@ -314,6 +306,7 @@
   <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
     <div class="mobile-brand">
@@ -335,7 +328,7 @@
 <header>
   <nav class="nav">
     <div class="brand">
-      <a href="index.html">
+      <a href="index.html" style="display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;">
         <img src="1983Logo2.png" class="logo">
         <strong>THE 1983 GROUP</strong>
       </a>
@@ -355,7 +348,7 @@
 
     <ol class="request-steps">
       <li>Tell us about your brand and the AI AD you’re looking for</li>
-      <li>Share any creative direction, goals, or references</li>
+      <li>Share any creative direction or references</li>
       <li>Let us know if you want subtitles or logos</li>
       <li>Email assets to <em>joeclos@duck.com</em></li>
     </ol>
