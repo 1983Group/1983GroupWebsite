@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>THE 1983 GROUP</title>
 
-  <link rel="icon" href="1983Icon.ico" type="image/x-icon">
-
-  <link rel="apple-touch-icon" href="1983Icon.png">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -281,11 +277,6 @@
       height: 100%;
       object-fit: cover;
     }
-
-    .video-card video::cue {
-  object-fit: cover;
-}
-
 
     /* 🔊 VIDEO AUDIO OVERLAY */
     .video-card::after {
@@ -634,110 +625,6 @@
       color: #020617;
     }
 
-    /* 🔹 MOBILE HEADER (SEPARATE FILE) */
-.mobile-header {
-  display: none;
-}
-
-@media (max-width: 900px) {
-  header {
-    background: none;
-    border: none;
-    box-shadow: none;
-  }
-
-  .mobile-header {
-    display: block;
-  }
-
-  .mobile-bar {
-    height: 64px;
-    padding: 0 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 18px;
-  }
-
-  .mobile-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: #f8fafc;
-  }
-
-  .mobile-brand img {
-    height: 34px;
-  }
-
-  .menu-toggle {
-    width: 34px;
-    height: 24px;
-    background: none;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-  }
-
-  .menu-toggle span {
-    height: 3px;
-    width: 100%;
-    background: white;
-    border-radius: 3px;
-    transition: 0.35s ease;
-  }
-
-  .menu-toggle.open span:nth-child(1) {
-    transform: translateY(10px) rotate(45deg);
-  }
-
-  .menu-toggle.open span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .menu-toggle.open span:nth-child(3) {
-    transform: translateY(-10px) rotate(-45deg);
-  }
-
-  .mobile-menu {
-    margin-top: 14px;
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 18px;
-
-    transform: translateY(-12px);
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.35s ease;
-  }
-
-  .mobile-menu.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .mobile-menu a {
-    color: #f8fafc;
-    text-decoration: none;
-    font-size: 18px;
-  }
-}
-
-
   </style>
 </head>
 
@@ -745,16 +632,20 @@
 
 <canvas id="neural"></canvas>
 
-<header id="header-placeholder"></header>
+<header>
+  <nav class="nav">
+    <div class="brand">
+      <img src="1983Logo2.png" class="logo" />
+      <strong>THE 1983 GROUP</strong>
+    </div>
 
-<script>
-fetch('header.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
-  });
-</script>
-
+    <div class="nav-box">
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="contact.html" class="nav-link">Make My Video</a>
+      <a href="email.html" class="nav-link">Contact Us</a>
+    </div>
+  </nav>
+</header>
 
 <section class="hero">
   <h1>AI Ads That Work</h1>
@@ -762,209 +653,29 @@ fetch('header.html')
   <div class="cta-btn"><a href="#how-it-works">How It Works</a></div>
 </section>
 
+<!-- 🔹 VIDEO RACK (15 VIDEOS, UNTOUCHED) -->
 <section class="video-feed">
   <button class="arrow left" onclick="scrollVideos(-1)">‹</button>
   <button class="arrow right" onclick="scrollVideos(1)">›</button>
 
   <div class="video-track" id="videoTrack">
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/SpelledMilk.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video2.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card horizontal">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/ChefAd.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:100%; object-fit:cover;">
-  </video>
-</div>
-
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video4.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video5.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card video-card horizontal">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video6.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:100%; object-fit:cover;">
-  </video>
-</div>
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/TinderVideo.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video7.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card video-card horizontal">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video8.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:100%; object-fit:cover;">
-  </video>
-</div>
-
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video9.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video10.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card video-card horizontal">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/SantaAd.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:100%; object-fit:cover;">
-  </video>
-</div>
-
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video12.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card vertical">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video13.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:auto;">
-  </video>
-</div>
-
-
-    <div class="video-card video-card horizontal">
-  <video
-    src="https://pub-a54b25dd0b404f27a45e87b247cc1d9a.r2.dev/Video14.mp4"
-    poster="https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/SpelledMilkThumbnail.jpg"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%; height:100%; object-fit:cover;">
-  </video>
-</div>
-
-
+    <div class="video-card vertical"><video src="SpelledMilk.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="v2.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card horizontal"><video src="ChefAd.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="v4.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="v5.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card horizontal"><video src="v6_1920.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="TinderVideo.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="v8.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card horizontal"><video src="v9_1920.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="v10.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="v11.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card horizontal"><video src="SantaAd.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="v13.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card vertical"><video src="v14.mp4" autoplay muted loop playsinline></video></div>
+    <div class="video-card horizontal"><video src="v15_1920.mp4" autoplay muted loop playsinline></video></div>
   </div>
 </section>
-
 
 <!-- 🔹 ANALYTICS -->
 <section class="analytics-box">
@@ -1007,19 +718,19 @@ fetch('header.html')
         <h2>How It Works</h2>
         <ol class="hiw-steps">
           <li>
-            <span>Provide details about your AI advertisement.</span>
+            <span>Provide details about your AI advertisement</span>
           </li>
           <li>
-            <span>Our team will review your request and email you with any questions.</span>
+            <span>Our team will review your request and email you with any questions</span>
           </li>
           <li>
-            <span>You will receive an unedited sample video preview.</span>
+            <span>You will receive an unedited sample video preview</span>
           </li>
           <li>
-            <span>Once approved, we will move forward with final production.</span>
+            <span>Once approved, we will move forward with final production</span>
           </li>
           <li>
-            <span>The completed video will be delivered to you via email.</span>
+            <span>The completed video will be delivered to you via email</span>
           </li>
         </ol>
         
@@ -1038,11 +749,6 @@ fetch('header.html')
 
 
 <footer>© 2025 THE 1983 GROUP. All rights reserved.</footer>
-
-<script>
-  const R2_BASE = "https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/";
-</script>
-
 
 <script>
   function scrollVideos(dir) {
