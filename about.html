@@ -216,12 +216,15 @@
       .mobile-brand img { height: 32px; }
 
       .mobile-menu-btn,
-      .mobile-close {
-        font-size: 28px;
-        background: none;
-        border: none;
-        color: white;
-      }
+.mobile-close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
 
       .mobile-menu {
         position: fixed;
@@ -242,12 +245,6 @@
       }
 
       .mobile-menu-header {
-  position: fixed;
-  top: calc(env(safe-area-inset-top) + 12px);  left: 50%;
-  transform: translateX(-50%);
-
-  width: calc(100% - 48px);
-  max-width: 1200px;
   height: 64px;
   padding: 0 18px;
 
@@ -255,16 +252,14 @@
   align-items: center;
   justify-content: space-between;
 
+  /* visually match bar */
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 22px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-
-  z-index: 2001;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
 }
+
 
 .mobile-menu-links {
   margin-top: 120px; /* pushes links below floating header */
