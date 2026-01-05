@@ -212,18 +212,20 @@
   opacity: 0.8;
 }
 
-/* ================= MOBILE HEADER & MENU ================= */
+/* ================= MOBILE HEADER & FULLSCREEN MENU ================= */
+
 .menu-toggle {
   display: none;
-  font-size: 26px;
-  line-height: 1;
-  cursor: pointer;
-  color: white;
 }
 
 @media (max-width: 900px) {
 
-  /* Header layout */
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+  }
+
   .nav {
     display: flex;
     align-items: center;
@@ -240,26 +242,22 @@
     height: 38px;
   }
 
-  /* Hamburger */
-  .menu-toggle {
-    display: block;
-  }
-
-  @media (max-width: 900px) {
-
-  /* Hamburger / X */
+  /* HAMBURGER / X */
   .menu-toggle {
     display: block;
     font-size: 28px;
     cursor: pointer;
     color: white;
+    position: fixed;
+    top: 22px;
+    right: 22px;
     z-index: 10001;
   }
 
-  /* FULLSCREEN MENU */
+  /* FULLSCREEN OVERLAY MENU */
   .nav-box {
     position: fixed;
-    inset: 0; /* ← fills entire screen */
+    inset: 0;
     width: 100vw;
     height: 100vh;
 
@@ -292,36 +290,16 @@
     border-bottom: none;
   }
 
-  /* Lock page scroll when menu open */
+  /* LOCK SCROLL */
   body.menu-open {
     overflow: hidden;
   }
-}
 
-
-  .nav-box a:last-child {
-    border-bottom: none;
-  }
-}
-
-
-  .nav-box a {
-    padding: 26px 22px;
-    font-size: 24px;
-    font-weight: 600;
-    color: white;
-    text-decoration: none;
-    border-top: 1px solid rgba(255,255,255,0.25);
-  }
-
-  .nav-box a:first-child {
-    border-top: none;
-  }
-
-  /* Form button mobile */
   form button {
     width: 100%;
   }
+}
+
 
 
 
