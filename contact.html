@@ -293,6 +293,25 @@
     box-shadow: none;
     transform: none;
   }
+
+  /* ================= MOBILE MENU OVERLAY FIX ================= */
+@media (max-width: 900px) {
+
+  .nav-box {
+    position: fixed;
+    top: 88px; /* below header */
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 520px;
+    z-index: 9999;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
 }
 
 
@@ -419,10 +438,14 @@
   function toggleMenu() {
     const menu = document.querySelector('.nav-box');
     const toggle = document.querySelector('.menu-toggle');
+    const body = document.body;
 
     menu.classList.toggle('open');
+    body.classList.toggle('menu-open');
+
     toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
   }
+
 </script>
 
 
