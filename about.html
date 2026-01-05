@@ -243,13 +243,21 @@
       }
 
       .mobile-menu-header {
-        height: 64px;
-        padding: 0 18px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid rgba(255,255,255,0.12);
-      }
+  position: relative;
+  margin: 12px auto 0;
+
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  height: 64px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
 
       .mobile-menu-links {
         margin-top: 48px;
