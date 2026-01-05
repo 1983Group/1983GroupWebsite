@@ -594,6 +594,18 @@
     }
 
 
+    /* Mobile */
+    @media (max-width: 900px) {
+      .hiw-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hiw-stack {
+        margin-bottom: 40px;
+      }
+    }
+
 
 
     footer {
@@ -622,21 +634,20 @@
       color: #020617;
     }
 
-    /* 🔹 MOBILE HEADER (CREATIFY STYLE) */
+    /* 🔹 MOBILE HEADER (SEPARATE FILE) */
 .mobile-header {
   display: none;
 }
 
 @media (max-width: 900px) {
   header {
-    display: none; /* Hide desktop header entirely */
+    background: none;
+    border: none;
+    box-shadow: none;
   }
 
   .mobile-header {
     display: block;
-    width: calc(100% - 32px);
-    margin: 16px auto 0;
-    z-index: 50;
   }
 
   .mobile-bar {
@@ -647,11 +658,9 @@
     justify-content: space-between;
 
     background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(18px);
     border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 20px;
-
-    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    border-radius: 18px;
   }
 
   .mobile-brand {
@@ -660,17 +669,15 @@
     gap: 10px;
     text-decoration: none;
     color: #f8fafc;
-    font-size: 16px;
   }
 
   .mobile-brand img {
     height: 34px;
   }
 
-  /* HAMBURGER → X */
   .menu-toggle {
-    width: 30px;
-    height: 22px;
+    width: 34px;
+    height: 24px;
     background: none;
     border: none;
     display: flex;
@@ -688,7 +695,7 @@
   }
 
   .menu-toggle.open span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
+    transform: translateY(10px) rotate(45deg);
   }
 
   .menu-toggle.open span:nth-child(2) {
@@ -696,28 +703,25 @@
   }
 
   .menu-toggle.open span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
+    transform: translateY(-10px) rotate(-45deg);
   }
 
-  /* GLASS DROPDOWN OVERLAY */
   .mobile-menu {
     margin-top: 14px;
-    padding: 28px 22px;
-
+    padding: 22px;
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 18px;
 
-    background: rgba(88, 28, 135, 0.55); /* PURPLE GLASS */
-    backdrop-filter: blur(22px);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
     border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 22px;
+    border-radius: 18px;
 
-    transform: translateY(-18px);
+    transform: translateY(-12px);
     opacity: 0;
     pointer-events: none;
-
-    transition: transform 0.45s ease, opacity 0.45s ease;
+    transition: 0.35s ease;
   }
 
   .mobile-menu.open {
@@ -727,13 +731,11 @@
   }
 
   .mobile-menu a {
-    color: #ffffff;
+    color: #f8fafc;
     text-decoration: none;
-    font-size: 20px;
-    text-align: center;
+    font-size: 18px;
   }
 }
-
 
 
   </style>
@@ -743,16 +745,7 @@
 
 <canvas id="neural"></canvas>
 
-<div id="header-placeholder"></div>
-
-<script>
-  fetch("header.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("header-placeholder").innerHTML = data;
-    });
-</script>
-
+<header id="header-placeholder"></header>
 
 
 
