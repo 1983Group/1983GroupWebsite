@@ -37,6 +37,21 @@
       overflow-x: hidden;
     }
 
+    @media (max-width: 640px) {
+  .request-steps li {
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .request-steps li::before {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+}
+
+
     body::before {
       content: "";
       position: fixed;
@@ -337,4 +352,3 @@
 
 </body>
 </html>
-
