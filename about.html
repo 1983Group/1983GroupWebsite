@@ -39,13 +39,25 @@
       position: fixed;
       inset: 0;
       background: rgba(2,6,23,0.6);
-      z-index: -2;
+      z-index: -3;
+    }
+
+    /* SUBTLE DOT TEXTURE */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.15;
+      z-index: -1;
+      pointer-events: none;
     }
 
     canvas#neural {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: -2;
       pointer-events: none;
     }
 
@@ -79,6 +91,16 @@
       gap: 10px;
       align-items: center;
     }
+
+    .brand a {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      text-decoration: none;
+      color: #f8fafc;
+    }
+
+    .brand a:visited { color: #f8fafc; }
 
     .logo { height: 42px; }
     .brand strong { font-size: 18px; }
@@ -142,9 +164,7 @@
 
     /* ================= MOBILE ================= */
     .mobile-bar,
-    .mobile-menu {
-      display: none;
-    }
+    .mobile-menu { display: none; }
 
     @media (max-width: 768px) {
 
@@ -180,7 +200,8 @@
 
       .mobile-brand img { height: 32px; }
 
-      .mobile-menu-btn {
+      .mobile-menu-btn,
+      .mobile-close {
         font-size: 28px;
         background: none;
         border: none;
@@ -229,20 +250,12 @@
         border-bottom: 1px solid rgba(255,255,255,0.25);
         padding-bottom: 14px;
       }
-
-      .mobile-close {
-        background: none;
-        border: none;
-        font-size: 28px;
-        color: white;
-      }
     }
   </style>
 </head>
 
 <body>
 
-<!-- MOBILE BAR -->
 <div class="mobile-bar">
   <div class="mobile-brand">
     <img src="1983Logo2.png">
@@ -251,7 +264,6 @@
   <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
     <div class="mobile-brand">
@@ -315,6 +327,42 @@
     document.getElementById("mobileMenu").classList.remove("active");
     document.body.style.overflow = "";
   }
+
+  /* ================= PARTICLE SYSTEM ================= */
+  const canvas = document.getElementById("neural");
+  const ctx = canvas.getContext("2d");
+
+  let w, h;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  const particles = Array.from({ length: 70 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    r: Math.random() * 1.6 + 0.6
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "rgba(255,255,255,0.6)";
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
 </script>
 
 </body>
