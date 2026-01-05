@@ -171,31 +171,38 @@
       header { display: none; }
 
       body {
-        padding-top: 64px;
-        background-attachment: scroll;
-      }
+  padding-top: 88px;
+  background-attachment: scroll;
+}
+
 
       .mobile-bar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: calc(100% - 48px);
+  max-width: 1200px;
   height: 64px;
   padding: 0 18px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  /* MATCH DESKTOP GLASS */
+  /* DESKTOP-MATCHING GLASS */
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
-  border-bottom: 1px solid rgba(255,255,255,0.18);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 22px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
 
   z-index: 1000;
 }
+
 
 
       .mobile-brand {
