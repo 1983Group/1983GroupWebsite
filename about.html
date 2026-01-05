@@ -92,6 +92,10 @@
       align-items: center;
     }
 
+    .mobile-brand:visited {
+  color: #f8fafc;
+}
+
     .brand a {
       display: flex;
       gap: 10px;
@@ -212,6 +216,8 @@
         align-items: center;
         gap: 10px;
         font-size: 14px;
+        text-decoration: none;
+        color: #f8fafc;
       }
 
       .mobile-brand img { height: 32px; }
@@ -281,19 +287,21 @@
 <body>
 
 <div class="mobile-bar">
-  <div class="mobile-brand">
-    <img src="1983Logo2.png">
-    <span>THE 1983 GROUP</span>
-  </div>
+  <a href="index.html" class="mobile-brand">
+  <img src="1983Logo2.png">
+  <span>THE 1983 GROUP</span>
+</a>
+
   <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
-    <div class="mobile-brand">
-      <img src="1983Logo2.png">
-      <span>THE 1983 GROUP</span>
-    </div>
+<a href="index.html" class="mobile-brand">
+  <img src="1983Logo2.png">
+  <span>THE 1983 GROUP</span>
+</a>
+
     <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
   </div>
 
