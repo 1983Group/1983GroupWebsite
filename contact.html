@@ -258,6 +258,35 @@
         padding: 0 24px;
       }
 
+      /* ================= MOBILE BUTTON SANITY FIX ================= */
+@media (hover: none) and (pointer: coarse) {
+
+  .mobile-menu-btn,
+  .mobile-close {
+    line-height: 1;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+  }
+
+  .mobile-menu-btn:focus,
+  .mobile-menu-btn:active,
+  .mobile-close:focus,
+  .mobile-close:active {
+    background: none;
+    color: white;
+    box-shadow: none;
+    outline: none;
+  }
+
+}
+
+
       .mobile-menu-links a {
         font-size: 22px;
         color: white;
@@ -272,17 +301,6 @@
         font-size: 28px;
         color: white;
       }
-
-      /* ================= MOBILE: DISABLE HOVER GLOW ================= */
-@media (hover: none) and (pointer: coarse) {
-  button:hover {
-    background: var(--primary);
-    color: white;
-    box-shadow: none;
-    transform: none;
-  }
-}
-
     }
   </style>
 </head>
