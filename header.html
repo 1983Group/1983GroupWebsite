@@ -1,191 +1,31 @@
-<header class="site-header">
-  <div class="nav">
-
-    <!-- BRAND -->
-    <a href="index.html" class="brand">
-      <img src="1983Icon.png" class="logo" alt="THE 1983 GROUP">
-      <strong>THE 1983 GROUP</strong>
+<!-- MOBILE HEADER ONLY -->
+<div class="mobile-header">
+  <div class="mobile-bar">
+    <a href="index.html" class="mobile-brand">
+      <img src="1983Icon.png" alt="THE 1983 GROUP" />
+      <span>THE 1983 GROUP</span>
     </a>
 
-    <!-- DESKTOP NAV -->
-    <nav class="nav-box desktop-nav">
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="make-my-video.html" class="nav-link">Make My Video</a>
-      <a href="contact.html" class="nav-link">Contact Us</a>
-    </nav>
-
-    <!-- MOBILE TOGGLE -->
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+    <button class="menu-toggle" aria-label="Open menu">
       <span></span>
       <span></span>
       <span></span>
     </button>
   </div>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="about.html">About Us</a>
-    <a href="make-my-video.html">Make My Video</a>
-    <a href="contact.html">Contact Us</a>
-  </div>
-</header>
-
-<style>
-/* ===== HEADER GLASS (MATCHES DESKTOP) ===== */
-.site-header {
-  margin: 18px auto 0;
-  width: calc(100% - 48px);
-  max-width: 1200px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 22px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-  position: relative;
-  z-index: 20;
-}
-
-/* ===== NAV BAR ===== */
-.nav {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-/* BRAND */
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-left: 24px;
-  text-decoration: none;
-  color: #f8fafc;
-}
-
-.logo {
-  height: 42px;
-}
-
-.brand strong {
-  font-size: 18px;
-  letter-spacing: 0.4px;
-}
-
-/* DESKTOP NAV */
-.desktop-nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 26px;
-  padding: 10px 26px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(14px);
-  transition: 0.3s;
-}
-
-.desktop-nav:hover {
-  background: #ffffff;
-  box-shadow: 0 0 45px rgba(255,255,255,0.9);
-}
-
-.desktop-nav:hover .nav-link {
-  color: #020617;
-}
-
-.nav-link {
-  color: #f8fafc;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-/* ===== HAMBURGER ===== */
-.menu-toggle {
-  margin-left: auto;
-  margin-right: 24px;
-  width: 32px;
-  height: 22px;
-  background: none;
-  border: none;
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.menu-toggle span {
-  height: 3px;
-  width: 100%;
-  background: #ffffff;
-  border-radius: 2px;
-  transition: 0.35s ease;
-}
-
-/* X animation */
-.menu-toggle.active span:nth-child(1) {
-  transform: translateY(9px) rotate(45deg);
-}
-.menu-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-.menu-toggle.active span:nth-child(3) {
-  transform: translateY(-9px) rotate(-45deg);
-}
-
-/* ===== MOBILE MENU (GLASS + PULL DOWN) ===== */
-.mobile-menu {
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: 
-    max-height 0.5s ease,
-    opacity 0.35s ease,
-    transform 0.35s ease;
-}
-
-.mobile-menu a {
-  display: block;
-  padding: 18px;
-  text-align: center;
-  color: #f8fafc;
-  text-decoration: none;
-  font-size: 18px;
-  border-top: 1px solid rgba(255,255,255,0.15);
-}
-
-.mobile-menu a:hover {
-  background: rgba(255,255,255,0.12);
-}
-
-/* OPEN STATE */
-.mobile-menu.open {
-  max-height: 400px;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-  .desktop-nav {
-    display: none;
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
-}
-</style>
+  <nav class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</div>
 
 <script>
-const toggle = document.getElementById("menuToggle");
-const menu = document.getElementById("mobileMenu");
+  const toggle = document.querySelector(".menu-toggle");
+  const menu = document.querySelector(".mobile-menu");
 
-toggle.addEventListener("click", () => {
-  toggle.classList.toggle("active");
-  menu.classList.toggle("open");
-});
+  toggle.addEventListener("click", () => {
+    toggle.classList.toggle("open");
+    menu.classList.toggle("open");
+  });
 </script>
