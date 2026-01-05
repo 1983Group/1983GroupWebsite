@@ -272,6 +272,17 @@
         font-size: 28px;
         color: white;
       }
+
+      /* ================= MOBILE: DISABLE HOVER GLOW ================= */
+@media (hover: none) and (pointer: coarse) {
+  button:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
     }
   </style>
 </head>
