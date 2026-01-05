@@ -246,25 +246,29 @@
         color: white;
       }
 
-      .mobile-menu-btn,
-
 
 
       .mobile-menu {
-        position: fixed;
-        inset: 0;
-        background: linear-gradient(135deg, #3b0764, #1e1b4b);
-        backdrop-filter: blur(24px);
-        z-index: 2000;
-        display: flex;
-        flex-direction: column;
-        opacity: 0;
-        transition: 0.25s ease;
-      }
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #3b0764, #1e1b4b);
+  backdrop-filter: blur(24px);
+  z-index: 2000;
+
+  display: flex;
+  flex-direction: column;
+
+  opacity: 0;
+  pointer-events: none; /* ✅ ADD THIS */
+  transition: 0.25s ease;
+}
+
 
       .mobile-menu.active {
-        opacity: 1;
-      }
+  opacity: 1;
+  pointer-events: auto; /* ✅ ADD THIS */
+}
+
 
       .mobile-menu-header {
   position: relative;
