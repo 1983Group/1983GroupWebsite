@@ -743,14 +743,15 @@
 
 @media (max-width: 900px) {
   header {
-    position: fixed;
+    position: sticky;   
     top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
+
+    margin: 0 auto;
     width: calc(100% - 48px);
     z-index: 40;
   }
 }
+
 
 body.menu-open header {
   backdrop-filter: blur(26px);
