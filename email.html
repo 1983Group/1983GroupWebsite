@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Make My Video | THE 1983 GROUP</title>
+
+  <link rel="icon" href="1983Icon.ico" type="image/x-icon">
+
+  <link rel="apple-touch-icon" href="1983Icon.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --muted: #94a3b8;
+      --card: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #f8fafc;
+      padding-top: 110px; /* space for floating header */
+      overflow-x: hidden;
+      background-image: url("PurpleBackground2.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(2,6,23,0.6);
+      z-index: -2;
+    }
+
+    /* ================= PARTICLE CANVAS ================= */
+    canvas#neural {
+      position: fixed;
+      inset: 0;
+      z-index: -1; /* above background, below content */
+      pointer-events: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ================= HEADER (DESKTOP – MATCH HOME) ================= */
+
+header {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  z-index: 40;
+}
+
+.page-wrap {
+  padding-top: 120px;
+}
+
+.nav {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.brand a:visited {
+  color: #ffffff;
+}
+
+.logo {
+  height: 52px;
+}
+
+.brand strong {
+  font-size: 22px;
+  letter-spacing: 0.6px;
+}
+
+.nav-box {
+  display: flex;
+  gap: 34px;
+  padding: 14px 36px;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 22px;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+  transition: 0.3s ease;
+}
+
+
+.nav-link,
+.nav-link:visited,
+.nav-link:active {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nav-box:hover {
+  background: #ffffff;
+  box-shadow: 0 0 55px rgba(255,255,255,0.95);
+}
+
+.nav-box:hover .nav-link {
+  color: #020617;
+}
+
+    /* ================= CONTENT ================= */
+    .container {
+      max-width: 660px;
+      margin: 0px auto 0;
+      padding: 0 22px;
+      animation: fadeUp 0.9s ease forwards;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 44px;
+      backdrop-filter: blur(18px);
+      position: relative;
+      transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45), 0 0 40px rgba(168,85,247,0.25);
+      border-color: rgba(255,255,255,0.35);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    h1 { font-size: 36px; margin-bottom: 14px; }
+    p { color: #ffffff; margin-bottom: 34px; line-height: 1.6; }
+
+    /* ================= FORM ================= */
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      margin-top: 22px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.3);
+      color: white;
+      font-size: 15px;
+    }
+
+    textarea { resize: vertical; min-height: 140px; }
+
+    /* ================= BUTTON ================= */
+    button {
+      margin-top: 30px;
+      background: var(--primary);
+      border: none;
+      padding: 14px 28px;
+      font-size: 15px;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: #ffffff;
+      color: #020617;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.9), 0 12px 30px rgba(37,99,235,0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 0 15px rgba(255,255,255,0.6);
+    }
+
+    footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+
+<body>
+
+<canvas id="neural"></canvas>
+
+<header>
+  <nav class="nav">
+    <div class="brand">
+      <a href="index.html" style="display: flex; gap: 10px; align-items: center; text-decoration: none; color: inherit;">
+        <img src="1983Logo2.png" class="logo" />
+        <strong>THE 1983 GROUP</strong>
+      </a>
+    </div>
+
+    <div class="nav-box">
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="contact.html" class="nav-link">Make My Video</a>
+      <a href="email.html" class="nav-link">Contact Us</a>
+    </div>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h1>Have a General Question?</h1>
+    <p>
+      Please provide details regarding your inquiry or any issue you’re experiencing, 
+      and we will respond as soon as possible.
+    </p>
+
+    <form action="https://formspree.io/f/xojapjkk" method="POST">
+      <label>Your Email</label>
+      <input type="email" name="email" required placeholder="you@company.com">
+
+      <label>Your Message</label>
+      <textarea name="message" required placeholder="Tell us about your project..."></textarea>
+
+      <button type="submit">Send Request</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  © 2025 THE 1983 GROUP. All rights reserved.
+</footer>
+
+<script>
+  // Particle animation
+  const canvas = document.getElementById('neural');
+  const ctx = canvas.getContext('2d');
+
+  let particles = [];
+  const particleCount = 100;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 3 + 1,
+      speedX: (Math.random() - 0.5) * 0.5,
+      speedY: (Math.random() - 0.5) * 0.5
+    });
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+
+      if (p.x > canvas.width) p.x = 0;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.y > canvas.height) p.y = 0;
+      if (p.y < 0) p.y = canvas.height;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.15)";
+      ctx.fill();
+    });
+
+    requestAnimationFrame(animateParticles);
+  }
+
+  animateParticles();
+</script>
+
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+  });
+</script>
+
+
+</body>
+</html>
