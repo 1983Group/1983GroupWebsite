@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport"
-  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
@@ -28,12 +26,6 @@
       font-weight: 600;
     }
 
-    html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-
     body {
       min-height: 100vh;
       color: #f8fafc;
@@ -44,14 +36,6 @@
       overflow-x: hidden;
     }
 
-    html,
-body {
-  touch-action: manipulation;
-  overscroll-behavior: none;
-  -webkit-text-size-adjust: 100%;
-}
-
-
     body::before {
       content: "";
       position: fixed;
@@ -59,6 +43,17 @@ body {
       background: rgba(2,6,23,0.6);
       z-index: -4;
     }
+
+    html,
+body {
+  touch-action: pan-x pan-y;
+  overscroll-behavior: none;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 
     body::after {
       content: "";
@@ -78,12 +73,6 @@ body {
       to { transform: translateY(-200px); }
     }
 
-    canvas#neural {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-    }
 
     /* Particle overlay on canvas */
     canvas#neural {
@@ -106,27 +95,22 @@ body {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    header {
-  margin: 0 auto;
+  header {
+  position: relative;
+  margin: 18px auto 0;
+  top: 18px;
+
   width: calc(100% - 48px);
   max-width: 1200px;
-  z-index: 40;
 
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 22px;
+  z-index: 10;
 
-  box-shadow:
-    0 10px 40px rgba(0,0,0,0.35),
-    inset 0 0 0 rgba(255,255,255,0);
-
-  transition:
-    transform 0.45s cubic-bezier(.2,.8,.2,1),
-    opacity 0.35s ease,
-    backdrop-filter 0.3s ease,
-    box-shadow 0.3s ease;
+  transform: none;
+  transition: none;
 }
+
+
+
 
 
 
@@ -156,7 +140,6 @@ body {
 
     .nav-box {
       position: absolute;
-      left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
       display: flex;
@@ -200,10 +183,6 @@ body {
       animation: fadeUp 1s ease forwards;
       animation-delay: 0.4s;
     }
-
-    * {
-  scroll-margin-top: 0 !important;
-}
 
 @media (max-width: 900px) {
   body {
@@ -276,16 +255,13 @@ body {
     /* 🔹 VIDEO RACK (UNCHANGED) */
     .video-feed {
       position: relative;
-      width: 100%;
-      max-width: 100%;
+      width: 100vw;
       margin-bottom: 100px;
-      padding: 0 24px;
+      padding: 0 60px;
       opacity: 0;
-      overflow-x: hidden;
       animation: fadeUp 1s ease forwards;
       animation-delay: 1.2s;
     }
-    
 
     .video-track {
       display: flex;
@@ -532,11 +508,6 @@ body {
       transform: translateY(-2px);
     }
 
-    @media (max-width: 900px) {
-      .hiw-box {
-        padding: 60px 28px;
-      }
-    }
 
 
     .hiw-label {
@@ -704,23 +675,21 @@ body {
 }
 
 body.menu-open header {
-  transform: translateX(-50%) translateY(0) !important;
-  opacity: 1 !important;
-
+  z-index: 50;
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.45),
-    inset 0 0 0 rgba(255,255,255,0);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  transform: translateY(0);
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 
+
 body.menu-open,
-body.menu-open {
+body.menu-open html {
   overflow: hidden;
   height: 100%;
-  touch-action: none;
 }
 
 .mobile-menu.open {
@@ -794,36 +763,18 @@ body.menu-open {
   .mobile-only { display: block; }
 }
 
+
+
+
+
 @media (max-width: 900px) {
-  header {
-    position: fixed;
-    top: calc(env(safe-area-inset-top) + 16px);
-    left: 50%;
-    transform: translateX(-50%);
+  body {
+    background-attachment: scroll;
   }
 }
 
 
-header {
-  transition:
-    transform 0.45s cubic-bezier(.2,.8,.2,1),
-    opacity 0.35s ease,
-    backdrop-filter 0.3s ease,
-    box-shadow 0.3s ease;
-}
 
-header.hide {
-  transform: translateX(-50%) translateY(-120%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-html.menu-open,
-body.menu-open {
-  overflow: hidden;
-  height: 100%;
-  touch-action: none;
-}
 
 
 
@@ -848,7 +799,7 @@ body.menu-open {
     <!-- Brand -->
     <div class="brand">
       <img src="1983Icon.png" class="logo" />
-      <strong>1983 GROUP</strong>
+      <strong>THE 1983 GROUP</strong>
     </div>
 
     <!-- Desktop nav -->
@@ -1138,7 +1089,7 @@ body.menu-open {
             <span>Preview sample video</span>
           </li>
           <li>
-            <span>Approve for production</span>
+            <span>Aprove for production</span>
           </li>
           <li>
             <span>Get final video via email</span>
@@ -1215,14 +1166,6 @@ body.menu-open {
 </script>
 
 <script>
-  // 🔒 iOS Safari: fully disable pinch zoom
-  document.addEventListener('gesturestart', e => e.preventDefault());
-  document.addEventListener('gesturechange', e => e.preventDefault());
-  document.addEventListener('gestureend', e => e.preventDefault());
-</script>
-
-
-<script>
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
@@ -1296,69 +1239,15 @@ body.menu-open {
 
   <script>
   const hamburger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobileMenu");
+  const mobileMenu = document.getElementById("mobileMenu");
 
-hamburger.addEventListener("click", () => {
-  const isOpen = hamburger.classList.toggle("active");
+  hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  mobileMenu.classList.toggle("open");
+  document.body.classList.toggle("menu-open");
 
-  mobileMenu.classList.toggle("open", isOpen);
-
-  // 🔒 Lock scroll properly (HTML + BODY)
-  document.documentElement.classList.toggle("menu-open", isOpen);
-  document.body.classList.toggle("menu-open", isOpen);
 });
-</script>
 
-
-<script>
-const header = document.querySelector("header");
-
-let lastScroll = window.scrollY;
-let ticking = false;
-
-window.addEventListener("scroll", () => {
-  if (ticking) return;
-
-  ticking = true;
-
-  requestAnimationFrame(() => {
-    const current = window.scrollY;
-
-    // 1️⃣ Never hide while menu is open
-    if (document.body.classList.contains("menu-open")) {
-      header.classList.remove("hide");
-      lastScroll = current;
-      ticking = false;
-      return;
-    }
-
-    // 2️⃣ Lock header when near top
-    if (current < 120) {
-      header.classList.remove("hide");
-      lastScroll = current;
-      ticking = false;
-      return;
-    }
-
-    const delta = current - lastScroll;
-
-    // 3️⃣ Ignore tiny scroll noise
-    if (Math.abs(delta) < 12) {
-      ticking = false;
-      return;
-    }
-
-    // 4️⃣ Hide only on intentional downward scroll
-    if (delta > 0) {
-      header.classList.add("hide");
-    } else {
-      header.classList.remove("hide");
-    }
-
-    lastScroll = current;
-    ticking = false;
-  });
-});
 </script>
 
 
