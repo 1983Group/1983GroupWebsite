@@ -109,11 +109,15 @@
         inset 0 0 0 rgba(255,255,255,0);
     }
 
-    html {
-  overflow-y: scroll;
+    body.menu-open header {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  z-index: 50;
 }
-
-
 
 
     .nav {
@@ -674,6 +678,18 @@
   transition: opacity 0.4s ease;
   padding-top: 110px;
 }
+
+body.menu-open header {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  z-index: 50;
+  touch-action: none;
+}
+
 
 body.menu-open,
 body.menu-open html {
