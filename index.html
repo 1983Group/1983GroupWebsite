@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+
   <title>THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
@@ -35,6 +37,14 @@
       background-attachment: fixed;
       overflow-x: hidden;
     }
+
+    html,
+body {
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
 
     body::before {
       content: "";
@@ -1199,6 +1209,14 @@ body.menu-open header {
 </script>
 
 <script>
+  // 🔒 iOS Safari: fully disable pinch zoom
+  document.addEventListener('gesturestart', e => e.preventDefault());
+  document.addEventListener('gesturechange', e => e.preventDefault());
+  document.addEventListener('gestureend', e => e.preventDefault());
+</script>
+
+
+<script>
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
@@ -1275,15 +1293,12 @@ body.menu-open header {
   const mobileMenu = document.getElementById("mobileMenu");
 
   hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  mobileMenu.classList.toggle("open");
-  document.body.classList.toggle("menu-open");
-
-  document.body.style.overflow =
-    mobileMenu.classList.contains("open") ? "hidden" : "";
-});
-
+    hamburger.classList.toggle("active");
+    mobileMenu.classList.toggle("open");
+    document.body.classList.toggle("menu-open");
+  });
 </script>
+
 
 <script>
 const header = document.querySelector("header");
