@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
@@ -44,17 +44,6 @@
       z-index: -4;
     }
 
-    html,
-body {
-  touch-action: pan-x pan-y;
-  overscroll-behavior: none;
-}
-
-html {
-  -webkit-text-size-adjust: 100%;
-}
-
-
     body::after {
       content: "";
       position: fixed;
@@ -73,6 +62,12 @@ html {
       to { transform: translateY(-200px); }
     }
 
+    canvas#neural {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+    }
 
     /* Particle overlay on canvas */
     canvas#neural {
@@ -95,23 +90,24 @@ html {
       to { opacity: 1; transform: translateY(0); }
     }
 
-  header {
-  position: relative;
-  margin: 18px auto 0;
-  top: 18px;
+    header {
+      position: relative;  
+      top: 18px;        
+      margin: 0 auto;
+      width: calc(100% - 48px);
+      max-width: 1200px;
+      z-index: 30;
 
-  width: calc(100% - 48px);
-  max-width: 1200px;
+      /* KEEP the glass look */
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
 
-  z-index: 10;
-
-  transform: none;
-  transition: none;
-}
-
-
-
-
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.35),
+        inset 0 0 0 rgba(255,255,255,0);
+    }
 
 
     .nav {
@@ -140,6 +136,7 @@ html {
 
     .nav-box {
       position: absolute;
+      left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
       display: flex;
@@ -183,6 +180,10 @@ html {
       animation: fadeUp 1s ease forwards;
       animation-delay: 0.4s;
     }
+
+    * {
+  scroll-margin-top: 0 !important;
+}
 
 @media (max-width: 900px) {
   body {
@@ -508,6 +509,11 @@ html {
       transform: translateY(-2px);
     }
 
+    @media (max-width: 900px) {
+      .hiw-box {
+        padding: 60px 28px;
+      }
+    }
 
 
     .hiw-label {
@@ -678,18 +684,19 @@ body.menu-open header {
   z-index: 50;
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-  transform: translateY(0);
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    inset 0 0 0 rgba(255,255,255,0);
+
+  touch-action: none;
 }
-
-
 
 body.menu-open,
 body.menu-open html {
   overflow: hidden;
   height: 100%;
+  touch-action: none;
 }
 
 .mobile-menu.open {
@@ -763,22 +770,33 @@ body.menu-open html {
   .mobile-only { display: block; }
 }
 
-
-
-
-
 @media (max-width: 900px) {
-  body {
-    background-attachment: scroll;
+  header {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1200px;
+    z-index: 40;
   }
 }
 
 
+@media (max-width: 900px) {
+  body {
+    padding-top: 110px;
+  }
+}
 
 
-
-
-
+header {
+  transition:
+    backdrop-filter 0.3s ease,
+    -webkit-backdrop-filter 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease;
+}
 
 
 
@@ -799,7 +817,7 @@ body.menu-open html {
     <!-- Brand -->
     <div class="brand">
       <img src="1983Icon.png" class="logo" />
-      <strong>THE 1983 GROUP</strong>
+      <strong>1983 GROUP</strong>
     </div>
 
     <!-- Desktop nav -->
@@ -1246,11 +1264,28 @@ body.menu-open html {
   mobileMenu.classList.toggle("open");
   document.body.classList.toggle("menu-open");
 
+  document.body.style.overflow =
+    mobileMenu.classList.contains("open") ? "hidden" : "";
 });
 
 </script>
 
+<script>
+let lastScroll = 0;
+const header = document.querySelector("header");
 
+window.addEventListener("scroll", () => {
+  const current = window.scrollY;
+
+  if (current > lastScroll && current > 120) {
+    header.style.transform = "translate(-50%, -120%)";
+  } else {
+    header.style.transform = "translate(-50%, 0)";
+  }
+
+  lastScroll = current;
+});
+</script>
 
 
   
