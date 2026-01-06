@@ -779,8 +779,10 @@ body.menu-open html {
     width: calc(100% - 48px);
     max-width: 1200px;
     z-index: 40;
+    will-change: transform, opacity;
   }
 }
+
 
 
 @media (max-width: 900px) {
@@ -789,14 +791,27 @@ body.menu-open html {
   }
 }
 
-
 header {
   transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    opacity 0.35s ease,
     backdrop-filter 0.3s ease,
-    -webkit-backdrop-filter 0.3s ease,
-    box-shadow 0.3s ease,
-    opacity 0.3s ease;
+    box-shadow 0.3s ease;
 }
+
+header.hide {
+  transform: translateX(-50%) translateY(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.menu-open header {
+  transform: translateX(-50%) translateY(0) !important;
+  opacity: 1 !important;
+}
+
+
+
 
 
 
@@ -1277,15 +1292,22 @@ const header = document.querySelector("header");
 window.addEventListener("scroll", () => {
   const current = window.scrollY;
 
-  if (current > lastScroll && current > 120) {
-    header.style.transform = "translate(-50%, -120%)";
-  } else {
-    header.style.transform = "translate(-50%, 0)";
+  // Ignore tiny scroll noise
+  if (Math.abs(current - lastScroll) < 6) return;
+
+  // Hide on scroll down
+  if (current > lastScroll && current > 140) {
+    header.classList.add("hide");
+  } 
+  // Show on scroll up
+  else {
+    header.classList.remove("hide");
   }
 
   lastScroll = current;
 });
 </script>
+
 
 
   
