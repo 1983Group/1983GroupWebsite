@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
@@ -43,17 +43,6 @@
       background: rgba(2,6,23,0.6);
       z-index: -4;
     }
-
-    html,
-body {
-  touch-action: pan-x pan-y;
-  overscroll-behavior: none;
-}
-
-html {
-  -webkit-text-size-adjust: 100%;
-}
-
 
     body::after {
       content: "";
@@ -191,6 +180,10 @@ html {
       animation: fadeUp 1s ease forwards;
       animation-delay: 0.4s;
     }
+
+    * {
+  scroll-margin-top: 0 !important;
+}
 
 @media (max-width: 900px) {
   body {
@@ -516,6 +509,11 @@ html {
       transform: translateY(-2px);
     }
 
+    @media (max-width: 900px) {
+      .hiw-box {
+        padding: 60px 28px;
+      }
+    }
 
 
     .hiw-label {
@@ -686,16 +684,19 @@ body.menu-open header {
   z-index: 50;
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
 
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    inset 0 0 0 rgba(255,255,255,0);
+
+  touch-action: none;
+}
 
 body.menu-open,
 body.menu-open html {
   overflow: hidden;
   height: 100%;
+  touch-action: none;
 }
 
 .mobile-menu.open {
@@ -773,22 +774,22 @@ body.menu-open html {
   header {
     position: fixed;
     top: calc(env(safe-area-inset-top) + 16px);
-    left: 24px;
-    right: 24px;
-    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
     max-width: 1200px;
     z-index: 40;
     will-change: transform, opacity;
   }
 }
 
+
+
 @media (max-width: 900px) {
   body {
-    background-attachment: scroll;
+    padding-top: 110px;
   }
 }
-
-
 
 header {
   transition:
@@ -802,6 +803,11 @@ header.hide {
   transform: translateX(-50%) translateY(-120%);
   opacity: 0;
   pointer-events: none;
+}
+
+body.menu-open header {
+  transform: translateX(-50%) translateY(0) !important;
+  opacity: 1 !important;
 }
 
 
@@ -1273,6 +1279,8 @@ header.hide {
   mobileMenu.classList.toggle("open");
   document.body.classList.toggle("menu-open");
 
+  document.body.style.overflow =
+    mobileMenu.classList.contains("open") ? "hidden" : "";
 });
 
 </script>
