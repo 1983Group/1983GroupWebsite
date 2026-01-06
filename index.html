@@ -771,14 +771,22 @@ body.menu-open html {
 
 @media (max-width: 900px) {
   header {
-    position: sticky;   
+    position: fixed;
     top: 18px;
-
-    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
     width: calc(100% - 48px);
+    max-width: 1200px;
     z-index: 40;
   }
 }
+
+@media (max-width: 900px) {
+  body {
+    padding-top: 110px;
+  }
+}
+
 
 
 body.menu-open header {
