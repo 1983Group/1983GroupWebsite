@@ -743,16 +743,17 @@
 
 @media (max-width: 900px) {
   header {
-    position: relative; /* scrolls normally */
-  }
-
-  body.menu-open header {
     position: fixed;
     top: 18px;
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 48px);
+    z-index: 40;
   }
+}
+
+body.menu-open header {
+  backdrop-filter: blur(26px);
 }
 
 body.menu-open header {
