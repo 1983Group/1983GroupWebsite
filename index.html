@@ -107,71 +107,80 @@ body {
     }
 
     header {
-  position: fixed;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto;
   width: calc(100% - 48px);
   max-width: 1200px;
   z-index: 40;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 22px;
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.35),
+    inset 0 0 0 rgba(255,255,255,0);
+
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    opacity 0.35s ease,
+    backdrop-filter 0.3s ease,
+    box-shadow 0.3s ease;
 }
-
-
 
 
 
     .nav {
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px; /* space between logo + nav options */
-}
+      height: 64px;
+      position: relative;
+    }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    .brand {
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
 
     .logo {
-  height: 52px; /* was 42px */
-}
+      height: 42px;        /* bigger logo */
+    }
 
-.brand strong {
-  font-size: 22px; /* was 18px */
-  letter-spacing: 0.6px;
-}
-
+    .brand strong {
+      font-size: 18px;
+      letter-spacing: 0.4px;
+    }
 
     .nav-box {
-  display: flex;
-  gap: 34px;               /* more spacing between links */
-  padding: 14px 36px;     /* bigger glass pill */
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(16px);
-  transition: 0.3s;
-}
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 26px;
+      padding: 10px 26px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      transition: 0.3s;
+    }
 
     .nav-box:hover {
-  background: #ffffff;
-  box-shadow: 0 0 55px rgba(255,255,255,0.95);
-  transform: translateY(-2px);
-}
+      background: #ffffff;
+      box-shadow: 0 0 45px rgba(255,255,255,0.9);
+      transform: translate(-50%, -50%) translateY(-2px);
+    }
 
 
-
-    .nav-link,
-.nav-link:visited,
-.nav-link:active {
-  color: #ffffff;
-  text-decoration: none;
-}
-
-
-
+    .nav-link {
+      color: #f8fafc;
+      text-decoration: none;
+      font-size: 16px;
+    }
 
     .nav-box:hover .nav-link {
       color: #020617;
@@ -182,6 +191,7 @@ body {
       margin: 40px auto 0;
       padding: 80px 24px 60px;
       text-align: center;
+      margin-top: 110px;
     }
 
     .hero h1 {
@@ -197,10 +207,9 @@ body {
 
 @media (max-width: 900px) {
   body {
-    padding-top: 88px;
+    padding-top: 110px;
   }
 }
-
 
 
     .hero p {
@@ -687,11 +696,11 @@ body {
   inset: 0;
   background: rgba(2, 6, 23, 0.65);
   backdrop-filter: blur(22px);
-  z-index: 100;
+  z-index: 20;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
-  padding-top: 88px;
+  padding-top: 110px;
 }
 
 body.menu-open header {
@@ -722,56 +731,12 @@ body.menu-open {
 .mobile-menu-inner {
   display: flex;
   flex-direction: column;
-  padding: 20px 36px 0;
-  justify-content: flex-start;
+  gap: 0;
+  padding: 28px 36px 0;
+  max-height: calc(100vh - 110px);
+  display: flex;
+  justify-content: center;
 }
-
-@media (max-width: 900px) {
-  body.menu-open header {
-    top: calc(env(safe-area-inset-top) + 8px);
-  }
-}
-
-@media (max-width: 768px) {
-
-  /* Hide normal bar when menu is open */
-  body.menu-open .mobile-bar {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* Make menu header IDENTICAL to mobile-bar */
-  .mobile-menu-header {
-    position: fixed;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 32px);
-    height: 64px;
-    padding: 0 18px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 22px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-
-    z-index: 2001;
-  }
-
-  /* Remove animation offset that caused jumping */
-  .mobile-menu-header {
-    opacity: 1;
-    transform: translateX(-50%);
-  }
-}
-
 
 
 .mobile-menu a {
@@ -807,22 +772,6 @@ body.menu-open {
   opacity: 0.85;
 }
 
-@media (max-width: 900px) {
-  .hero {
-    margin-top: 0;
-    padding: 36px 20px 48px;
-  }
-
-  .hero h1 {
-    font-size: clamp(44px, 9vw, 64px);
-  }
-
-  .hero p {
-    font-size: 18px;
-  }
-}
-
-
 
 
 .mobile-menu.open a:nth-child(1) { animation-delay: 0.1s; }
@@ -848,51 +797,20 @@ body.menu-open {
 @media (max-width: 900px) {
   header {
     position: fixed;
-    top: calc(env(safe-area-inset-top) + 8px);
+    top: calc(env(safe-area-inset-top) + 16px);
     left: 50%;
     transform: translateX(-50%);
-
-    width: calc(100% - 32px);
-    max-width: 420px;
-    padding: 14px 18px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    border-radius: 999px;
-  }
-}
-
-@media (max-width: 900px) {
-  header.scrolled,
-  header.large,
-  header.desktop,
-  header.expanded {
-    padding: 14px 18px;
-    width: calc(100% - 32px);
-    max-width: 420px;
-  }
-}
-
-@media (max-width: 900px) {
-  .hamburger {
-    margin-left: auto;
-    position: relative;
-    z-index: 60;
   }
 }
 
 
-@media (max-width: 900px) {
-  header.hide {
-    transform: translateX(-50%);
-    opacity: 1;
-    pointer-events: auto;
-  }
+header {
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    opacity 0.35s ease,
+    backdrop-filter 0.3s ease,
+    box-shadow 0.3s ease;
 }
-
-
 
 header.hide {
   transform: translateX(-50%) translateY(-120%);
@@ -906,15 +824,6 @@ body.menu-open {
   height: 100%;
   touch-action: none;
 }
-
-@media (max-width: 900px) {
-  header.hide {
-    transform: translateX(-50%);
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
 
 
 
@@ -939,7 +848,7 @@ body.menu-open {
     <!-- Brand -->
     <div class="brand">
       <img src="1983Icon.png" class="logo" />
-      <strong>THE 1983 GROUP</strong>
+      <strong>1983 GROUP</strong>
     </div>
 
     <!-- Desktop nav -->
@@ -1451,23 +1360,6 @@ window.addEventListener("scroll", () => {
   });
 });
 </script>
-
-<script>
-function closeMobileMenu() {
-  hamburger.classList.remove("active");
-  mobileMenu.classList.remove("open");
-  document.documentElement.classList.remove("menu-open");
-  document.body.classList.remove("menu-open");
-}
-
-/* Close menu when any mobile link is tapped */
-document.querySelectorAll(".mobile-menu a").forEach(link => {
-  link.addEventListener("click", closeMobileMenu);
-});
-</script>
-
-
-
 
 
 
