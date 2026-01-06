@@ -109,16 +109,6 @@
         inset 0 0 0 rgba(255,255,255,0);
     }
 
-    body.menu-open header {
-  position: fixed;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 48px);
-  max-width: 1200px;
-  z-index: 50;
-}
-
 
     .nav {
       height: 64px;
@@ -691,16 +681,16 @@
 }
 
 body.menu-open header {
-  position: fixed;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 48px);
-  max-width: 1200px;
   z-index: 50;
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    inset 0 0 0 rgba(255,255,255,0);
+
   touch-action: none;
 }
-
 
 body.menu-open,
 body.menu-open html {
@@ -800,16 +790,10 @@ body.menu-open html {
 }
 
 
-
-body.menu-open header {
-  backdrop-filter: blur(26px);
+header {
+  transition: transform 0.35s ease;
 }
 
-body.menu-open header {
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.45),
-    inset 0 0 0 rgba(255,255,255,0);
-}
 
 
 
@@ -1280,6 +1264,24 @@ body.menu-open header {
 });
 
 </script>
+
+<script>
+let lastScroll = 0;
+const header = document.querySelector("header");
+
+window.addEventListener("scroll", () => {
+  const current = window.scrollY;
+
+  if (current > lastScroll && current > 120) {
+    header.style.transform = "translate(-50%, -120%)";
+  } else {
+    header.style.transform = "translate(-50%, 0)";
+  }
+
+  lastScroll = current;
+});
+</script>
+
 
   
 
