@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>THE 1983 GROUP</title>
 
+  <link rel="icon" href="1983Icon.ico" type="image/x-icon">
+
+  <link rel="apple-touch-icon" href="1983Icon.png">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -277,6 +281,11 @@
       height: 100%;
       object-fit: cover;
     }
+
+    .video-card video::cue {
+  object-fit: cover;
+}
+
 
     /* 🔊 VIDEO AUDIO OVERLAY */
     .video-card::after {
@@ -612,6 +621,97 @@
       color: #020617;
     }
 
+    .hamburger {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: white;
+  margin: 5px 0;
+  transition: 0.35s ease;
+  border-radius: 2px;
+}
+
+/* X state */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.65);
+  backdrop-filter: blur(22px);
+  z-index: 15;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  padding-left: 36px;
+}
+
+.mobile-menu a {
+  font-size: 34px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.mobile-menu.open a:nth-child(1) { animation-delay: 0.1s; }
+.mobile-menu.open a:nth-child(2) { animation-delay: 0.2s; }
+.mobile-menu.open a:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+    .desktop-only { display: flex; }
+.mobile-only { display: none; }
+
+@media (max-width: 900px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+}
+
+
+
   </style>
 </head>
 
@@ -621,18 +721,38 @@
 
 <header>
   <nav class="nav">
+    <!-- Brand -->
     <div class="brand">
-      <img src="1983Logo2.png" class="logo" />
-      <strong>THE 1983 GROUP</strong>
+      <img src="1983Icon.png" class="logo" />
+      <strong>1983 GROUP</strong>
     </div>
 
-    <div class="nav-box">
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="contact.html" class="nav-link">Make My Video</a>
-      <a href="email.html" class="nav-link">Contact Us</a>
+    <!-- Desktop nav -->
+    <div class="nav-box desktop-only">
+      <a href="about.html" class="nav-link">About</a>
+      <a href="make.html" class="nav-link">Make My Video</a>
+      <a href="contact.html" class="nav-link">Contact</a>
     </div>
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger mobile-only" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 </header>
+
+<!-- Mobile overlay menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="about.html">About Us</a>
+    <a href="make.html">Make My Video</a>
+    <a href="contact.html">Contact Us</a>
+  </div>
+</div>
+
+
 
 <section class="hero">
   <h1>AI Ads That Work</h1>
@@ -843,6 +963,7 @@
   </div>
 </section>
 
+
 <!-- 🔹 ANALYTICS -->
 <section class="analytics-box">
   <div class="analytics-item">
@@ -887,7 +1008,7 @@
             <span>Submit your ad details</span>
           </li>
           <li>
-            <span>We review &contact you</span>
+            <span>We review & contact you</span>
           </li>
           <li>
             <span>Preview sample video</span>
@@ -915,6 +1036,11 @@
 
 
 <footer>© 2025 THE 1983 GROUP. All rights reserved.</footer>
+
+<script>
+  const R2_BASE = "https://21e0ff427cc08e577d7977eb53319e36.r2.cloudflarestorage.com/1983groupwebsitevideos/";
+</script>
+
 
 <script>
   function scrollVideos(dir) {
@@ -1026,6 +1152,19 @@
   
   animateParticles();
   </script>
+
+  <script>
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    mobileMenu.classList.toggle("open");
+    document.body.style.overflow =
+      mobileMenu.classList.contains("open") ? "hidden" : "";
+  });
+</script>
+
   
 
 
