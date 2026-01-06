@@ -28,6 +28,12 @@
       font-weight: 600;
     }
 
+    html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
     body {
       min-height: 100vh;
       color: #f8fafc;
@@ -101,23 +107,27 @@ body {
     }
 
     header {
-      position: relative;  
-      top: 18px;        
-      margin: 0 auto;
-      width: calc(100% - 48px);
-      max-width: 1200px;
-      z-index: 30;
+  margin: 0 auto;
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  z-index: 40;
 
-      /* KEEP the glass look */
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 22px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 22px;
 
-      box-shadow:
-        0 10px 40px rgba(0,0,0,0.35),
-        inset 0 0 0 rgba(255,255,255,0);
-    }
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.35),
+    inset 0 0 0 rgba(255,255,255,0);
+
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    opacity 0.35s ease,
+    backdrop-filter 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
 
 
     .nav {
@@ -266,13 +276,16 @@ body {
     /* 🔹 VIDEO RACK (UNCHANGED) */
     .video-feed {
       position: relative;
-      width: 100vw;
+      width: 100%;
+      max-width: 100%;
       margin-bottom: 100px;
-      padding: 0 60px;
+      padding: 0 24px;
       opacity: 0;
+      overflow-x: hidden;
       animation: fadeUp 1s ease forwards;
       animation-delay: 1.2s;
     }
+    
 
     .video-track {
       display: flex;
@@ -691,19 +704,20 @@ body {
 }
 
 body.menu-open header {
-  z-index: 50;
+  transform: translateX(-50%) translateY(0) !important;
+  opacity: 1 !important;
+
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
 
   box-shadow:
     0 20px 60px rgba(0,0,0,0.45),
     inset 0 0 0 rgba(255,255,255,0);
-
-  touch-action: none;
 }
 
+
 body.menu-open,
-body.menu-open html {
+body.menu-open {
   overflow: hidden;
   height: 100%;
   touch-action: none;
@@ -786,20 +800,9 @@ body.menu-open html {
     top: calc(env(safe-area-inset-top) + 16px);
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% - 48px);
-    max-width: 1200px;
-    z-index: 40;
-    will-change: transform, opacity;
   }
 }
 
-
-
-@media (max-width: 900px) {
-  body {
-    padding-top: 110px;
-  }
-}
 
 header {
   transition:
@@ -815,10 +818,13 @@ header.hide {
   pointer-events: none;
 }
 
-body.menu-open header {
-  transform: translateX(-50%) translateY(0) !important;
-  opacity: 1 !important;
+html.menu-open,
+body.menu-open {
+  overflow: hidden;
+  height: 100%;
+  touch-action: none;
 }
+
 
 
 
@@ -1132,7 +1138,7 @@ body.menu-open header {
             <span>Preview sample video</span>
           </li>
           <li>
-            <span>Aprove for production</span>
+            <span>Approve for production</span>
           </li>
           <li>
             <span>Get final video via email</span>
@@ -1290,13 +1296,17 @@ body.menu-open header {
 
   <script>
   const hamburger = document.getElementById("hamburger");
-  const mobileMenu = document.getElementById("mobileMenu");
+const mobileMenu = document.getElementById("mobileMenu");
 
-  hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    mobileMenu.classList.toggle("open");
-    document.body.classList.toggle("menu-open");
-  });
+hamburger.addEventListener("click", () => {
+  const isOpen = hamburger.classList.toggle("active");
+
+  mobileMenu.classList.toggle("open", isOpen);
+
+  // 🔒 Lock scroll properly (HTML + BODY)
+  document.documentElement.classList.toggle("menu-open", isOpen);
+  document.body.classList.toggle("menu-open", isOpen);
+});
 </script>
 
 
