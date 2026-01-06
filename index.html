@@ -1286,27 +1286,56 @@ body.menu-open header {
 </script>
 
 <script>
-let lastScroll = 0;
 const header = document.querySelector("header");
 
+let lastScroll = window.scrollY;
+let ticking = false;
+
 window.addEventListener("scroll", () => {
-  const current = window.scrollY;
+  if (ticking) return;
 
-  // Ignore tiny scroll noise
-  if (Math.abs(current - lastScroll) < 6) return;
+  ticking = true;
 
-  // Hide on scroll down
-  if (current > lastScroll && current > 140) {
-    header.classList.add("hide");
-  } 
-  // Show on scroll up
-  else {
-    header.classList.remove("hide");
-  }
+  requestAnimationFrame(() => {
+    const current = window.scrollY;
 
-  lastScroll = current;
+    // 1️⃣ Never hide while menu is open
+    if (document.body.classList.contains("menu-open")) {
+      header.classList.remove("hide");
+      lastScroll = current;
+      ticking = false;
+      return;
+    }
+
+    // 2️⃣ Lock header when near top
+    if (current < 120) {
+      header.classList.remove("hide");
+      lastScroll = current;
+      ticking = false;
+      return;
+    }
+
+    const delta = current - lastScroll;
+
+    // 3️⃣ Ignore tiny scroll noise
+    if (Math.abs(delta) < 12) {
+      ticking = false;
+      return;
+    }
+
+    // 4️⃣ Hide only on intentional downward scroll
+    if (delta > 0) {
+      header.classList.add("hide");
+    } else {
+      header.classList.remove("hide");
+    }
+
+    lastScroll = current;
+    ticking = false;
+  });
 });
 </script>
+
 
 
 
