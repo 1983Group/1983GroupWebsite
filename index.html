@@ -851,8 +851,47 @@ body.menu-open {
     top: calc(env(safe-area-inset-top) + 8px);
     left: 50%;
     transform: translateX(-50%);
+
+    width: calc(100% - 32px);
+    max-width: 420px;
+    padding: 14px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 999px;
   }
 }
+
+@media (max-width: 900px) {
+  header.scrolled,
+  header.large,
+  header.desktop,
+  header.expanded {
+    padding: 14px 18px;
+    width: calc(100% - 32px);
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hamburger {
+    margin-left: auto;
+    position: relative;
+    z-index: 60;
+  }
+}
+
+
+@media (max-width: 900px) {
+  header.hide {
+    transform: translateX(-50%);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 
 
 header.hide {
