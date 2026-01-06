@@ -28,13 +28,13 @@
 
     body {
       min-height: 100vh;
-      padding-top: px;
       color: #f8fafc;
       background-image: url("PurpleBackground2.jpg");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       overflow-x: hidden;
+      padding-top: 110px; 
     }
 
     body::before {
@@ -1149,10 +1149,19 @@ body.menu-open header {
     history.scrollRestoration = 'manual';
   }
 
+  // Desktop + most browsers
   window.addEventListener('load', () => {
     window.scrollTo(0, 0);
   });
+
+  // 🔥 Mobile Safari fix
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      window.scrollTo(0, 0);
+    }
+  });
 </script>
+
 
 
 <script>
