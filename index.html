@@ -191,6 +191,17 @@
       animation-delay: 0.4s;
     }
 
+    * {
+  scroll-margin-top: 0 !important;
+}
+
+@media (max-width: 900px) {
+  body {
+    padding-top: 110px;
+  }
+}
+
+
     .hero p {
       font-size: 20px;
       max-width: 600px;
@@ -772,7 +783,7 @@ body.menu-open html {
 @media (max-width: 900px) {
   header {
     position: fixed;
-    top: 18px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 48px);
@@ -780,6 +791,7 @@ body.menu-open html {
     z-index: 40;
   }
 }
+
 
 @media (max-width: 900px) {
   body {
