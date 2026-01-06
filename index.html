@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+
   <title>THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
@@ -26,6 +28,12 @@
       font-weight: 600;
     }
 
+    html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
     body {
       min-height: 100vh;
       color: #f8fafc;
@@ -35,6 +43,14 @@
       background-attachment: fixed;
       overflow-x: hidden;
     }
+
+    html,
+body {
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
 
     body::before {
       content: "";
@@ -91,23 +107,27 @@
     }
 
     header {
-      position: relative;  
-      top: 18px;        
-      margin: 0 auto;
-      width: calc(100% - 48px);
-      max-width: 1200px;
-      z-index: 30;
+  margin: 0 auto;
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  z-index: 40;
 
-      /* KEEP the glass look */
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 22px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 22px;
 
-      box-shadow:
-        0 10px 40px rgba(0,0,0,0.35),
-        inset 0 0 0 rgba(255,255,255,0);
-    }
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.35),
+    inset 0 0 0 rgba(255,255,255,0);
+
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    opacity 0.35s ease,
+    backdrop-filter 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
 
 
     .nav {
@@ -256,13 +276,16 @@
     /* 🔹 VIDEO RACK (UNCHANGED) */
     .video-feed {
       position: relative;
-      width: 100vw;
+      width: 100%;
+      max-width: 100%;
       margin-bottom: 100px;
-      padding: 0 60px;
+      padding: 0 24px;
       opacity: 0;
+      overflow-x: hidden;
       animation: fadeUp 1s ease forwards;
       animation-delay: 1.2s;
     }
+    
 
     .video-track {
       display: flex;
@@ -681,19 +704,20 @@
 }
 
 body.menu-open header {
-  z-index: 50;
+  transform: translateX(-50%) translateY(0) !important;
+  opacity: 1 !important;
+
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
 
   box-shadow:
     0 20px 60px rgba(0,0,0,0.45),
     inset 0 0 0 rgba(255,255,255,0);
-
-  touch-action: none;
 }
 
+
 body.menu-open,
-body.menu-open html {
+body.menu-open {
   overflow: hidden;
   height: 100%;
   touch-action: none;
@@ -776,27 +800,34 @@ body.menu-open html {
     top: calc(env(safe-area-inset-top) + 16px);
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% - 48px);
-    max-width: 1200px;
-    z-index: 40;
-  }
-}
-
-
-@media (max-width: 900px) {
-  body {
-    padding-top: 110px;
   }
 }
 
 
 header {
   transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    opacity 0.35s ease,
     backdrop-filter 0.3s ease,
-    -webkit-backdrop-filter 0.3s ease,
-    box-shadow 0.3s ease,
-    opacity 0.3s ease;
+    box-shadow 0.3s ease;
 }
+
+header.hide {
+  transform: translateX(-50%) translateY(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.menu-open,
+body.menu-open {
+  overflow: hidden;
+  height: 100%;
+  touch-action: none;
+}
+
+
+
+
 
 
 
@@ -1107,7 +1138,7 @@ header {
             <span>Preview sample video</span>
           </li>
           <li>
-            <span>Aprove for production</span>
+            <span>Approve for production</span>
           </li>
           <li>
             <span>Get final video via email</span>
@@ -1184,6 +1215,14 @@ header {
 </script>
 
 <script>
+  // 🔒 iOS Safari: fully disable pinch zoom
+  document.addEventListener('gesturestart', e => e.preventDefault());
+  document.addEventListener('gesturechange', e => e.preventDefault());
+  document.addEventListener('gestureend', e => e.preventDefault());
+</script>
+
+
+<script>
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
@@ -1257,35 +1296,72 @@ header {
 
   <script>
   const hamburger = document.getElementById("hamburger");
-  const mobileMenu = document.getElementById("mobileMenu");
+const mobileMenu = document.getElementById("mobileMenu");
 
-  hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  mobileMenu.classList.toggle("open");
-  document.body.classList.toggle("menu-open");
+hamburger.addEventListener("click", () => {
+  const isOpen = hamburger.classList.toggle("active");
 
-  document.body.style.overflow =
-    mobileMenu.classList.contains("open") ? "hidden" : "";
+  mobileMenu.classList.toggle("open", isOpen);
+
+  // 🔒 Lock scroll properly (HTML + BODY)
+  document.documentElement.classList.toggle("menu-open", isOpen);
+  document.body.classList.toggle("menu-open", isOpen);
 });
-
 </script>
+
 
 <script>
-let lastScroll = 0;
 const header = document.querySelector("header");
 
+let lastScroll = window.scrollY;
+let ticking = false;
+
 window.addEventListener("scroll", () => {
-  const current = window.scrollY;
+  if (ticking) return;
 
-  if (current > lastScroll && current > 120) {
-    header.style.transform = "translate(-50%, -120%)";
-  } else {
-    header.style.transform = "translate(-50%, 0)";
-  }
+  ticking = true;
 
-  lastScroll = current;
+  requestAnimationFrame(() => {
+    const current = window.scrollY;
+
+    // 1️⃣ Never hide while menu is open
+    if (document.body.classList.contains("menu-open")) {
+      header.classList.remove("hide");
+      lastScroll = current;
+      ticking = false;
+      return;
+    }
+
+    // 2️⃣ Lock header when near top
+    if (current < 120) {
+      header.classList.remove("hide");
+      lastScroll = current;
+      ticking = false;
+      return;
+    }
+
+    const delta = current - lastScroll;
+
+    // 3️⃣ Ignore tiny scroll noise
+    if (Math.abs(delta) < 12) {
+      ticking = false;
+      return;
+    }
+
+    // 4️⃣ Hide only on intentional downward scroll
+    if (delta > 0) {
+      header.classList.add("hide");
+    } else {
+      header.classList.remove("hide");
+    }
+
+    lastScroll = current;
+    ticking = false;
+  });
 });
 </script>
+
+
 
 
   
