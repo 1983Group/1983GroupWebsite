@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
   <title>Make My Video | THE 1983 GROUP</title>
 
   <link rel="icon" href="1983Icon.ico" type="image/x-icon">
-
   <link rel="apple-touch-icon" href="1983Icon.png">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -25,6 +23,18 @@
       padding: 0;
       font-family: "Poppins", sans-serif;
       font-weight: 600;
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    html,
+    body {
+      touch-action: manipulation;
+      overscroll-behavior: none;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -61,90 +71,328 @@
 
     /* ================= HEADER (DESKTOP – MATCH HOME) ================= */
 
-header {
-  position: fixed;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 48px);
-  max-width: 1200px;
-  z-index: 40;
-}
+    header {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 1200px;
+      z-index: 40;
+    }
 
-.page-wrap {
-  padding-top: 120px;
-}
+    .page-wrap {
+      padding-top: 120px;
+    }
 
-.nav {
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-}
+    .nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
 
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    .brand a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
 
-.brand a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: #ffffff;
-}
+    .brand a:visited {
+      color: #ffffff;
+    }
 
-.brand a:visited {
-  color: #ffffff;
-}
+    .logo {
+      height: 52px;
+    }
 
-.logo {
-  height: 52px;
-}
+    .brand strong {
+      font-size: 22px;
+      letter-spacing: 0.6px;
+    }
 
-.brand strong {
-  font-size: 22px;
-  letter-spacing: 0.6px;
-}
+    .nav-box {
+      display: flex;
+      gap: 34px;
+      padding: 14px 36px;
 
-.nav-box {
-  display: flex;
-  gap: 34px;
-  padding: 14px 36px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
 
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
 
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 22px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+      transition: 0.3s ease;
+    }
 
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-  transition: 0.3s ease;
-}
+    .nav-link,
+    .nav-link:visited,
+    .nav-link:active {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+    }
 
+    .nav-box:hover {
+      background: #ffffff;
+      box-shadow: 0 0 55px rgba(255,255,255,0.95);
+    }
 
-.nav-link,
-.nav-link:visited,
-.nav-link:active {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 600;
-}
+    .nav-box:hover .nav-link {
+      color: #020617;
+    }
 
-.nav-box:hover {
-  background: #ffffff;
-  box-shadow: 0 0 55px rgba(255,255,255,0.95);
-}
+    /* ================= MOBILE HEADER OVERRIDES (MATCH ABOUT/CONTACT) ================= */
+    @media (max-width: 900px) {
+      header {
+        position: fixed;
+        top: calc(env(safe-area-inset-top) + 16px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 48px);
+        max-width: 1200px;
+        z-index: 40;
 
-.nav-box:hover .nav-link {
-  color: #020617;
-}
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 22px;
+
+        box-shadow:
+          0 10px 40px rgba(0,0,0,0.35),
+          inset 0 0 0 rgba(255,255,255,0);
+
+        transition:
+          transform 0.45s cubic-bezier(.2,.8,.2,1),
+          opacity 0.35s ease,
+          backdrop-filter 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .nav {
+        height: 64px;
+        position: relative;
+      }
+
+      .brand {
+        position: absolute;
+        left: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        gap: 10px;
+      }
+
+      .logo {
+        height: 42px;
+      }
+
+      .brand strong {
+        font-size: 18px;
+        letter-spacing: 0.4px;
+      }
+
+      header.hide {
+        transform: translateX(-50%) translateY(-120%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      body {
+        padding-top: 110px;
+      }
+    }
+
+    /* ================= HAMBURGER ================= */
+    .hamburger {
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: white;
+      margin: 5px 0;
+      transition: 0.35s ease;
+      border-radius: 2px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ================= MOBILE MENU ================= */
+    .mobile-menu {
+      overflow: hidden;
+      overscroll-behavior: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.65);
+      backdrop-filter: blur(22px);
+      z-index: 20;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      padding-top: 110px;
+    }
+
+    body.menu-open header {
+      transform: translateX(-50%) translateY(0) !important;
+      opacity: 1 !important;
+
+      backdrop-filter: blur(26px);
+      -webkit-backdrop-filter: blur(26px);
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.45),
+        inset 0 0 0 rgba(255,255,255,0);
+    }
+
+    body.menu-open,
+    html.menu-open {
+      overflow: hidden;
+      height: 100%;
+      touch-action: none;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 28px 36px 0;
+      max-height: calc(100vh - 110px);
+      justify-content: center;
+    }
+
+    .mobile-menu a {
+      font-size: 32px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+
+      padding: 22px 0;
+      position: relative;
+
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .mobile-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255,255,255,0.25),
+        transparent
+      );
+    }
+
+    .mobile-menu a:hover {
+      opacity: 0.85;
+    }
+
+    .mobile-menu.open a:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-menu.open a:nth-child(2) { animation-delay: 0.2s; }
+    .mobile-menu.open a:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .desktop-only { display: flex; }
+    .mobile-only { display: none; }
+
+    @media (max-width: 900px) {
+      .desktop-only { display: none; }
+      .mobile-only { display: block; }
+    }
+
+    /* HARD RESET JUST FOR THIS BUTTON – MATCH CONTACT PAGE */
+    #hamburger {
+      all: unset;
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 20;
+      display: none; /* hidden by default (desktop) */
+    }
+
+    #hamburger:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    #hamburger span {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      height: 2px;
+      margin: 5px 0;
+      background-color: #ffffff;
+      border-radius: 2px;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    #hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    #hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    #hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 900px) {
+      #hamburger {
+        display: block; /* show only on mobile */
+      }
+    }
 
     /* ================= CONTENT ================= */
     .container {
@@ -248,19 +496,35 @@ header {
       </a>
     </div>
 
-    <div class="nav-box">
+    <div class="nav-box desktop-only">
       <a href="about.html" class="nav-link">About Us</a>
       <a href="contact.html" class="nav-link">Make My Video</a>
       <a href="email.html" class="nav-link">Contact Us</a>
     </div>
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger mobile-only" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 </header>
+
+<!-- Mobile overlay menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Make My Video</a>
+    <a href="email.html">Contact Us</a>
+  </div>
+</div>
 
 <div class="container">
   <div class="card">
     <h1>Have a General Question?</h1>
     <p>
-      Please provide details regarding your inquiry or any issue you’re experiencing, 
+      Please provide details regarding your inquiry or any issue you’re experiencing,
       and we will respond as soon as possible.
     </p>
 
@@ -339,6 +603,66 @@ header {
   });
 </script>
 
+<script>
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburger.addEventListener("click", () => {
+    const isOpen = hamburger.classList.toggle("active");
+
+    mobileMenu.classList.toggle("open", isOpen);
+
+    document.documentElement.classList.toggle("menu-open", isOpen);
+    document.body.classList.toggle("menu-open", isOpen);
+  });
+</script>
+
+<script>
+  const header = document.querySelector("header");
+
+  let lastScroll = window.scrollY;
+  let ticking = false;
+
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+
+    ticking = true;
+
+    requestAnimationFrame(() => {
+      const current = window.scrollY;
+
+      if (document.body.classList.contains("menu-open")) {
+        header.classList.remove("hide");
+        lastScroll = current;
+        ticking = false;
+        return;
+      }
+
+      if (current < 120) {
+        header.classList.remove("hide");
+        lastScroll = current;
+        ticking = false;
+        return;
+      }
+
+      const delta = current - lastScroll;
+
+      if (Math.abs(delta) < 12) {
+        ticking = false;
+        return;
+      }
+
+      if (delta > 0) {
+        header.classList.add("hide");
+      } else {
+        header.classList.remove("hide");
+      }
+
+      lastScroll = current;
+      ticking = false;
+    });
+  });
+</script>
 
 </body>
 </html>
