@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Make My Video | THE 1983 GROUP</title>
 
+  <link rel="icon" href="1983Icon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="1983Icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -22,133 +24,319 @@
       font-weight: 600;
     }
 
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    html,
     body {
-  min-height: 100vh;
-  padding-top: 120px; /* Adjust this to give space for the header */
-  color: #f8fafc;
-  background-image: url("PurpleBackground2.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  overflow-x: hidden;
-}
+      touch-action: manipulation;
+      overscroll-behavior: none;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #f8fafc;
+      background-image: url("PurpleBackground2.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       background: rgba(2,6,23,0.6);
-      z-index: -2;
+      z-index: -4;
     }
 
-    /* ================= PARTICLE CANVAS ================= */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      z-index: -3;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px),
+        radial-gradient(circle, rgba(37,99,235,0.06) 1px, transparent 1px);
+      background-size: 220px 220px;
+      animation: particleDrift 90s linear infinite;
+    }
+
+    @keyframes particleDrift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-200px); }
+    }
+
     canvas#neural {
       position: fixed;
       inset: 0;
-      z-index: -1; /* above background, below content */
+      z-index: -2;
       pointer-events: none;
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-       /* ================= HEADER (DESKTOP – MATCH HOME) ================= */
+    /* ================= HEADER (DESKTOP – SAME AS ABOUT) ================= */
+    header {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 1200px;
+      z-index: 40;
+    }
+
+    .nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .brand a:visited {
+      color: #ffffff;
+    }
+
+    .logo {
+      height: 52px;
+    }
+
+    .brand strong {
+      font-size: 22px;
+      letter-spacing: 0.6px;
+    }
+
+    .nav-box {
+      display: flex;
+      gap: 34px;
+      padding: 14px 36px;
+
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
+
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+      transition: 0.3s ease;
+    }
+
+    .nav-link,
+    .nav-link:visited,
+    .nav-link:active {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .nav-box:hover {
+      background: #ffffff;
+      box-shadow: 0 0 55px rgba(255,255,255,0.95);
+    }
+
+    .nav-box:hover .nav-link {
+      color: #020617;
+    }
+
+    /* ================= MOBILE HEADER OVERRIDES (SAME AS ABOUT) ================= */
+    @media (max-width: 900px) {
+      header {
+        position: fixed;
+        top: calc(env(safe-area-inset-top) + 16px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 48px);
+        max-width: 1200px;
+        z-index: 40;
+
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 22px;
+
+        box-shadow:
+          0 10px 40px rgba(0,0,0,0.35),
+          inset 0 0 0 rgba(255,255,255,0);
+
+        transition:
+          transform 0.45s cubic-bezier(.2,.8,.2,1),
+          opacity 0.35s ease,
+          backdrop-filter 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .nav {
+        height: 64px;
+        position: relative;
+      }
+
+      .brand {
+        position: absolute;
+        left: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        gap: 10px;
+      }
+
+      .logo {
+        height: 42px;
+      }
+
+      .brand strong {
+        font-size: 18px;
+        letter-spacing: 0.4px;
+      }
+
+      header.hide {
+        transform: translateX(-50%) translateY(-120%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      body {
+        padding-top: 110px;
+      }
+    }
 
 
-header {
-  position: fixed;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 48px);
-  max-width: 1200px;
-  z-index: 40;
-  padding: 0 24px; /* Adjust padding if needed */
-}
+    /* ================= MOBILE MENU (SAME AS ABOUT) ================= */
+    .mobile-menu {
+      overflow: hidden;
+      overscroll-behavior: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.65);
+      backdrop-filter: blur(22px);
+      z-index: 20;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      padding-top: 110px;
+    }
 
-.page-wrap {
-  padding-top: 120px;
-}
+    body.menu-open header {
+      transform: translateX(-50%) translateY(0) !important;
+      opacity: 1 !important;
 
-.nav {
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-}
+      backdrop-filter: blur(26px);
+      -webkit-backdrop-filter: blur(26px);
 
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.45),
+        inset 0 0 0 rgba(255,255,255,0);
+    }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    body.menu-open,
+    html.menu-open {
+      overflow: hidden;
+      height: 100%;
+      touch-action: none;
+    }
 
-.brand a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: #ffffff;
-}
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-.brand a:visited {
-  color: #ffffff;
-}
+    .mobile-menu-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 28px 36px 0;
+      max-height: calc(100vh - 110px);
+      justify-content: center;
+    }
 
-.logo {
-  height: 52px;
-}
+    .mobile-menu a {
+      font-size: 32px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
 
-.brand strong {
-  font-size: 22px;
-  letter-spacing: 0.6px;
-}
+      padding: 22px 0;
+      position: relative;
 
-.nav-box {
-  display: flex;
-  gap: 34px;
-  padding: 14px 36px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.5s ease forwards;
+    }
 
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+    .mobile-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255,255,255,0.25),
+        transparent
+      );
+    }
 
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 22px;
+    .mobile-menu a:hover {
+      opacity: 0.85;
+    }
 
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-  transition: 0.3s ease;
-}
+    .mobile-menu.open a:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-menu.open a:nth-child(2) { animation-delay: 0.2s; }
+    .mobile-menu.open a:nth-child(3) { animation-delay: 0.3s; }
 
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.nav-link,
-.nav-link:visited,
-.nav-link:active {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.nav-box:hover {
-  background: #ffffff;
-  box-shadow: 0 0 55px rgba(255,255,255,0.95);
-}
-
-.nav-box:hover .nav-link {
-  color: #020617;
-}
-
-    /* ================= CONTENT ================= */
+    /* ================= CONTACT CONTENT (YOUR FORM) ================= */
     .container {
       max-width: 660px;
-      margin: 40px auto 0;
-      padding: 0 22px;
-      animation: fadeUp 0.9s ease forwards;
+      margin: 0 auto;
+      padding: 180px 24px 80px;
+      text-align: left;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 0.4s;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        padding-top: 120px;
+      }
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 16px;
     }
 
     .card {
@@ -167,12 +355,15 @@ header {
       border-color: rgba(255,255,255,0.35);
     }
 
-    h1 { font-size: 32px; margin-bottom: 12px; }
-    p { margin-bottom: 28px; line-height: 1.6; }
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      margin-top: 20px;
+      display: block;
+    }
 
-    label { font-size: 14px; margin-bottom: 6px; margin-top: 20px; }
-
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       padding: 12px;
       border-radius: 10px;
@@ -182,7 +373,9 @@ header {
       font-size: 14.5px;
     }
 
-    textarea { min-height: 130px; }
+    textarea {
+      min-height: 130px;
+    }
 
     button {
       margin-top: 28px;
@@ -204,51 +397,103 @@ header {
     }
 
     .request-steps {
-  list-style: none;
-  counter-reset: step;
-  margin-bottom: 32px;
-  padding-left: 0;
-}
+      list-style: none;
+      counter-reset: step;
+      margin-bottom: 32px;
+      padding-left: 0;
+    }
 
-.request-steps li {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 14px;
-  font-size: 15.5px;
-  font-weight: 400;
-  line-height: 1.35;
-}
+    .request-steps li {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      font-size: 15.5px;
+      font-weight: 400;
+      line-height: 1.35;
+    }
 
-.request-steps li::before {
-  counter-increment: step;
-  content: counter(step);
-  flex-shrink: 0;
+    .request-steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(165,180,252,0.6);
+      color: #a5b4fc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .request-steps span {
+      display: block;
+      opacity: 0.8;
+    }
+
+    footer {
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* --- FORCE CORRECT HAMBURGER APPEARANCE ON CONTACT PAGE --- */
+#hamburger {
+  all: unset;                 /* wipe any inherited button styles */
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: rgba(99,102,241,0.15);
-  border: 1px solid rgba(165,180,252,0.6);
-  color: #a5b4fc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.request-steps strong {
+  height: 22px;
+  cursor: pointer;
+  z-index: 20;
   display: block;
-  margin-bottom: 2px;
-  font-weight: 600;
 }
 
-.request-steps span {
+#hamburger:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* the three horizontal bars */
+#hamburger .hamburger-line {
   display: block;
-  opacity: 0.8;
+  box-sizing: border-box;
+  width: 100%;
+  height: 2px;
+  margin: 5px 0;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.35s ease, opacity 0.35s ease, background-color 0.35s ease;
 }
 
+/* X state */
+#hamburger.active .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+#hamburger.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+#hamburger.active .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
 
-    footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
+/* visibility helpers (same behavior as other pages) */
+.desktop-only { display: flex; }
+.mobile-only { display: none; }
+
+@media (max-width: 900px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+}
+
   </style>
 </head>
 
@@ -259,23 +504,41 @@ header {
 <header>
   <nav class="nav">
     <div class="brand">
-      <a href="index.html" style="display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;">
-        <img src="1983Icon.png" class="logo" />
+      <a href="index.html">
+        <img src="1983Icon.png" class="logo">
         <strong>THE 1983 GROUP</strong>
       </a>
     </div>
 
-    <div class="nav-box">
+    <div class="nav-box desktop-only">
       <a href="about.html" class="nav-link">About Us</a>
       <a href="contact.html" class="nav-link">Make My Video</a>
       <a href="email.html" class="nav-link">Contact Us</a>
     </div>
+
+<button class="hamburger mobile-only" id="hamburger">
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+</button>
+
+
   </nav>
 </header>
+
+<!-- Mobile overlay menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Make My Video</a>
+    <a href="email.html">Contact Us</a>
+  </div>
+</div>
 
 <div class="container">
   <div class="card">
     <h1>Make My Video</h1>
+
     <ol class="request-steps">
       <li>
         <span>Describe your brand, product or service</span>
@@ -286,7 +549,7 @@ header {
       <li>
         <span>Add subtitles or video edits?</span>
       </li>
-    
+    </ol>
 
     <form action="https://formspree.io/f/mkowbgbj" method="POST">
       <label>Your Email</label>
@@ -300,12 +563,37 @@ header {
   </div>
 </div>
 
-<footer>© 2025 THE 1983 GROUP. All rights reserved.</footer>
+<footer>
+  © 2025 THE 1983 GROUP. All rights reserved.
+</footer>
 
 <script>
-  // Particle animation
-  const canvas = document.getElementById('neural');
-  const ctx = canvas.getContext('2d');
+  // iOS Safari: fully disable pinch zoom
+  document.addEventListener('gesturestart', e => e.preventDefault());
+  document.addEventListener('gesturechange', e => e.preventDefault());
+  document.addEventListener('gestureend', e => e.preventDefault());
+</script>
+
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+  });
+
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      window.scrollTo(0, 0);
+    }
+  });
+</script>
+
+<script>
+  /* ================= PARTICLE SYSTEM ================= */
+  const canvas = document.getElementById("neural");
+  const ctx = canvas.getContext("2d");
 
   let particles = [];
   const particleCount = 100;
@@ -352,15 +640,65 @@ header {
 </script>
 
 <script>
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
 
-  window.addEventListener('load', () => {
-    window.scrollTo(0, 0);
+  hamburger.addEventListener("click", () => {
+    const isOpen = hamburger.classList.toggle("active");
+
+    mobileMenu.classList.toggle("open", isOpen);
+
+    document.documentElement.classList.toggle("menu-open", isOpen);
+    document.body.classList.toggle("menu-open", isOpen);
   });
 </script>
 
+<script>
+  const header = document.querySelector("header");
+
+  let lastScroll = window.scrollY;
+  let ticking = false;
+
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+
+    ticking = true;
+
+    requestAnimationFrame(() => {
+      const current = window.scrollY;
+
+      if (document.body.classList.contains("menu-open")) {
+        header.classList.remove("hide");
+        lastScroll = current;
+        ticking = false;
+        return;
+      }
+
+      if (current < 120) {
+        header.classList.remove("hide");
+        lastScroll = current;
+        ticking = false;
+        return;
+      }
+
+      const delta = current - lastScroll;
+
+      if (Math.abs(delta) < 12) {
+        ticking = false;
+        return;
+      }
+
+      if (delta > 0) {
+        header.classList.add("hide");
+      } else {
+        header.classList.remove("hide");
+      }
+
+      lastScroll = current;
+      ticking = false;
+    });
+  });
+</script>
 
 </body>
 </html>
