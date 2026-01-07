@@ -443,9 +443,9 @@
       color: var(--muted);
     }
 
-    /* --- FORCE CORRECT HAMBURGER APPEARANCE ON CONTACT PAGE --- */
+/* HARD RESET JUST FOR THIS BUTTON */
 #hamburger {
-  all: unset;                 /* wipe any inherited button styles */
+  all: unset;              /* wipe all default + earlier styles */
   position: absolute;
   right: 22px;
   top: 50%;
@@ -457,13 +457,14 @@
   display: block;
 }
 
+/* remove focus bubble */
 #hamburger:focus {
   outline: none;
   box-shadow: none;
 }
 
 /* the three horizontal bars */
-#hamburger .hamburger-line {
+#hamburger span {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -471,27 +472,41 @@
   margin: 5px 0;
   background-color: #ffffff;
   border-radius: 2px;
-  transition: transform 0.35s ease, opacity 0.35s ease, background-color 0.35s ease;
+  transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
 /* X state */
-#hamburger.active .hamburger-line:nth-child(1) {
+#hamburger.active span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
-#hamburger.active .hamburger-line:nth-child(2) {
+#hamburger.active span:nth-child(2) {
   opacity: 0;
 }
-#hamburger.active .hamburger-line:nth-child(3) {
+#hamburger.active span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* visibility helpers (same behavior as other pages) */
+/* visibility helpers (keep these too) */
 .desktop-only { display: flex; }
 .mobile-only { display: none; }
 
 @media (max-width: 900px) {
   .desktop-only { display: none; }
   .mobile-only { display: block; }
+}
+
+/* DESKTOP vs MOBILE VISIBILITY – ID-BASED OVERRIDE */
+
+/* default: hide hamburger on desktop */
+#hamburger {
+  display: none;
+}
+
+/* show hamburger only on mobile sizes */
+@media (max-width: 900px) {
+  #hamburger {
+    display: block;
+  }
 }
 
   </style>
