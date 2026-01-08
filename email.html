@@ -480,189 +480,226 @@
     }
 
     footer { margin-top: 80px; text-align: center; font-size: 13px; color: var(--muted); }
+
+    /* ===== MOBILE CARD + BUTTON LAYOUT (match Make My Video page) ===== */
+    @media (max-width: 900px) {
+      .container {
+        padding-top: 30px;
+        margin-top: -30px;
+      }
+
+      .card {
+        padding: 18px 18px 26px;  /* extra bottom padding so glass wraps button */
+        max-height: 75dvh;        /* dynamic viewport height for iOS */
+      }
+
+      h1 {
+        font-size: 26px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      label {
+        margin-top: 14px;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+
+      textarea {
+        min-height: 80px;
+        margin-bottom: 6px;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 10px 22px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
-
 <body>
+  <canvas id="neural"></canvas>
 
-<canvas id="neural"></canvas>
+  <header>
+    <nav class="nav">
+      <div class="brand">
+        <a href="index.html" style="display: flex; gap: 10px; align-items: center; text-decoration: none; color: inherit;">
+          <img src="1983Icon.png" class="logo" />
+          <strong>THE 1983 GROUP</strong>
+        </a>
+      </div>
 
-<header>
-  <nav class="nav">
-    <div class="brand">
-      <a href="index.html" style="display: flex; gap: 10px; align-items: center; text-decoration: none; color: inherit;">
-        <img src="1983Icon.png" class="logo" />
-        <strong>THE 1983 GROUP</strong>
-      </a>
+      <div class="nav-box desktop-only">
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Make My Video</a>
+        <a href="email.html" class="nav-link">Contact Us</a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger mobile-only" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Mobile overlay menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Make My Video</a>
+      <a href="email.html">Contact Us</a>
     </div>
+  </div>
 
-    <div class="nav-box desktop-only">
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="contact.html" class="nav-link">Make My Video</a>
-      <a href="email.html" class="nav-link">Contact Us</a>
+  <div class="container">
+    <div class="card">
+      <h1>Have a General Question?</h1>
+      <p>
+        Please provide details regarding your inquiry or any issue you’re experiencing,
+        and we will respond as soon as possible.
+      </p>
+
+      <form action="https://formspree.io/f/xojapjkk" method="POST">
+        <label>Your Email</label>
+        <input type="email" name="email" required placeholder="you@company.com">
+
+        <label>Your Message</label>
+        <textarea name="message" required placeholder="Tell us about your project..."></textarea>
+
+        <button type="submit">Send Request</button>
+      </form>
     </div>
-
-    <!-- Mobile hamburger -->
-    <button class="hamburger mobile-only" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </nav>
-</header>
-
-<!-- Mobile overlay menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-inner">
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Make My Video</a>
-    <a href="email.html">Contact Us</a>
   </div>
-</div>
 
-<div class="container">
-  <div class="card">
-    <h1>Have a General Question?</h1>
-    <p>
-      Please provide details regarding your inquiry or any issue you’re experiencing,
-      and we will respond as soon as possible.
-    </p>
+  <footer>
+    © 2025 THE 1983 GROUP. All rights reserved.
+  </footer>
 
-    <form action="https://formspree.io/f/xojapjkk" method="POST">
-      <label>Your Email</label>
-      <input type="email" name="email" required placeholder="you@company.com">
+  <script>
+    // Particle animation
+    const canvas = document.getElementById('neural');
+    const ctx = canvas.getContext('2d');
 
-      <label>Your Message</label>
-      <textarea name="message" required placeholder="Tell us about your project..."></textarea>
+    let particles = [];
+    const particleCount = 100;
 
-      <button type="submit">Send Request</button>
-    </form>
-  </div>
-</div>
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-<footer>
-  © 2025 THE 1983 GROUP. All rights reserved.
-</footer>
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5
+      });
+    }
 
-<script>
-  // Particle animation
-  const canvas = document.getElementById('neural');
-  const ctx = canvas.getContext('2d');
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  let particles = [];
-  const particleCount = 100;
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+        if (p.x > canvas.width) p.x = 0;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.y > canvas.height) p.y = 0;
+        if (p.y < 0) p.y = canvas.height;
 
-  for (let i = 0; i < particleCount; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 3 + 1,
-      speedX: (Math.random() - 0.5) * 0.5,
-      speedY: (Math.random() - 0.5) * 0.5
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.15)";
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+  </script>
+
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    window.addEventListener('load', () => {
+      window.scrollTo(0, 0);
     });
-  }
+  </script>
 
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-    particles.forEach(p => {
-      p.x += p.speedX;
-      p.y += p.speedY;
+    hamburger.addEventListener("click", () => {
+      const isOpen = hamburger.classList.toggle("active");
 
-      if (p.x > canvas.width) p.x = 0;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.y > canvas.height) p.y = 0;
-      if (p.y < 0) p.y = canvas.height;
+      mobileMenu.classList.toggle("open", isOpen);
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255,255,255,0.15)";
-      ctx.fill();
+      document.documentElement.classList.toggle("menu-open", isOpen);
+      document.body.classList.toggle("menu-open", isOpen);
     });
+  </script>
 
-    requestAnimationFrame(animateParticles);
-  }
+  <script>
+    const header = document.querySelector("header");
 
-  animateParticles();
-</script>
+    let lastScroll = window.scrollY;
+    let ticking = false;
 
-<script>
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
 
-  window.addEventListener('load', () => {
-    window.scrollTo(0, 0);
-  });
-</script>
+      ticking = true;
 
-<script>
-  const hamburger = document.getElementById("hamburger");
-  const mobileMenu = document.getElementById("mobileMenu");
+      requestAnimationFrame(() => {
+        const current = window.scrollY;
 
-  hamburger.addEventListener("click", () => {
-    const isOpen = hamburger.classList.toggle("active");
+        if (document.body.classList.contains("menu-open")) {
+          header.classList.remove("hide");
+          lastScroll = current;
+          ticking = false;
+          return;
+        }
 
-    mobileMenu.classList.toggle("open", isOpen);
+        if (current < 120) {
+          header.classList.remove("hide");
+          lastScroll = current;
+          ticking = false;
+          return;
+        }
 
-    document.documentElement.classList.toggle("menu-open", isOpen);
-    document.body.classList.toggle("menu-open", isOpen);
-  });
-</script>
+        const delta = current - lastScroll;
 
-<script>
-  const header = document.querySelector("header");
+        if (Math.abs(delta) < 12) {
+          ticking = false;
+          return;
+        }
 
-  let lastScroll = window.scrollY;
-  let ticking = false;
+        if (delta > 0) {
+          header.classList.add("hide");
+        } else {
+          header.classList.remove("hide");
+        }
 
-  window.addEventListener("scroll", () => {
-    if (ticking) return;
-
-    ticking = true;
-
-    requestAnimationFrame(() => {
-      const current = window.scrollY;
-
-      if (document.body.classList.contains("menu-open")) {
-        header.classList.remove("hide");
         lastScroll = current;
         ticking = false;
-        return;
-      }
-
-      if (current < 120) {
-        header.classList.remove("hide");
-        lastScroll = current;
-        ticking = false;
-        return;
-      }
-
-      const delta = current - lastScroll;
-
-      if (Math.abs(delta) < 12) {
-        ticking = false;
-        return;
-      }
-
-      if (delta > 0) {
-        header.classList.add("hide");
-      } else {
-        header.classList.remove("hide");
-      }
-
-      lastScroll = current;
-      ticking = false;
+      });
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
