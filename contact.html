@@ -24,17 +24,16 @@
       font-weight: 600;
     }
 
-    html, body {
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
+    /* Disable scrolling – same as About page */
     html,
     body {
+      max-width: 100%;
+      height: 100%;
+      overflow: hidden;
       touch-action: manipulation;
       overscroll-behavior: none;
       -webkit-text-size-adjust: 100%;
-    }
+    } /*[web:61][web:64]*/
 
     body {
       min-height: 100vh;
@@ -43,7 +42,6 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      overflow-x: hidden;
     }
 
     body::before {
@@ -134,14 +132,11 @@
       display: flex;
       gap: 34px;
       padding: 14px 36px;
-
       background: rgba(255,255,255,0.08);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-
       border: 1px solid rgba(255,255,255,0.18);
       border-radius: 22px;
-
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
       transition: 0.3s ease;
     }
@@ -224,7 +219,6 @@
       }
     }
 
-
     /* ================= MOBILE MENU (SAME AS ABOUT) ================= */
     .mobile-menu {
       overflow: hidden;
@@ -278,10 +272,8 @@
       color: white;
       text-decoration: none;
       font-weight: 600;
-
       padding: 22px 0;
       position: relative;
-
       opacity: 0;
       transform: translateY(10px);
       animation: fadeInUp 0.5s ease forwards;
@@ -328,9 +320,11 @@
       animation-delay: 0.4s;
     }
 
+    /* MOBILE: move card up under blue line */
     @media (max-width: 900px) {
       .container {
-        padding-top: 120px;
+        padding-top: 60px;
+        margin-top: -60px;
       }
     }
 
@@ -443,72 +437,54 @@
       color: var(--muted);
     }
 
-/* HARD RESET JUST FOR THIS BUTTON */
-#hamburger {
-  all: unset;              /* wipe all default + earlier styles */
-  position: absolute;
-  right: 22px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 22px;
-  cursor: pointer;
-  z-index: 20;
-  display: block;
-}
+    /* HARD RESET JUST FOR THIS BUTTON */
+    #hamburger {
+      all: unset;
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 20;
+      display: none; /* hidden on desktop */
+    }
 
-/* remove focus bubble */
-#hamburger:focus {
-  outline: none;
-  box-shadow: none;
-}
+    #hamburger:focus {
+      outline: none;
+      box-shadow: none;
+    }
 
-/* the three horizontal bars */
-#hamburger span {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  height: 2px;
-  margin: 5px 0;
-  background-color: #ffffff;
-  border-radius: 2px;
-  transition: transform 0.35s ease, opacity 0.35s ease;
-}
+    #hamburger span {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      height: 2px;
+      margin: 5px 0;
+      background-color: #ffffff;
+      border-radius: 2px;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
 
-/* X state */
-#hamburger.active span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-#hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-#hamburger.active span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
+    #hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    #hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    #hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
-/* visibility helpers (keep these too) */
-.desktop-only { display: flex; }
-.mobile-only { display: none; }
+    .desktop-only { display: flex; }
+    .mobile-only { display: none; }
 
-@media (max-width: 900px) {
-  .desktop-only { display: none; }
-  .mobile-only { display: block; }
-}
-
-/* DESKTOP vs MOBILE VISIBILITY – ID-BASED OVERRIDE */
-
-/* default: hide hamburger on desktop */
-#hamburger {
-  display: none;
-}
-
-/* show hamburger only on mobile sizes */
-@media (max-width: 900px) {
-  #hamburger {
-    display: block;
-  }
-}
-
+    @media (max-width: 900px) {
+      .desktop-only { display: none; }
+      .mobile-only { display: block; }
+      #hamburger { display: block; }
+    }
   </style>
 </head>
 
@@ -531,14 +507,11 @@
       <a href="email.html" class="nav-link">Contact Us</a>
     </div>
 
-<button class="hamburger mobile-only" id="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-
-
+    <button class="hamburger mobile-only" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 </header>
 
@@ -556,15 +529,9 @@
     <h1>Make My Video</h1>
 
     <ol class="request-steps">
-      <li>
-        <span>Describe your brand, product or service</span>
-      </li>
-      <li>
-        <span>Share your ad concept, goals, and keywords or phrases</span>
-      </li>
-      <li>
-        <span>Add subtitles or video edits?</span>
-      </li>
+      <li><span>Describe your brand, product or service</span></li>
+      <li><span>Share your ad concept, goals, and keywords or phrases</span></li>
+      <li><span>Add subtitles or video edits?</span></li>
     </ol>
 
     <form action="https://formspree.io/f/mkowbgbj" method="POST">
