@@ -478,7 +478,7 @@
       #hamburger { display: block; }
     }
 
-/* MOBILE: keep card high and make everything shorter so button fits */
+/* FINAL MOBILE OVERRIDES – keep card high and fully wrap button */
 @media (max-width: 900px) {
   .container {
     padding-top: 30px;
@@ -486,8 +486,8 @@
   }
 
   .card {
-    padding: 18px 18px 40px;
-    max-height: 70dvh;     /* uses dynamic viewport height on iOS */
+    padding: 18px 18px 26px;  /* extra bottom padding so glass extends below button */
+    max-height: 75dvh;        /* a bit taller so nothing is clipped */
   }
 
   h1 {
@@ -508,10 +508,11 @@
 
   textarea {
     min-height: 80px;
+    margin-bottom: 6px;
   }
 
   button {
-    margin-top: 10px;
+    margin-top: 10px;         /* small gap above button */
     padding: 10px 22px;
     font-size: 14px;
   }
