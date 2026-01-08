@@ -705,5 +705,22 @@
       });
     });
   </script>
+
+  <script>
+  // Prevent page from moving when focusing inputs on mobile
+  function lockToTop() {
+    // Small timeout lets Safari finish its "focus scroll" then snaps back
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  }
+
+  const focusElements = document.querySelectorAll('input, textarea');
+
+  focusElements.forEach(el => {
+    el.addEventListener('focus', lockToTop);
+  });
+</script>
+
 </body>
 </html>
