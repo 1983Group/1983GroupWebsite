@@ -320,14 +320,6 @@
       animation-delay: 0.4s;
     }
 
-    /* MOBILE: move card up under blue line */
-    @media (max-width: 900px) {
-      .container {
-        padding-top: 60px;
-        margin-top: -60px;
-      }
-    }
-
     h1 {
       font-size: 32px;
       margin-bottom: 16px;
@@ -485,6 +477,28 @@
       .mobile-only { display: block; }
       #hamburger { display: block; }
     }
+
+    /* FINAL MOBILE OVERRIDES – make card shorter and keep it high */
+@media (max-width: 900px) {
+  .container {
+    padding-top: 30px;   /* very tight */
+    margin-top: -40px;   /* keep card up under header */
+  }
+
+  .card {
+    padding: 16px 18px;
+    max-height: 65vh;    /* noticeably shorter card */
+  }
+
+  textarea {
+    min-height: 80px;    /* smaller message box */
+  }
+
+  button {
+    margin-top: 12px;    /* less space above button */
+  }
+}
+
   </style>
 </head>
 
