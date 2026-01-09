@@ -905,6 +905,7 @@ header.hide {
 
 
 
+
 html.menu-open,
 body.menu-open {
   overflow: hidden;
@@ -1426,9 +1427,7 @@ let lastScroll = window.scrollY;
 let ticking = false;
 
 // how far from top to always keep header shown
-const TOP_ALWAYS_SHOW = 20;      // px
-// how much to scroll up before showing again
-const SHOW_ON_UP_DELTA = 25;     // px
+const TOP_ALWAYS_SHOW = 20; // px
 
 window.addEventListener("scroll", () => {
   if (ticking) return;
@@ -1455,29 +1454,23 @@ window.addEventListener("scroll", () => {
 
     const delta = current - lastScroll;
 
-    // 3️⃣ Ignore micro scroll noise
-    if (Math.abs(delta) < 4) {
+    // 3️⃣ Ignore micro jitter
+    if (Math.abs(delta) < 1) {
       ticking = false;
       return;
     }
 
+    // 4️⃣ Any real scroll DOWN: hide header
     if (delta > 0) {
-      // 4️⃣ Any real scroll DOWN past top: hide header immediately
       header.classList.add("hide");
-    } else if (delta < -SHOW_ON_UP_DELTA) {
-      // 5️⃣ Scroll UP: only show if not at very bottom
-      const scrollBottom = window.innerHeight + current;
-      const docHeight = document.documentElement.scrollHeight;
-
-      if (docHeight - scrollBottom > 40) {
-        header.classList.remove("hide");
-      }
     }
+    // 5️⃣ On scroll UP: do nothing (keep whatever state it is in)
 
     lastScroll = current;
     ticking = false;
   });
 });
+
 
 
 </script>
