@@ -1006,7 +1006,7 @@ body.menu-open {
     padding: 10px 22px;
     font-size: 14px;
   }
-}
+
 
 
 
@@ -1553,7 +1553,6 @@ window.addEventListener("scroll", () => {
 </script>
 
 <script>
-  // Smooth scroll with offset so mobile shows the whole How It Works card
   document.querySelectorAll('a[href="#how-it-works"]').forEach(link => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
@@ -1564,24 +1563,19 @@ window.addEventListener("scroll", () => {
       const rect = target.getBoundingClientRect();
       const absoluteTop = rect.top + window.pageYOffset;
 
-      // Offset: push a bit further down so the button is visible on mobile
-      const offset = 140;  // tweak 120–160px to taste
+      // Scroll so roughly the middle of the card is near the viewport center
+      const headerOffset = 80;                  // space for fixed header
+      const extraOffset = window.innerHeight / 3; // push further down
+      const scrollTo = absoluteTop - headerOffset + extraOffset;
 
       window.scrollTo({
-        top: absoluteTop - offset,
+        top: scrollTo,
         behavior: 'smooth'
       });
     });
   });
 </script>
 
-
-
-
-
-
-
-  
 
 
 
