@@ -560,7 +560,7 @@ body {
       color: #a5b4fc;
       font-size: 13px;
       letter-spacing: 2px;
-      margin-bottom: 12px;
+      margin-bottom: -7px;
     }
 
     .hiw-text h2 {
@@ -575,7 +575,6 @@ body {
       opacity: 0.9;
     } 
 
-    /* 🔹 IMAGE STACK (WHITE MOCK STYLE) */
     .hiw-stack {
       position: relative;
       width: 420px;
@@ -583,7 +582,6 @@ body {
       margin: 0 auto;
     }
 
-    /* Shared image style */
     .hiw-img {
       position: absolute;
       width: 260px;
@@ -610,7 +608,6 @@ body {
     }
 
 
-    /* Positions (center-heavy like mock) */
     .img-1 {
       top: 0;
       left: 80px;
@@ -629,7 +626,6 @@ body {
       z-index: 1;
     }
 
-    /* 🔹 Hover animation (subtle premium motion) */
     .hiw-stack:hover .img-1 {
       transform: translateY(-14px) scale(1.04);
       box-shadow: 0 40px 90px rgba(0,0,0,0.55);
@@ -655,7 +651,6 @@ body {
       animation: fadeUp 1s ease forwards;
       animation-delay: 1.4s;
     }
-    /* 🔹 ANALYTICS HOVER EFFECT */
     .analytics-box {
       transition: background 0.35s ease, box-shadow 0.35s ease;
     }
@@ -665,7 +660,6 @@ body {
       box-shadow: 0 0 40px rgba(255, 255, 255, 0.9);
     }
 
-    /* Change text to black on hover */
     .analytics-box:hover .analytics-item h3,
     .analytics-box:hover .analytics-item p {
       color: #020617;
@@ -694,7 +688,6 @@ body {
   border-radius: 2px;
 }
 
-/* X state */
 .hamburger.active span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
@@ -759,13 +752,11 @@ body.menu-open {
 
 @media (max-width: 768px) {
 
-  /* Hide normal bar when menu is open */
   body.menu-open .mobile-bar {
     opacity: 0;
     pointer-events: none;
   }
 
-  /* Make menu header IDENTICAL to mobile-bar */
   .mobile-menu-header {
     position: fixed;
     top: 12px;
@@ -790,7 +781,6 @@ body.menu-open {
     z-index: 2001;
   }
 
-  /* Remove animation offset that caused jumping */
   .mobile-menu-header {
     opacity: 1;
     transform: translateX(-50%);
@@ -872,7 +862,6 @@ body.menu-open {
 
 @media (max-width: 900px) {
   header {
-    /* layout (keep what already worked) */
     position: fixed;
     top: calc(env(safe-area-inset-top) + 8px);
     left: 50%;
@@ -885,7 +874,6 @@ body.menu-open {
     align-items: center;
     justify-content: space-between;
 
-    /* 👇 GLASS RESTORED */
     background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(18px) saturate(160%);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
@@ -922,9 +910,9 @@ body.menu-open {
     width: 90%;
     max-width: 100%;
     margin: 0 auto 80px;
-    padding: 20px 10px;        /* less vertical padding */
+    padding: 20px 10px;        
     border-radius: 18px;
-    grid-template-columns: repeat(3, 1fr); /* keep 3 columns */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 16px;
   }
 
@@ -937,7 +925,6 @@ body.menu-open {
   }
 }
 
-/* MOBILE: shorter glass box, larger images sitting on red line */
 @media (max-width: 900px) {
 
   .hiw-box {
@@ -946,7 +933,6 @@ body.menu-open {
     padding-bottom: 32px;
   }
 
-  /* 2) Keep grid as one column: image stack above, text below */
   .hiw-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -959,37 +945,35 @@ body.menu-open {
     justify-content: center;
   }
 
-  /* 3) Enlarge the stack so it visually touches the “red line” area
-        but does NOT leave the glass box */
+
   .hiw-stack {
     position: relative;
-    width: 240px;   /* slightly smaller than 260px */
-    height: 310px;  /* slightly shorter than 340px */
+    width: 240px;   
+    height: 310px;  
     margin: 0 auto;
   }
 
   .hiw-img {
-    width: 155px;   /* was 180px – reduces overlap but still large */
+    width: 155px;   
     border-radius: 24px;
   }
 
-  /* Offsets tuned so bottom card rests just above the text */
   .img-1 { top: 0;    left: 50px;  z-index: 3; }
   .img-2 { top: 42px; left: 105px; z-index: 2; }
   .img-3 { top: 84px; left: 0;     z-index: 1; }
 
   .hiw-text {
     margin-top: 50px;
-    text-align: center;          /* center text */
-    display: flex;               /* flex container */
-    flex-direction: column;      /* vertical stack */
-    justify-content: center;     /* vertical centering */
-    align-items: center;         /* horizontal centering */
-    height: 100%;                /* take full height of hiw-box column */
+    text-align: center;          
+    display: flex;               
+    flex-direction: column;      
+    justify-content: center;     
+    align-items: center;         
+    height: 100%;                
   }
 
     .hiw-steps {
-    margin-top: 24px;
+    margin-top: 0px;
     max-width: 100%;
   }
 
@@ -1011,7 +995,7 @@ body.menu-open {
 
   .cta-btn {
     margin-top: 24px;
-    align-self: center;          /* keep button centered */
+    align-self: center;          
   }
 }
 
@@ -1020,7 +1004,6 @@ body.menu-open {
     font-size: 20px;
   }
 
-/* MOBILE: 2 vertical cards visible, 1 horizontal card visible */
 @media (max-width: 900px) {
 
   .video-feed {
@@ -1033,7 +1016,6 @@ body.menu-open {
     scroll-snap-type: x mandatory;
   }
 
-  /* Base card */
   .video-card {
     position: relative;
     flex: 0 0 auto;
@@ -1047,15 +1029,13 @@ body.menu-open {
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   }
 
-  /* Vertical: half width (two in frame) */
   .video-card.vertical {
     width: calc(50vw - 28px);
     aspect-ratio: 9 / 16;
   }
 
-  /* Horizontal: full rail width (one in frame) */
   .video-card.horizontal {
-    width: calc(100vw - 64px);  /* viewport minus page padding */
+    width: calc(100vw - 64px);  
     aspect-ratio: 16 / 9;
   }
 
