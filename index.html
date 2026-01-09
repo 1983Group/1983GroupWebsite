@@ -978,21 +978,28 @@ body.menu-open {
   .img-2 { top: 42px; left: 105px; z-index: 2; }
   .img-3 { top: 84px; left: 0;     z-index: 1; }
 
-  /* 4) Nudge text down slightly so images visually sit on top of it */
   .hiw-text {
-    margin-top: 50px;   /* try 40; if still tight, bump to 48–56 */
-    text-align: left;
+    margin-top: 50px;
+    text-align: center;          /* center text */
+    display: flex;               /* flex container */
+    flex-direction: column;      /* vertical stack */
+    justify-content: center;     /* vertical centering */
+    align-items: center;         /* horizontal centering */
+    height: 100%;                /* take full height of hiw-box column */
   }
-}
 
+    .hiw-steps {
+    margin-top: 24px;
+    max-width: 100%;
+  }
 
   .hiw-text h2 {
-    font-size: 28px;
+    font-size: 40px;
     margin-bottom: 12px;
   }
 
   .hiw-steps li {
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 10px;
   }
 
@@ -1003,12 +1010,14 @@ body.menu-open {
   }
 
   .cta-btn {
-    margin-top: 20px;
+    margin-top: 24px;
+    align-self: center;          /* keep button centered */
   }
+}
 
   .cta-btn a {
     padding: 10px 22px;
-    font-size: 14px;
+    font-size: 20px;
   }
 
 /* MOBILE: 2 vertical cards visible, 1 horizontal card visible */
