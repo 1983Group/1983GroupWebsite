@@ -933,6 +933,82 @@ body.menu-open {
   }
 }
 
+/* MOBILE: shorter glass box, larger images sitting on red line */
+@media (max-width: 900px) {
+
+  .hiw-box {
+    max-width: 100%;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  /* 2) Keep grid as one column: image stack above, text below */
+  .hiw-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    align-items: center;
+  }
+
+  .hiw-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* 3) Enlarge the stack so it visually touches the “red line” area
+        but does NOT leave the glass box */
+  .hiw-stack {
+    position: relative;
+    width: 240px;   /* slightly smaller than 260px */
+    height: 310px;  /* slightly shorter than 340px */
+    margin: 0 auto;
+  }
+
+  .hiw-img {
+    width: 165px;   /* was 180px – reduces overlap but still large */
+    border-radius: 24px;
+  }
+
+  /* Offsets tuned so bottom card rests just above the text */
+  .img-1 { top: 0;    left: 50px;  z-index: 3; }
+  .img-2 { top: 42px; left: 105px; z-index: 2; }
+  .img-3 { top: 84px; left: 0;     z-index: 1; }
+
+  /* 4) Nudge text down slightly so images visually sit on top of it */
+  .hiw-text {
+    margin-top: 4px;   /* if heading is still too close, bump to 8–10px */
+    text-align: left;
+  }
+
+
+  .hiw-text h2 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .hiw-steps li {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .hiw-steps li::before {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+
+  .cta-btn {
+    margin-top: 20px;
+  }
+
+  .cta-btn a {
+    padding: 10px 22px;
+    font-size: 14px;
+  }
+}
+
+
+
 
 
 
