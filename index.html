@@ -897,10 +897,13 @@ body.menu-open {
 
 
 header.hide {
-  transform: translateX(-50%) translateY(-120%);
+  transform: translateY(-120%);
   opacity: 0;
   pointer-events: none;
 }
+
+
+
 
 html.menu-open,
 body.menu-open {
@@ -1422,15 +1425,19 @@ const header = document.querySelector("header");
 let lastScroll = window.scrollY;
 let ticking = false;
 
+// how far from top to always keep header shown
+const TOP_ALWAYS_SHOW = 20;      // px
+// how much to scroll up before showing again
+const SHOW_ON_UP_DELTA = 25;     // px
+
 window.addEventListener("scroll", () => {
   if (ticking) return;
-
   ticking = true;
 
   requestAnimationFrame(() => {
     const current = window.scrollY;
 
-    // 1️⃣ Never hide while menu is open
+    // 1️⃣ If menu is open, header must be visible
     if (document.body.classList.contains("menu-open")) {
       header.classList.remove("hide");
       lastScroll = current;
@@ -1438,8 +1445,8 @@ window.addEventListener("scroll", () => {
       return;
     }
 
-    // 2️⃣ Lock header when near top
-    if (current < 120) {
+    // 2️⃣ At very top of page, always show header
+    if (current <= TOP_ALWAYS_SHOW) {
       header.classList.remove("hide");
       lastScroll = current;
       ticking = false;
@@ -1448,23 +1455,31 @@ window.addEventListener("scroll", () => {
 
     const delta = current - lastScroll;
 
-    // 3️⃣ Ignore tiny scroll noise
-    if (Math.abs(delta) < 12) {
+    // 3️⃣ Ignore micro scroll noise
+    if (Math.abs(delta) < 4) {
       ticking = false;
       return;
     }
 
-    // 4️⃣ Hide only on intentional downward scroll
     if (delta > 0) {
+      // 4️⃣ Any real scroll DOWN past top: hide header immediately
       header.classList.add("hide");
-    } else {
-      header.classList.remove("hide");
+    } else if (delta < -SHOW_ON_UP_DELTA) {
+      // 5️⃣ Scroll UP: only show if not at very bottom
+      const scrollBottom = window.innerHeight + current;
+      const docHeight = document.documentElement.scrollHeight;
+
+      if (docHeight - scrollBottom > 40) {
+        header.classList.remove("hide");
+      }
     }
 
     lastScroll = current;
     ticking = false;
   });
 });
+
+
 </script>
 
 
