@@ -378,33 +378,8 @@ body {
       transform: translate(-50%, -50%) scale(1);
     }
 
-    /* MOBILE: show 2 videos at a time in the track */
-@media (max-width: 900px) {
 
-  .video-feed {
-    padding: 0 16px; /* a little tighter so two cards fit nicely */
-  }
 
-  .video-track {
-    scroll-snap-type: x mandatory;
-  }
-
-  /* Each card ~50% of viewport minus gap so two are visible */
-  .video-card.vertical {
-    width: calc(50vw - 28px);  /* adjust 24–32px to taste */
-    aspect-ratio: 9 / 16;
-  }
-
-  .video-card.horizontal {
-    width: calc(50vw - 28px);
-    aspect-ratio: 9 / 16;      /* keep same tall look as creatify */
-  }
-
-  /* Optional: center the row a bit */
-  .video-card {
-    scroll-snap-align: center;
-  }
-}
 
 
     /* Active (audio on) */
@@ -1036,6 +1011,54 @@ body.menu-open {
     font-size: 14px;
   }
 
+/* MOBILE: 2 vertical cards visible, 1 horizontal card visible */
+@media (max-width: 900px) {
+
+  .video-feed {
+    padding: 0 16px;
+  }
+
+  .video-track {
+    display: flex;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+  }
+
+  /* Base card */
+  .video-card {
+    position: relative;
+    flex: 0 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Vertical: half width (two in frame) */
+  .video-card.vertical {
+    width: calc(50vw - 28px);
+    aspect-ratio: 9 / 16;
+  }
+
+  /* Horizontal: full rail width (one in frame) */
+  .video-card.horizontal {
+    width: calc(100vw - 64px);  /* viewport minus page padding */
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+
 
 
 
@@ -1602,6 +1625,29 @@ window.addEventListener("scroll", () => {
     });
   });
 </script>
+
+<script>
+  function scrollVideos(dir) {
+    const track = document.getElementById("videoTrack");
+    const firstVertical = track.querySelector(".video-card.vertical");
+
+    // On mobile: move by width of one vertical card (half the rail)
+    if (window.innerWidth <= 900 && firstVertical) {
+      const step = firstVertical.getBoundingClientRect().width + 16; // + gap
+      track.scrollBy({
+        left: dir * step,
+        behavior: "smooth"
+      });
+    } else {
+      // Desktop: keep your old behavior
+      track.scrollBy({
+        left: dir * 800,
+        behavior: "smooth"
+      });
+    }
+  }
+</script>
+
 
 
 
