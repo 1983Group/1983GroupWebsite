@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
   <title>Make My Video | THE 1983 GROUP</title>
 
   <link rel="icon" href="1983WebIcon.ico" type="image/x-icon">
@@ -65,11 +66,10 @@
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ================= HEADER (DESKTOP – MATCH HOME) ================= */
-
     header {
       position: fixed;
       top: 18px;
@@ -153,7 +153,7 @@
       color: #020617;
     }
 
-    /* ================= MOBILE HEADER OVERRIDES (MATCH ABOUT/CONTACT) ================= */
+    /* ================= MOBILE HEADER OVERRIDES ================= */
     @media (max-width: 900px) {
       header {
         position: fixed;
@@ -247,18 +247,27 @@
       transform: translateY(-7px) rotate(-45deg);
     }
 
-    /* ================= MOBILE MENU ================= */
+    /* ================= MOBILE MENU – SLIDE DOWN + STAGGER ================= */
     .mobile-menu {
       overflow: hidden;
       overscroll-behavior: none;
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.65);
-      backdrop-filter: blur(22px);
+      background: rgba(2, 6, 23, 0.75);
+      backdrop-filter: blur(26px);
       z-index: 20;
+
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease;
+
+      /* start slightly above and smaller */
+      transform: translateY(-14px) scale(0.97);
+      transition:
+        opacity 0.4s ease,
+        transform 0.4s ease,
+        backdrop-filter 0.4s ease;
+
+      /* keep content below header */
       padding-top: 110px;
     }
 
@@ -284,6 +293,9 @@
     .mobile-menu.open {
       opacity: 1;
       pointer-events: auto;
+
+      /* drop into place */
+      transform: translateY(0) scale(1);
     }
 
     .mobile-menu-inner {
@@ -293,6 +305,18 @@
       padding: 28px 36px 0;
       max-height: calc(100vh - 110px);
       justify-content: center;
+    }
+
+    /* fade + slide DOWN keyframes for links */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .mobile-menu a {
@@ -305,9 +329,19 @@
       position: relative;
 
       opacity: 0;
-      transform: translateY(10px);
-      animation: fadeInUp 0.5s ease forwards;
+      transform: translateY(-18px);
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
+
+    /* only animate when menu is open */
+    .mobile-menu.open a {
+      animation: fadeInDown 0.45s ease forwards;
+    }
+
+    /* stagger timing */
+    .mobile-menu.open a:nth-child(1) { animation-delay: 0.08s; }
+    .mobile-menu.open a:nth-child(2) { animation-delay: 0.16s; }
+    .mobile-menu.open a:nth-child(3) { animation-delay: 0.24s; }
 
     .mobile-menu a::after {
       content: "";
@@ -328,15 +362,10 @@
       opacity: 0.85;
     }
 
-    .mobile-menu.open a:nth-child(1) { animation-delay: 0.1s; }
-    .mobile-menu.open a:nth-child(2) { animation-delay: 0.2s; }
-    .mobile-menu.open a:nth-child(3) { animation-delay: 0.3s; }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* tap feedback */
+    .mobile-menu a:active {
+      transform: translateY(2px) scale(0.97);
+      opacity: 0.9;
     }
 
     .desktop-only { display: flex; }
@@ -431,7 +460,7 @@
     .card:hover::before { opacity: 1; }
 
     h1 { font-size: 36px; margin-bottom: 14px; }
-    p { color: #ffffff; margin-bottom: 34px; line-height: 1.6; }
+    p  { color: #ffffff; margin-bottom: 34px; line-height: 1.6; }
 
     /* ================= FORM ================= */
     label {
@@ -470,7 +499,10 @@
       transform: translateY(-2px);
       background: #ffffff;
       color: #020617;
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.9), 0 12px 30px rgba(37,99,235,0.4);
+      box-shadow:
+        0 0 0 2px rgba(255,255,255,0.6),
+        0 0 30px rgba(255,255,255,0.9),
+        0 12px 30px rgba(37,99,235,0.4);
     }
 
     button:active {
@@ -479,13 +511,13 @@
     }
 
     footer {
-      margin-top: 40px; /* reduced so it fits inside locked viewport */
+      margin-top: 40px;
       text-align: center;
       font-size: 13px;
       color: var(--muted);
     }
 
-    /* ===== MOBILE CARD + BUTTON LAYOUT (match Make My Video page) ===== */
+    /* ===== MOBILE CARD + BUTTON LAYOUT ===== */
     @media (max-width: 900px) {
       .container {
         padding-top: 30px;
@@ -493,8 +525,8 @@
       }
 
       .card {
-        padding: 18px 18px 26px;  /* extra bottom padding so glass wraps button */
-        max-height: 75dvh;        /* dynamic viewport height for iOS */
+        padding: 18px 18px 26px;
+        max-height: 75dvh;
       }
 
       h1 {
@@ -705,6 +737,5 @@
       });
     });
   </script>
-  
 </body>
 </html>
