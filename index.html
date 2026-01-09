@@ -378,6 +378,35 @@ body {
       transform: translate(-50%, -50%) scale(1);
     }
 
+    /* MOBILE: show 2 videos at a time in the track */
+@media (max-width: 900px) {
+
+  .video-feed {
+    padding: 0 16px; /* a little tighter so two cards fit nicely */
+  }
+
+  .video-track {
+    scroll-snap-type: x mandatory;
+  }
+
+  /* Each card ~50% of viewport minus gap so two are visible */
+  .video-card.vertical {
+    width: calc(50vw - 28px);  /* adjust 24–32px to taste */
+    aspect-ratio: 9 / 16;
+  }
+
+  .video-card.horizontal {
+    width: calc(50vw - 28px);
+    aspect-ratio: 9 / 16;      /* keep same tall look as creatify */
+  }
+
+  /* Optional: center the row a bit */
+  .video-card {
+    scroll-snap-align: center;
+  }
+}
+
+
     /* Active (audio on) */
     .audio-toggle.active {
       background: #ffffff;
@@ -1547,8 +1576,6 @@ window.addEventListener("scroll", () => {
     ticking = false;
   });
 });
-
-
 
 </script>
 
