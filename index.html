@@ -1552,6 +1552,30 @@ window.addEventListener("scroll", () => {
 
 </script>
 
+<script>
+  // Smooth scroll with offset so mobile shows the whole How It Works card
+  document.querySelectorAll('a[href="#how-it-works"]').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const target = document.getElementById('how-it-works');
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const absoluteTop = rect.top + window.pageYOffset;
+
+      // Offset: push a bit further down so the button is visible on mobile
+      const offset = 140;  // tweak 120–160px to taste
+
+      window.scrollTo({
+        top: absoluteTop - offset,
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+
+
 
 
 
