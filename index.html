@@ -1055,6 +1055,7 @@ body.menu-open {
     display: flex;
     gap: 16px;
     scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
   }
 
   .video-card {
@@ -1680,9 +1681,33 @@ window.addEventListener("scroll", () => {
 
 <script src='https://www.noupe.com/embed/019ba954f90e7c149593425b3c435472dc2a.js'></script>
 
+<script>
+  function scrollVideos(dir) {
+    const track = document.getElementById("videoTrack");
+    const firstVertical = track.querySelector(".video-card.vertical");
 
+    let step;
 
+    // Mobile: move by width of one vertical card (half the rail)
+    if (window.innerWidth <= 900 && firstVertical) {
+      step = firstVertical.getBoundingClientRect().width + 16; // + gap
+    } else {
+      // Desktop: keep your old behavior
+      step = 800;
+    }
 
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    const target = Math.min(
+      Math.max(track.scrollLeft + dir * step, 0),
+      maxScroll
+    );
+
+    track.scrollTo({
+      left: target,
+      behavior: "smooth"
+    });
+  }
+</script>
 
 </body>
 </html>
