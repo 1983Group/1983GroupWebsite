@@ -1298,9 +1298,11 @@
   const videos = document.querySelectorAll(".video-card video");
 
   videos.forEach(video => {
+    // Start paused & muted; browser shows poster
     video.muted = true;
     video.pause();
 
+    // Build the center play/pause button
     const btn = document.createElement("button");
     btn.className = "audio-toggle";
 
@@ -1319,17 +1321,19 @@
 
     video.parentElement.appendChild(btn);
 
+    // Click handler for this video's button
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
 
       const isPaused = video.paused;
 
+      // Stop all other videos, reset them to poster, and reset their buttons
       videos.forEach(v => {
         if (v !== video) {
           const b = v.parentElement.querySelector(".audio-toggle");
           v.pause();
           v.currentTime = 0;
-          v.load();
+          v.load();        // reload so poster shows again [web:17][web:18]
           v.muted = true;
           if (b) {
             b.classList.remove("active");
@@ -1338,20 +1342,32 @@
       });
 
       if (isPaused) {
+        // TURN THIS ONE ON
         video.muted = false;
-        video.currentTime = 0;
+        video.currentTime = 0; // always start from beginning
         video.play();
         btn.classList.add("active");
       } else {
+        // TURN THIS ONE OFF
         video.pause();
         video.currentTime = 0;
-        video.load();
+        video.load();          // restore poster thumbnail [web:17][web:18]
         video.muted = true;
         btn.classList.remove("active");
       }
     });
+
+    // When the video finishes, reset to poster and show play state
+    video.addEventListener("ended", () => {
+      video.pause();
+      video.currentTime = 0;
+      video.load();      // brings back the poster after end [web:17][web:18]
+      video.muted = true;
+      btn.classList.remove("active");
+    });
   });
 </script>
+
 
 <script>
   document.addEventListener('gesturestart', e => e.preventDefault());
