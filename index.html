@@ -406,24 +406,43 @@
       transform: none;
     }
 
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.55);
-      border: 1px solid var(--border);
-      color: white;
-      font-size: 26px;
-      cursor: pointer;
-      z-index: 10;
-    }
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  font-size: 40px; /* was 32px – bigger arrow */
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.2s ease;
+}
 
-    .arrow.left { left: 14px; }
-    .arrow.right { right: 14px; }
+.arrow.left { left: 18px; }
+.arrow.right { right: 18px; }
 
+.arrow:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+    
     .analytics-box {
       max-width: 1100px;
       margin: 0 auto 120px;
@@ -1333,7 +1352,7 @@
           const b = v.parentElement.querySelector(".audio-toggle");
           v.pause();
           v.currentTime = 0;
-          v.load();        // reload so poster shows again [web:17][web:18]
+          v.load();        // reload so poster shows again
           v.muted = true;
           if (b) {
             b.classList.remove("active");
@@ -1351,7 +1370,7 @@
         // TURN THIS ONE OFF
         video.pause();
         video.currentTime = 0;
-        video.load();          // restore poster thumbnail [web:17][web:18]
+        video.load();          // restore poster thumbnail
         video.muted = true;
         btn.classList.remove("active");
       }
@@ -1361,13 +1380,12 @@
     video.addEventListener("ended", () => {
       video.pause();
       video.currentTime = 0;
-      video.load();      // brings back the poster after end [web:17][web:18]
+      video.load();      // brings back the poster after end
       video.muted = true;
       btn.classList.remove("active");
     });
   });
 </script>
-
 
 <script>
   document.addEventListener('gesturestart', e => e.preventDefault());
@@ -1521,7 +1539,26 @@
 </script>
 
 <script>
+  // helper to reset/pause all videos
+  function resetAllVideos() {
+    const videos = document.querySelectorAll(".video-card video");
+    videos.forEach(v => {
+      const btn = v.parentElement.querySelector(".audio-toggle");
+      v.pause();
+      v.currentTime = 0;
+      v.load();           // restores poster
+      v.muted = true;
+      if (btn) {
+        btn.classList.remove("active");
+      }
+    });
+  }
+
+  // updated scrollVideos that pauses any playing video
   function scrollVideos(dir) {
+    // pause and reset anything currently playing
+    resetAllVideos();
+
     const track = document.getElementById("videoTrack");
     const firstVertical = track.querySelector(".video-card.vertical");
 
@@ -1545,6 +1582,52 @@
     });
   }
 </script>
+
+<script>
+  function updateArrowVisibility() {
+    const track = document.getElementById("videoTrack");
+    const leftArrow = document.querySelector(".arrow.left");
+    const rightArrow = document.querySelector(".arrow.right");
+
+    if (!track || !leftArrow || !rightArrow) return;
+
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    const current = track.scrollLeft;
+
+    // tiny epsilon to avoid float issues
+    const atStart = current <= 2;
+    const atEnd = current >= maxScroll - 2;
+
+    if (atStart) {
+      leftArrow.classList.add("hidden");
+    } else {
+      leftArrow.classList.remove("hidden");
+    }
+
+    if (atEnd || maxScroll <= 0) {
+      rightArrow.classList.add("hidden");
+    } else {
+      rightArrow.classList.remove("hidden");
+    }
+  }
+
+  // hook into existing scrollVideos
+  const _originalScrollVideos = scrollVideos;
+  scrollVideos = function(dir) {
+    _originalScrollVideos(dir);
+    // wait for smooth scroll to update scrollLeft
+    setTimeout(updateArrowVisibility, 300);
+  };
+
+  // also update on manual scroll & on load/resize
+  const trackEl = document.getElementById("videoTrack");
+  if (trackEl) {
+    trackEl.addEventListener("scroll", updateArrowVisibility);
+  }
+  window.addEventListener("load", updateArrowVisibility);
+  window.addEventListener("resize", updateArrowVisibility);
+</script>
+
 
 <script src='https://www.noupe.com/embed/019ba954f90e7c149593425b3c435472dc2a.js'></script>
 
