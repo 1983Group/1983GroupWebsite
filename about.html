@@ -371,6 +371,8 @@ html.menu-open {
 .mobile-menu.open a:nth-child(1) { animation-delay: 0.08s; }
 .mobile-menu.open a:nth-child(2) { animation-delay: 0.16s; }
 .mobile-menu.open a:nth-child(3) { animation-delay: 0.24s; }
+.mobile-menu.open a:nth-child(4) { animation-delay: 0.32s; }
+
 
 .mobile-menu a::after {
   content: "";
@@ -461,6 +463,34 @@ html.menu-open {
       font-size: 13px;
       color: var(--muted);
     }
+
+        .insta-link {
+  display: flex;
+  align-items: center;
+}
+
+/* Default: white icon inside glass bar */
+.insta-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+  filter: none;                    /* shows as white */
+  transition: filter 0.25s ease;
+}
+
+/* When the nav turns white, make the icon black */
+.nav-box:hover .insta-icon {
+  filter: invert(1);               /* white → black on white background */
+}
+
+
+/* Extra safety: hide on small screens even if HTML changes later */
+@media (max-width: 900px) {
+  .insta-link {
+    display: none !important;
+  }
+}
   </style>
 </head>
 
@@ -470,20 +500,26 @@ html.menu-open {
 
 <header>
   <nav class="nav">
-    <div class="brand">
-      <a href="index.html">
-        <img src="1983Icon.png" class="logo">
-        <strong>THE 1983 GROUP</strong>
-      </a>
-    </div>
+<div class="brand">
+  <a href="index.html">
+    <img src="1983Icon.png" class="logo" />
+    <strong>THE 1983 GROUP</strong>
+  </a>
+</div>
 
-    <div class="nav-box desktop-only">
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="contact.html" class="nav-link">Make My Video</a>
-      <a href="email.html" class="nav-link">Contact Us</a>
-    </div>
 
-    <!-- Mobile hamburger -->
+<div class="nav-box desktop-only">
+  <a href="about.html" class="nav-link">About</a>
+  <a href="contact.html" class="nav-link">Make My Video</a>
+  <a href="email.html" class="nav-link">Contact</a>
+
+  <!-- Instagram desktop icon -->
+  <a href="https://www.instagram.com/1983group/?hl=en" class="nav-link insta-link" target="_blank" rel="noopener">
+    <img src="Instagram.png" alt="Instagram" class="insta-icon">
+  </a>
+</div>
+
+
     <button class="hamburger mobile-only" id="hamburger">
       <span></span>
       <span></span>
@@ -492,14 +528,15 @@ html.menu-open {
   </nav>
 </header>
 
-<!-- Mobile overlay menu -->
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-inner">
     <a href="about.html">About Us</a>
     <a href="contact.html">Make My Video</a>
     <a href="email.html">Contact Us</a>
+    <a href="https://solo.to/1983group" target="_blank" rel="noopener">Socials</a>
   </div>
 </div>
+
 
 <div class="container">
   <h1>About The 1983 Group</h1>
