@@ -865,6 +865,8 @@
     .mobile-menu.open a:nth-child(1) { animation-delay: 0.1s; }
     .mobile-menu.open a:nth-child(2) { animation-delay: 0.2s; }
     .mobile-menu.open a:nth-child(3) { animation-delay: 0.3s; }
+    .mobile-menu.open a:nth-child(4) { animation-delay: 0.32s; }
+
 
     @keyframes fadeInUp {
       to {
@@ -1040,6 +1042,36 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    .insta-link {
+  display: flex;
+  align-items: center;
+}
+
+/* Default: white icon inside glass bar */
+.insta-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+  filter: none;                    /* shows as white */
+  transition: filter 0.25s ease;
+}
+
+/* When the nav turns white, make the icon black */
+.nav-box:hover .insta-icon {
+  filter: invert(1);               /* white → black on white background */
+}
+
+
+
+/* Extra safety: hide on small screens even if HTML changes later */
+@media (max-width: 900px) {
+  .insta-link {
+    display: none !important;
+  }
+}
+
   </style>
 </head>
 
@@ -1053,11 +1085,17 @@
       <strong>THE 1983 GROUP</strong>
     </div>
 
-    <div class="nav-box desktop-only">
-      <a href="about.html" class="nav-link">About</a>
-      <a href="contact.html" class="nav-link">Make My Video</a>
-      <a href="email.html" class="nav-link">Contact</a>
-    </div>
+<div class="nav-box desktop-only">
+  <a href="about.html" class="nav-link">About</a>
+  <a href="contact.html" class="nav-link">Make My Video</a>
+  <a href="email.html" class="nav-link">Contact</a>
+
+  <!-- Instagram desktop icon -->
+  <a href="https://www.instagram.com/1983group/?hl=en" class="nav-link insta-link" target="_blank" rel="noopener">
+    <img src="Instagram.png" alt="Instagram" class="insta-icon">
+  </a>
+</div>
+
 
     <button class="hamburger mobile-only" id="hamburger">
       <span></span>
@@ -1072,8 +1110,10 @@
     <a href="about.html">About Us</a>
     <a href="contact.html">Make My Video</a>
     <a href="email.html">Contact Us</a>
+    <a href="https://solo.to/1983group" target="_blank" rel="noopener">Socials</a>
   </div>
 </div>
+
 
 <section class="hero">
   <h1>AI Ads That Work</h1>
